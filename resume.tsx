@@ -93,12 +93,7 @@ export default function Resume() {
                 />
                 <ResumeSkillCard
                   title="その他"
-                  skills={[
-                    "アジャイル / スクラム",
-                    "CI/CD",
-                    "テスト駆動開発",
-                    "ユーザーインターフェース設計",
-                  ]}
+                  skills={["アジャイル / スクラム", "CI/CD"]}
                 />
               </div>
             </ResumeSection>
