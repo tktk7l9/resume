@@ -7,5 +7,6 @@
 - [TypeScript](https://www.typescriptlang.org/)
 - [tailwindcss](https://tailwindcss.com/)
 - [shadcn/ui](https://ui.shadcn.com/)
+- [Biome](https://biomejs.dev/)
 - [Vercel](https://vercel.com/)
 - [v0](https://v0.dev/)
