@@ -1,20 +1,25 @@
 import { BriefcaseIcon, CodeIcon, GraduationCapIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { formatDate } from "@/lib/format-date";
 
 interface ResumeTimelineItemProps {
-  date: string;
+  startDate: string;
+  endDate?: string;
   title: string;
   company: ReactNode;
   description: ReactNode;
   type: "work" | "education" | "project";
+  tags?: string[];
 }
 
 export function ResumeTimelineItem({
-  date,
+  startDate,
+  endDate,
   title,
   company,
   description,
   type,
+  tags = [],
 }: ResumeTimelineItemProps) {
   const getIcon = () => {
     switch (type) {
@@ -42,6 +47,8 @@ export function ResumeTimelineItem({
     }
   };
 
+  const { periodStartEndLabel, periodMonth } = formatDate(startDate, endDate);
+
   return (
     <div className="relative flex items-start">
       {/* タイムラインのドット */}
@@ -51,7 +58,12 @@ export function ResumeTimelineItem({
 
       {/* コンテンツ */}
       <div className="ml-16 w-full">
-        <div className="font-medium text-[#6b6b6b] mb-1">{date}</div>
+        <div className="font-medium text-[#6b6b6b] mb-1">
+          {periodStartEndLabel}
+          <span className="text-[#8a8a8a] font-normal ml-2 text-sm">
+            （{periodMonth}）
+          </span>
+        </div>
         <div className="bg-[#f5f4f0] p-4 rounded-lg border border-[#e6e4df] shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
           <div className="flex items-center gap-2 mb-2">
             <span
@@ -65,6 +77,20 @@ export function ResumeTimelineItem({
           <div className="text-sm text-[#6b6b6b] whitespace-pre-wrap">
             {description}
           </div>
+
+          {/* タグの表示 */}
+          {tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs bg-[#f8f7f4] text-[#6b6b6b] border border-[#e6e4df]"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

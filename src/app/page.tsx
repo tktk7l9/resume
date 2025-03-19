@@ -15,7 +15,7 @@ export default function RootPage() {
       >
         <ResumeTimeline>
           <ResumeTimelineItem
-            date="2025年3月 - 現在"
+            startDate="2025-03"
             title="自動車サービス開発 - フロントエンドエンジニア（業務委託）"
             company={
               <ExternalLink href="https://www.softbanktech.co.jp/">
@@ -24,9 +24,11 @@ export default function RootPage() {
             }
             description="Next.js、React、TypeScriptを使用したWebアプリケーションの開発。"
             type="project"
+            tags={["Next.js", "React", "TypeScript"]}
           />
           <ResumeTimelineItem
-            date="2024年9月 - 2025年2月"
+            startDate="2024-09"
+            endDate="2025-2"
             title="HRテック系新規サービス開発 - フロントエンドエンジニア（業務委託）"
             company={
               <ExternalLink href="https://leverages.jp/">
@@ -35,9 +37,10 @@ export default function RootPage() {
             }
             description="React、TypeScriptを使用したモチベーション管理画面の開発。GraphQLでバックエンドと繋ぎ込みやステート管理の実装とUIコンポーネントやテストを作成。"
             type="project"
+            tags={["React", "TypeScript", "tailwindcss"]}
           />
           <ResumeTimelineItem
-            date="2024年9月 - 現在"
+            startDate="2024-09"
             title="採用サイト開発・運用 - フロントエンドエンジニア（業務委託）"
             company={
               <ExternalLink href="https://caps365.jp/">
@@ -46,9 +49,11 @@ export default function RootPage() {
             }
             description="Next.js、React、TypeScriptを使用したWebサイトの開発・運用。リッチなUIデザイン実装やヘッドレスCMS連携、フォーム機能を含んだ採用サイトを開発。"
             type="project"
+            tags={["Next.js", "React", "TypeScript", "Mantine"]}
           />
           <ResumeTimelineItem
-            date="2023年10月 - 2024年8月"
+            startDate="2023-10"
+            endDate="2024-08"
             title="管理画面リニューアル開発 - フロントエンドエンジニア"
             company={
               <ExternalLink href="https://caps365.jp/">
@@ -57,9 +62,11 @@ export default function RootPage() {
             }
             description="Next.js、React、TypeScriptを使用した患者やカルテ情報を管理する画面の開発。GraphQLでバックエンドと繋ぎ込みやステート管理の実装とUIコンポーネントやテストを作成。"
             type="work"
+            tags={["Next.js", "React", "TypeScript", "Mantine"]}
           />
           <ResumeTimelineItem
-            date="2018年7月 - 2019年10月"
+            startDate="2018-07"
+            endDate="2019-10"
             title="クレジットカードの共通基幹システムの運用保守 - システムエンジニア"
             company={
               <ExternalLink href="https://www.ibm.com/jp-ja/about/subsidiaries/ijds">
@@ -70,9 +77,11 @@ export default function RootPage() {
               "Excel資料作成、VBA自動化ツール作成、テスト、管理画面機能（Java）追加を担当。\nプロジェクト内で有志で集まる勉強会に参加、発表。\nOracle Certified Java Programmer, Silver SE 8の資格を取得。"
             }
             type="work"
+            tags={["Java", "VBA", "Oracle"]}
           />
           <ResumeTimelineItem
-            date="2018年4月 - 2018年7月"
+            startDate="2018-04"
+            endDate="2018-07"
             title="新入社員研修"
             company={
               <ExternalLink href="https://www.ibm.com/jp-ja/about/subsidiaries/ijds">
@@ -83,9 +92,11 @@ export default function RootPage() {
               "新入社員研修を受け、ビジネスマナー、プログラミング（Java）、IBM製品を学習。\nまたチーム・個人開発、デザインシンキングのワークショップを実施。"
             }
             type="work"
+            tags={["Java", "IBM"]}
           />
           <ResumeTimelineItem
-            date="2012年4月 - 2018年3月"
+            startDate="2012-04"
+            endDate="2018-03"
             title="現代心理学部映像身体学科"
             company={
               <ExternalLink href="https://www.rikkyo.ac.jp/">
@@ -94,6 +105,7 @@ export default function RootPage() {
             }
             description="映画、写真、広告、演劇、ダンス、武術など、映像表現や身体表現をワークショップを通して、その手法や知識、仕事の進め方を学習。"
             type="education"
+            tags={[]}
           />
         </ResumeTimeline>
       </ResumeSection>
