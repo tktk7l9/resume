@@ -56,7 +56,11 @@ export function ResumeTimelineItem({
     <div className="relative flex items-start">
       {/* タイムラインのドット */}
       <div className="absolute left-4 w-8 h-8 rounded-full bg-[#f5f4f0] border-4 border-[#e6e4df] flex items-center justify-center transform -translate-x-1/2 z-5">
-        <span className={`w-4 h-4 rounded-full ${getTypeColor()}`} />
+        <span
+          className={`w-4 h-4 rounded-full ${getTypeColor()} ${
+            !endDate && "animate-pulse"
+          }`}
+        />
       </div>
 
       {/* コンテンツ */}
