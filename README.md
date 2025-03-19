@@ -5,7 +5,7 @@
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [tailwindcss](https://tailwindcss.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [shadcn/ui](https://ui.shadcn.com/)
 - [Biome](https://biomejs.dev/)
 - [Vercel](https://vercel.com/)

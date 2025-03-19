@@ -1,6 +1,6 @@
+import { formatDate } from "@/lib/format-date";
 import { BriefcaseIcon, CodeIcon, GraduationCapIcon } from "lucide-react";
 import type { ReactNode } from "react";
-import { formatDate } from "@/lib/format-date";
 
 interface ResumeTimelineItemProps {
   startDate: string;
