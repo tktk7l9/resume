@@ -47,7 +47,10 @@ export function ResumeTimelineItem({
     }
   };
 
-  const { periodStartEndLabel, periodMonth } = formatDate(startDate, endDate);
+  const { periodStartEndLabel, formattedPeriod } = formatDate(
+    startDate,
+    endDate,
+  );
 
   return (
     <div className="relative flex items-start">
@@ -61,7 +64,7 @@ export function ResumeTimelineItem({
         <div className="font-medium text-[#6b6b6b] mb-1">
           {periodStartEndLabel}
           <span className="text-[#8a8a8a] font-normal ml-2 text-sm">
-            （{periodMonth}）
+            （{formattedPeriod}）
           </span>
         </div>
         <div className="bg-[#f5f4f0] p-4 rounded-lg border border-[#e6e4df] shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
