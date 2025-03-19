@@ -2,9 +2,15 @@
 
 import { ExternalLink } from "@/components/external-link";
 import {
+  ADDRESS,
+  EMAIL,
+  GITHUb_URL,
+  LINKEDIN_URL,
+  PHONE_NUMBER,
+} from "@/const";
+import {
   GithubIcon,
   LinkedinIcon,
-  GlobeIcon,
   MailIcon,
   PhoneIcon,
   MapPinIcon,
@@ -102,15 +108,15 @@ export function ResumeSidebar() {
             <div className="p-4 text-sm text-[#6b6b6b] space-y-2">
               <div className="flex items-center gap-2">
                 <MailIcon className="w-4 h-4 text-[#6b6b6b]" />
-                <span>saitotakuya0719@gmail.com</span>
+                <span>{EMAIL}</span>
               </div>
               <div className="flex items-center gap-2">
                 <PhoneIcon className="w-4 h-4 text-[#6b6b6b]" />
-                <span>090-5572-0816</span>
+                <span>{PHONE_NUMBER}</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPinIcon className="w-4 h-4 text-[#6b6b6b]" />
-                <span>東京都多摩市</span>
+                <span>{ADDRESS}</span>
               </div>
             </div>
           </div>
@@ -121,25 +127,18 @@ export function ResumeSidebar() {
             </h3>
             <div className="p-4 flex gap-4">
               <ExternalLink
-                href="https://github.com/tktk7l9"
+                href={GITHUb_URL}
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 aria-label="GitHub"
               >
                 <GithubIcon className="w-5 h-5" />
               </ExternalLink>
               <ExternalLink
-                href="https://linkedin.com/in/tktk7l9"
+                href={LINKEDIN_URL}
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 aria-label="LinkedIn"
               >
                 <LinkedinIcon className="w-5 h-5" />
-              </ExternalLink>
-              <ExternalLink
-                href="https://tktk7l9.dev"
-                className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
-                aria-label="ポートフォリオ"
-              >
-                <GlobeIcon className="w-5 h-5" />
               </ExternalLink>
             </div>
           </div>
@@ -150,14 +149,14 @@ export function ResumeSidebar() {
           <div className="border border-[#e6e4df] rounded-lg p-3 bg-[#f5f4f0]">
             <div className="flex flex-wrap gap-3 justify-center">
               <a
-                href="mailto:saitotakuya0719@gmail.com"
+                href={`mailto:${EMAIL}`}
                 className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
               >
                 <MailIcon className="w-3 h-3" />
                 <span>メール</span>
               </a>
               <a
-                href="tel:+81-90-5572-0816"
+                href={`tel:${PHONE_NUMBER}`}
                 className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
               >
                 <PhoneIcon className="w-3 h-3" />
@@ -165,17 +164,17 @@ export function ResumeSidebar() {
               </a>
               <span className="flex items-center gap-1 text-xs text-[#6b6b6b]">
                 <MapPinIcon className="w-3 h-3" />
-                <span>東京都多摩市</span>
+                <span>{ADDRESS}</span>
               </span>
               <ExternalLink
-                href="https://github.com/tktk7l9"
+                href={GITHUb_URL}
                 className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
               >
                 <GithubIcon className="w-3 h-3" />
                 <span>GitHub</span>
               </ExternalLink>
               <ExternalLink
-                href="https://linkedin.com/in/tktk7l9"
+                href={LINKEDIN_URL}
                 className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
               >
                 <LinkedinIcon className="w-3 h-3" />

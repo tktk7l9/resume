@@ -1,48 +1,45 @@
 import { ExternalLink } from "@/components/external-link";
-import { GithubIcon, LinkedinIcon, GlobeIcon } from "lucide-react";
+import {
+  EMAIL,
+  FULL_NAME,
+  GITHUb_URL,
+  LINKEDIN_URL,
+  PHONE_NUMBER,
+} from "@/const";
+import { GithubIcon, LinkedinIcon } from "lucide-react";
 
 export function ResumeHeader() {
   return (
     <header className="border-b border-[#e6e4df] sticky top-0 z-50 bg-[#f5f4f0]">
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-[#4a4a4a]">齋藤 拓也</h1>
+          <h1 className="text-2xl font-bold text-[#4a4a4a]">{FULL_NAME}</h1>
           <p className="text-[#6b6b6b]">フロントエンドエンジニア（業務委託）</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-2 text-sm text-[#6b6b6b]">
-            <a
-              href="mailto:saitotakuya0719@gmail.com"
-              className="hover:text-[#4a4a4a]"
-            >
-              saitotakuya0719@gmail.com
+            <a href={`mailto:${EMAIL}`} className="hover:text-[#4a4a4a]">
+              {EMAIL}
             </a>
             <span>•</span>
-            <a href="tel:+81-90-5572-0816" className="hover:text-[#4a4a4a]">
-              090-5572-0816
+            <a href={`tel:${PHONE_NUMBER}`} className="hover:text-[#4a4a4a]">
+              {PHONE_NUMBER}
             </a>
             <span>•</span>
             <div className="flex gap-2">
               <ExternalLink
-                href="https://github.com/tktk7l9"
+                href={GITHUb_URL}
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 ariaLabel="GitHub"
               >
                 <GithubIcon className="w-4 h-4" />
               </ExternalLink>
               <ExternalLink
-                href="https://linkedin.com/in/tktk7l9"
+                href={LINKEDIN_URL}
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 aria-label="LinkedIn"
               >
                 <LinkedinIcon className="w-4 h-4" />
-              </ExternalLink>
-              <ExternalLink
-                href="https://tktk7l9.dev"
-                className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
-                aria-label="ポートフォリオ"
-              >
-                <GlobeIcon className="w-4 h-4" />
               </ExternalLink>
             </div>
           </div>
