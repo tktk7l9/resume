@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { Sidebar } from "@/components/sidebar";
 
 export const metadata: Metadata = {
   title: "齋藤拓也のresume",
@@ -14,8 +17,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>
-        {children}
+      <body className="min-h-screen bg-[#f8f7f4] flex flex-col">
+        <Header />
+        <div className="flex-1">
+          <div className="flex flex-col md:flex-row max-w-6xl mx-auto px-4 py-8 gap-8">
+            <Sidebar />
+            <main className="flex-1">{children}</main>
+          </div>
+        </div>
+        <Footer />
         <SpeedInsights />
       </body>
     </html>

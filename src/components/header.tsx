@@ -8,7 +8,7 @@ import {
 } from "@/const";
 import { GithubIcon, LinkedinIcon } from "lucide-react";
 
-export function ResumeHeader() {
+export function Header() {
   return (
     <header className="border-b border-[#e6e4df] sticky top-0 z-50 bg-[#f5f4f0]">
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">

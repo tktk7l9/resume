@@ -1,6 +1,6 @@
 import { FULL_NAME } from "@/const";
 
-export function ResumeFooter() {
+export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
