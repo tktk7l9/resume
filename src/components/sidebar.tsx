@@ -149,39 +149,39 @@ export function Sidebar() {
           {/* モバイル表示 */}
           <div className="mt-6 md:hidden">
             <div className="border border-[#e6e4df] rounded-lg p-3 bg-[#f5f4f0]">
-              <div className="flex flex-wrap gap-3 justify-center">
+              <div className="flex flex-col flex-wrap gap-1 justify-center">
                 <a
                   href={`mailto:${EMAIL}`}
                   className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
                 >
                   <MailIcon className="w-3 h-3" />
-                  <span>メール</span>
+                  <span>{EMAIL}</span>
                 </a>
                 <a
                   href={`tel:${PHONE_NUMBER}`}
                   className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
                 >
                   <PhoneIcon className="w-3 h-3" />
-                  <span>電話</span>
+                  <span>{PHONE_NUMBER}</span>
                 </a>
                 <span className="flex items-center gap-1 text-xs text-[#6b6b6b]">
                   <MapPinIcon className="w-3 h-3" />
                   <span>{ADDRESS}</span>
                 </span>
-                <ExternalLink
-                  href={GITHUb_URL}
-                  className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
-                >
-                  <GithubIcon className="w-3 h-3" />
-                  <span>GitHub</span>
-                </ExternalLink>
-                <ExternalLink
-                  href={LINKEDIN_URL}
-                  className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
-                >
-                  <LinkedinIcon className="w-3 h-3" />
-                  <span>LinkedIn</span>
-                </ExternalLink>
+                <div className="flex flex-wrap gap-1">
+                  <ExternalLink
+                    href={GITHUb_URL}
+                    className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
+                  >
+                    <GithubIcon className="w-5 h-5" />
+                  </ExternalLink>
+                  <ExternalLink
+                    href={LINKEDIN_URL}
+                    className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
+                  >
+                    <LinkedinIcon className="w-5 h-5" />
+                  </ExternalLink>
+                </div>
               </div>
             </div>
           </div>

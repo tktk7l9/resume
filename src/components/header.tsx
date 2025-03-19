@@ -37,7 +37,7 @@ export function Header() {
               <ExternalLink
                 href={LINKEDIN_URL}
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
-                aria-label="LinkedIn"
+                ariaLabel="LinkedIn"
               >
                 <LinkedinIcon className="w-4 h-4" />
               </ExternalLink>
