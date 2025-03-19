@@ -1,4 +1,5 @@
-import { GithubIcon, LinkedinIcon, GlobeIcon } from "lucide-react"
+import { ExternalLink } from "@/components/external-link";
+import { GithubIcon, LinkedinIcon, GlobeIcon } from "lucide-react";
 
 export function ResumeHeader() {
   return (
@@ -10,7 +11,10 @@ export function ResumeHeader() {
         </div>
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-2 text-sm text-[#6b6b6b]">
-            <a href="mailto:saitotakuya0719@gmail.com" className="hover:text-[#4a4a4a]">
+            <a
+              href="mailto:saitotakuya0719@gmail.com"
+              className="hover:text-[#4a4a4a]"
+            >
               saitotakuya0719@gmail.com
             </a>
             <span>•</span>
@@ -19,38 +23,31 @@ export function ResumeHeader() {
             </a>
             <span>•</span>
             <div className="flex gap-2">
-              <a
+              <ExternalLink
                 href="https://github.com/tktk7l9"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
-                aria-label="GitHub"
+                ariaLabel="GitHub"
               >
                 <GithubIcon className="w-4 h-4" />
-              </a>
-              <a
+              </ExternalLink>
+              <ExternalLink
                 href="https://linkedin.com/in/tktk7l9"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 aria-label="LinkedIn"
               >
                 <LinkedinIcon className="w-4 h-4" />
-              </a>
-              <a
+              </ExternalLink>
+              <ExternalLink
                 href="https://tktk7l9.dev"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 aria-label="ポートフォリオ"
               >
                 <GlobeIcon className="w-4 h-4" />
-              </a>
+              </ExternalLink>
             </div>
           </div>
         </div>
       </div>
     </header>
-  )
+  );
 }
-

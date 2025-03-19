@@ -6,6 +6,7 @@ import { ResumeTimelineItem } from "./components/resume-timeline-item";
 import { ResumeSkillCard } from "./components/resume-skill-card";
 import { ResumeFooter } from "./components/resume-footer";
 import { ClockIcon, CodeIcon, GlobeIcon } from "lucide-react";
+import { ExternalLink } from "@/components/external-link";
 
 export default function Resume() {
   return (
@@ -25,43 +26,82 @@ export default function Resume() {
               <ResumeTimeline>
                 <ResumeTimelineItem
                   date="2025年3月 - 現在"
-                  title="フロントエンドエンジニア（業務委託）"
-                  company="自動車サービス開発"
-                  description="Next.js、React、TypeScriptを使用した大規模Webアプリケーションの開発。パフォーマンス最適化とアクセシビリティの向上に貢献。チームリーダーとして5人のエンジニアをマネジメント。"
-                  type="work"
+                  title="自動車サービス開発 - フロントエンドエンジニア（業務委託）"
+                  company={
+                    <ExternalLink href="https://www.softbanktech.co.jp/">
+                      SBテクノロジー株式会社
+                    </ExternalLink>
+                  }
+                  description="Next.js、React、TypeScriptを使用したWebアプリケーションの開発。"
+                  type="project"
                 />
                 <ResumeTimelineItem
                   date="2024年9月 - 2025年2月"
-                  title="フロントエンドエンジニア（業務委託）"
-                  company="HRテック系新規サービス開発"
-                  description="React、TypeScriptを使用したEコマースプラットフォームの開発。レスポンシブデザインの実装とUIコンポーネントライブラリの構築。"
-                  type="work"
-                />
-                <ResumeTimelineItem
-                  date="2024年4月 - 2024年8月"
-                  title="フロントエンドエンジニア"
-                  company="管理画面リニューアル開発"
-                  description="Next.js、React、TypeScriptを使用したWebサイトの開発。レスポンシブデザインとクロスブラウザ互換性の確保。"
-                  type="work"
-                />
-                <ResumeTimelineItem
-                  date="2022年"
-                  title="Eコマースプラットフォーム"
-                  company="個人プロジェクト"
-                  description="Next.js、TypeScript、Tailwind CSS、Prisma、PostgreSQLを使用したフルスタックEコマースプラットフォーム。ユーザー認証、商品管理、カート機能、決済処理を実装。"
+                  title="HRテック系新規サービス開発 - フロントエンドエンジニア（業務委託）"
+                  company={
+                    <ExternalLink href="https://leverages.jp/">
+                      レバレジーズ株式会社
+                    </ExternalLink>
+                  }
+                  description="React、TypeScriptを使用したモチベーション管理画面の開発。GraphQLでバックエンドと繋ぎ込みやステート管理の実装とUIコンポーネントやテストを作成。"
                   type="project"
                 />
                 <ResumeTimelineItem
-                  date="2021年"
-                  title="タスク管理アプリ"
-                  company="オープンソースプロジェクト"
-                  description="React、Redux、Firebase、Material-UIを使用したタスク管理アプリ。リアルタイムデータ同期、ドラッグアンドドロップ機能、フィルタリング機能を実装。GitHub上で50以上のスター獲得。"
+                  date="2024年9月 - 現在"
+                  title="採用サイト開発・運用 - フロントエンドエンジニア（業務委託）"
+                  company={
+                    <ExternalLink href="https://caps365.jp/">
+                      CAPS株式会社
+                    </ExternalLink>
+                  }
+                  description="Next.js、React、TypeScriptを使用したWebサイトの開発・運用。リッチなUIデザイン実装やヘッドレスCMS連携、フォーム機能を含んだ採用サイトを開発。"
                   type="project"
+                />
+                <ResumeTimelineItem
+                  date="2023年10月 - 2024年8月"
+                  title="管理画面リニューアル開発 - フロントエンドエンジニア"
+                  company={
+                    <ExternalLink href="https://caps365.jp/">
+                      CAPS株式会社
+                    </ExternalLink>
+                  }
+                  description="Next.js、React、TypeScriptを使用した患者やカルテ情報を管理する画面の開発。GraphQLでバックエンドと繋ぎ込みやステート管理の実装とUIコンポーネントやテストを作成。"
+                  type="work"
+                />
+                <ResumeTimelineItem
+                  date="2018年7月 - 2019年10月"
+                  title="クレジットカードの共通基幹システムの運用保守 - システムエンジニア"
+                  company={
+                    <ExternalLink href="https://www.ibm.com/jp-ja/about/subsidiaries/ijds">
+                      日本アイビーエム・ソリューション・サービス株式会社（ISOL）
+                    </ExternalLink>
+                  }
+                  description={
+                    "Excel資料作成、VBA自動化ツール作成、テスト、管理画面機能（Java）追加を担当。\nプロジェクト内で有志で集まる勉強会に参加、発表。\nOracle Certified Java Programmer, Silver SE 8の資格を取得。"
+                  }
+                  type="work"
+                />
+                <ResumeTimelineItem
+                  date="2018年4月 - 2018年7月"
+                  title="新入社員研修"
+                  company={
+                    <ExternalLink href="https://www.ibm.com/jp-ja/about/subsidiaries/ijds">
+                      日本アイビーエム・ソリューション・サービス株式会社（ISOL）
+                    </ExternalLink>
+                  }
+                  description={
+                    "新入社員研修を受け、ビジネスマナー、プログラミング（Java）、IBM製品を学習。\nまたチーム・個人開発、デザインシンキングのワークショップを実施。"
+                  }
+                  type="work"
                 />
                 <ResumeTimelineItem
                   date="2012年4月 - 2018年3月"
                   title="現代心理学部映像身体学科"
-                  company="立教大学"
+                  company={
+                    <ExternalLink href="https://www.rikkyo.ac.jp/">
+                      立教大学
+                    </ExternalLink>
+                  }
                   description="映画、写真、広告、演劇、ダンス、武術など、映像表現や身体表現をワークショップを通して、その手法や知識、仕事の進め方を学習。"
                   type="education"
                 />

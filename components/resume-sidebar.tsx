@@ -1,5 +1,6 @@
 "use client";
 
+import { ExternalLink } from "@/components/external-link";
 import {
   GithubIcon,
   LinkedinIcon,
@@ -119,33 +120,27 @@ export function ResumeSidebar() {
               リンク
             </h3>
             <div className="p-4 flex gap-4">
-              <a
+              <ExternalLink
                 href="https://github.com/tktk7l9"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 aria-label="GitHub"
               >
                 <GithubIcon className="w-5 h-5" />
-              </a>
-              <a
+              </ExternalLink>
+              <ExternalLink
                 href="https://linkedin.com/in/tktk7l9"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 aria-label="LinkedIn"
               >
                 <LinkedinIcon className="w-5 h-5" />
-              </a>
-              <a
+              </ExternalLink>
+              <ExternalLink
                 href="https://tktk7l9.dev"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
                 aria-label="ポートフォリオ"
               >
                 <GlobeIcon className="w-5 h-5" />
-              </a>
+              </ExternalLink>
             </div>
           </div>
         </div>
@@ -172,24 +167,20 @@ export function ResumeSidebar() {
                 <MapPinIcon className="w-3 h-3" />
                 <span>東京都多摩市</span>
               </span>
-              <a
+              <ExternalLink
                 href="https://github.com/tktk7l9"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
               >
                 <GithubIcon className="w-3 h-3" />
                 <span>GitHub</span>
-              </a>
-              <a
+              </ExternalLink>
+              <ExternalLink
                 href="https://linkedin.com/in/tktk7l9"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a]"
               >
                 <LinkedinIcon className="w-3 h-3" />
                 <span>LinkedIn</span>
-              </a>
+              </ExternalLink>
             </div>
           </div>
         </div>
