@@ -1,10 +1,10 @@
-import { ResumeHeader } from "./components/resume-header";
-import { ResumeSidebar } from "./components/resume-sidebar";
-import { ResumeSection } from "./components/resume-section";
-import { ResumeTimeline } from "./components/resume-timeline";
-import { ResumeTimelineItem } from "./components/resume-timeline-item";
-import { ResumeSkillCard } from "./components/resume-skill-card";
-import { ResumeFooter } from "./components/resume-footer";
+import { ResumeHeader } from "@/components/resume-header";
+import { ResumeSidebar } from "@/components/resume-sidebar";
+import { ResumeSection } from "@/components/resume-section";
+import { ResumeTimeline } from "@/components/resume-timeline";
+import { ResumeTimelineItem } from "@/components/resume-timeline-item";
+import { ResumeSkillCard } from "@/components/resume-skill-card";
+import { ResumeFooter } from "@/components/resume-footer";
 import { ClockIcon, CodeIcon, GlobeIcon } from "lucide-react";
 import { ExternalLink } from "@/components/external-link";
 
