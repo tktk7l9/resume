@@ -38,6 +38,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head>
+      </head>
       <body className="min-h-screen bg-[#f8f7f4] flex flex-col">
         <Header />
         <div className="flex-1">
@@ -47,7 +49,7 @@ export default function RootLayout({
           </div>
         </div>
         <Footer />
-        <SpeedInsights />
+        {process.env.VERCEL && <SpeedInsights />}
       </body>
     </html>
   );

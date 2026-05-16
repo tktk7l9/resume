@@ -67,7 +67,7 @@ export function ResumeTimelineItem({
       <div className="ml-16 w-full">
         <div className="font-medium text-[#6b6b6b] mb-1">
           {periodStartEndLabel}
-          <span className="text-[#8a8a8a] font-normal ml-2 text-sm">
+          <span className="text-[#6b6b6b] font-normal ml-2 text-sm">
             （{formattedPeriod}）
           </span>
         </div>
