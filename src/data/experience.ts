@@ -18,7 +18,36 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
+    startDate: "2026-04",
+    type: "project",
+    title: {
+      ja: "自動車サービス開発 — フロントエンドエンジニア（業務委託）",
+      en: "Automotive service platform — Frontend engineer (Contract)",
+    },
+    company: {
+      name: {
+        ja: "ソフトバンク株式会社",
+        en: "SoftBank Corp.",
+      },
+      url: "https://www.softbank.jp/",
+    },
+    responsibilities: {
+      ja: [
+        "Next.js / React / TypeScript を用いた自動車関連サービスの Web フロントエンド開発",
+        "デザイナーから受け取る Figma を元にした UI 実装と、再利用可能なコンポーネント設計",
+        "API スキーマに沿った型定義と、画面横断のステート管理の整備",
+      ],
+      en: [
+        "Building the web frontend of an automotive service in Next.js / React / TypeScript",
+        "Translating Figma designs into UI and shaping reusable component primitives",
+        "Aligning typed API contracts and structuring cross-screen state management",
+      ],
+    },
+    tags: ["Next.js", "React", "TypeScript"],
+  },
+  {
     startDate: "2025-03",
+    endDate: "2026-03",
     type: "project",
     title: {
       ja: "自動車サービス開発 — フロントエンドエンジニア（業務委託）",
