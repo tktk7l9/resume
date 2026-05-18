@@ -1,6 +1,7 @@
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/sidebar";
+import { profile } from "@/data/profile";
 import { type Locale, isLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import type { Metadata } from "next";
@@ -67,8 +68,29 @@ export default async function LocaleLayout({
   const locale = rawLocale as Locale;
   const dict = await getDictionary(locale);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.fullName[locale],
+    alternateName: profile.fullName[locale === "ja" ? "en" : "ja"],
+    url: `${url}/${locale}`,
+    email: `mailto:${profile.email}`,
+    jobTitle: dict.meta.headline,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: profile.address[locale],
+      addressCountry: "JP",
+    },
+    sameAs: [profile.githubUrl, profile.linkedinUrl, profile.portfolioUrl],
+  };
+
   return (
     <div lang={locale} className="flex flex-1 flex-col">
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: structured data
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header locale={locale} dict={dict} />
       <div className="flex-1">
         <div className="flex flex-col md:flex-row max-w-6xl mx-auto px-4 py-8 gap-8">

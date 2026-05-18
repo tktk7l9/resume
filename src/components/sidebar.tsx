@@ -1,18 +1,14 @@
 import { ExternalLink } from "@/components/external-link";
+import { SidebarNav, type SidebarNavItem } from "@/components/sidebar-nav";
 import { profile } from "@/data/profile";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import {
-  ClockIcon,
-  CodeIcon,
   GithubIcon,
-  LanguagesIcon as LanguageIcon,
   LayoutGridIcon,
   LinkedinIcon,
   MailIcon,
   MapPinIcon,
-  RocketIcon,
-  UserIcon,
 } from "lucide-react";
 
 type SidebarProps = {
@@ -21,34 +17,16 @@ type SidebarProps = {
 };
 
 export function Sidebar({ locale, dict }: SidebarProps) {
-  const navItems = [
-    {
-      id: "about",
-      label: dict.nav.about,
-      icon: <UserIcon className="w-4 h-4" />,
-    },
-    {
-      id: "timeline",
-      label: dict.nav.timeline,
-      icon: <ClockIcon className="w-4 h-4" />,
-    },
-    {
-      id: "projects",
-      label: dict.nav.projects,
-      icon: <RocketIcon className="w-4 h-4" />,
-    },
-    {
-      id: "skills",
-      label: dict.nav.skills,
-      icon: <CodeIcon className="w-4 h-4" />,
-    },
-    {
-      id: "languages",
-      label: dict.nav.languages,
-      icon: <LanguageIcon className="w-4 h-4" />,
-    },
+  const navItems: SidebarNavItem[] = [
+    { id: "about", label: dict.nav.about },
+    { id: "timeline", label: dict.nav.timeline },
+    { id: "projects", label: dict.nav.projects },
+    { id: "skills", label: dict.nav.skills },
+    { id: "languages", label: dict.nav.languages },
   ];
 
+  const portfolioAria =
+    locale === "ja" ? "個人開発ポータル" : "Personal apps portal";
   const address = profile.address[locale];
 
   return (
@@ -59,19 +37,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
             <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
               {locale === "ja" ? "目次" : "Contents"}
             </p>
-            <ul className="py-1">
-              {navItems.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className="w-full text-left px-4 py-2 text-sm flex items-center gap-2 transition-colors text-muted-foreground hover:bg-accent hover:text-foreground"
-                  >
-                    {item.icon}
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <SidebarNav items={navItems} />
           </div>
 
           <div className="space-y-4 hidden md:block">
@@ -118,11 +84,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                 <ExternalLink
                   href={profile.portfolioUrl}
                   className="text-muted-foreground hover:text-foreground transition-colors"
-                  ariaLabel={
-                    locale === "ja"
-                      ? "個人開発ポータル"
-                      : "Personal apps portal"
-                  }
+                  ariaLabel={portfolioAria}
                 >
                   <LayoutGridIcon className="w-5 h-5" />
                 </ExternalLink>
@@ -162,11 +124,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                   <ExternalLink
                     href={profile.portfolioUrl}
                     className="text-muted-foreground hover:text-foreground p-1.5"
-                    ariaLabel={
-                      locale === "ja"
-                        ? "個人開発ポータル"
-                        : "Personal apps portal"
-                    }
+                    ariaLabel={portfolioAria}
                   >
                     <LayoutGridIcon className="w-5 h-5" />
                   </ExternalLink>

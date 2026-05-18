@@ -39,5 +39,15 @@ export const about: {
         en: "I rely on Lighthouse, Web Vitals and bundle analysis day-to-day so improvements can be discussed as numbers, not hunches. In my personal housing-performance and life-plan simulators I have reached Lighthouse Desktop 100 / Mobile 99 through dynamic imports of heavy libraries (Three.js, Recharts), elimination of render-blocking CSS and careful image preloading. On client teams I extend the same mindset to DX: Storybook documentation, Vitest coverage, type safety and CI/CD pipelines so the frontend stays hard to break.",
       },
     },
+    {
+      title: {
+        ja: "学習速度と自走力",
+        en: "Self-directed learning and execution",
+      },
+      body: {
+        ja: "新しい技術領域に対して、ドキュメント・公式リポジトリ・実プロダクトのコードを読み比べながら自分で検証する習慣を持っています。Next.js App Router、TailwindCSS v4、Astro、Three.js、Astro / Vite / Next.js といった複数の構成を業務外で実際に触り、得た知見をクライアント案件に持ち込んでいます。アサインされた範囲を超えて、不明点はバックエンドや Go のソースまで読みに行き、フロント / API 境界の調整も自分で進めることができます。",
+        en: "When picking up a new technology I cross-read documentation, the official repo, and real-world code, then validate it with a working prototype. I have shipped side projects on Next.js App Router, Tailwind CSS v4, Astro, Vite and Three.js, and feed what I learn back into client work. I happily step outside my assigned scope — reading the Go backend or API spec — to keep the frontend / API boundary moving forward.",
+      },
+    },
   ],
 };
