@@ -6,15 +6,17 @@ interface ResumeSkillCardProps {
 export function ResumeSkillCard({ title, skills }: ResumeSkillCardProps) {
   return (
     <div className="border border-border rounded-lg p-4 bg-card">
-      <h3 className="text-lg font-medium mb-2 text-foreground">{title}</h3>
-      <ul className="space-y-1 text-muted-foreground">
+      <h3 className="text-sm font-medium mb-3 text-foreground">{title}</h3>
+      <div className="flex flex-wrap gap-2">
         {skills.map((skill) => (
-          <li key={skill} className="flex items-start text-muted-foreground">
-            <span className="mr-2 mt-1.5 h-1.5 w-1.5 rounded-full bg-timeline-work shrink-0" />
-            <span>{skill}</span>
-          </li>
+          <span
+            key={skill}
+            className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs bg-background text-muted-foreground border border-border"
+          >
+            {skill}
+          </span>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
