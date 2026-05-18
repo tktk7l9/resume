@@ -10,7 +10,6 @@ const dictionary = {
     timeline: "経歴",
     projects: "個人開発",
     skills: "スキル",
-    languages: "言語",
     contact: "連絡先",
     links: "リンク",
   },
@@ -19,7 +18,6 @@ const dictionary = {
     timeline: "経歴",
     projects: "個人開発",
     skills: "スキル",
-    languages: "言語",
   },
   timeline: {
     responsibilities: "担当範囲",

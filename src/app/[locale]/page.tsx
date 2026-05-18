@@ -1,5 +1,4 @@
 import { AboutSection } from "@/components/about-section";
-import { LanguagesSection } from "@/components/languages-section";
 import { ProjectsSection } from "@/components/projects-section";
 import { ResumeSection } from "@/components/resume-section";
 import { ResumeSkillCard } from "@/components/resume-skill-card";
@@ -7,18 +6,11 @@ import { ResumeTimeline } from "@/components/resume-timeline";
 import { ResumeTimelineItem } from "@/components/resume-timeline-item";
 import { about } from "@/data/about";
 import { experience } from "@/data/experience";
-import { languages } from "@/data/languages";
 import { projects } from "@/data/projects";
 import { skillCategories } from "@/data/skills";
 import { type Locale, isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import {
-  ClockIcon,
-  CodeIcon,
-  GlobeIcon,
-  RocketIcon,
-  UserIcon,
-} from "lucide-react";
+import { ClockIcon, CodeIcon, RocketIcon, UserIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export default async function ResumePage({
@@ -82,14 +74,6 @@ export default async function ResumePage({
             />
           ))}
         </div>
-      </ResumeSection>
-
-      <ResumeSection
-        title={dict.sections.languages}
-        id="languages"
-        icon={<GlobeIcon className="w-5 h-5" />}
-      >
-        <LanguagesSection locale={locale} languages={languages} />
       </ResumeSection>
     </>
   );

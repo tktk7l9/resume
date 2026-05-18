@@ -10,7 +10,6 @@ const dictionary = {
     timeline: "Experience",
     projects: "Side Projects",
     skills: "Skills",
-    languages: "Languages",
     contact: "Contact",
     links: "Links",
   },
@@ -19,7 +18,6 @@ const dictionary = {
     timeline: "Experience",
     projects: "Side Projects",
     skills: "Skills",
-    languages: "Languages",
   },
   timeline: {
     responsibilities: "Responsibilities",

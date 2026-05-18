@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ClockIcon,
-  CodeIcon,
-  LanguagesIcon,
-  RocketIcon,
-  UserIcon,
-} from "lucide-react";
+import { ClockIcon, CodeIcon, RocketIcon, UserIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const iconMap = {
@@ -14,7 +8,6 @@ const iconMap = {
   timeline: ClockIcon,
   projects: RocketIcon,
   skills: CodeIcon,
-  languages: LanguagesIcon,
 } as const;
 
 export type SidebarNavId = keyof typeof iconMap;

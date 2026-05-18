@@ -22,7 +22,6 @@ export function Sidebar({ locale, dict }: SidebarProps) {
     { id: "timeline", label: dict.nav.timeline },
     { id: "projects", label: dict.nav.projects },
     { id: "skills", label: dict.nav.skills },
-    { id: "languages", label: dict.nav.languages },
   ];
 
   const portfolioAria =
