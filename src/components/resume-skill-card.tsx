@@ -5,7 +5,7 @@ interface ResumeSkillCardProps {
 
 export function ResumeSkillCard({ title, skills }: ResumeSkillCardProps) {
   return (
-    <div className="skill-card border border-border rounded-lg p-4 bg-card">
+    <div className="border border-border rounded-lg p-4 bg-card">
       <h3 className="text-lg font-medium mb-2 text-foreground">{title}</h3>
       <ul className="space-y-1 text-muted-foreground">
         {skills.map((skill) => (

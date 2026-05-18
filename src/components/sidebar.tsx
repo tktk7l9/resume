@@ -52,7 +52,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
   const address = profile.address[locale];
 
   return (
-    <aside data-print="hide" className="w-full md:w-64 shrink-0">
+    <aside className="w-full md:w-64 shrink-0">
       <div className="mb-6 md:sticky md:top-28">
         <nav>
           <div className="border border-border rounded-lg overflow-hidden bg-card mb-6">

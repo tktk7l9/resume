@@ -14,10 +14,7 @@ export function Footer({ locale, dict }: FooterProps) {
     .replace("{name}", profile.fullName[locale]);
 
   return (
-    <footer
-      data-print="hide"
-      className="border-t border-border py-4 bg-card mt-auto"
-    >
+    <footer className="border-t border-border py-4 bg-card mt-auto">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-sm text-center text-muted-foreground">
           {copyright}

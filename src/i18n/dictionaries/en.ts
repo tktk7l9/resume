@@ -29,8 +29,6 @@ const dictionary = {
     monthLabel: "mo",
   },
   header: {
-    downloadPdf: "Download PDF",
-    toggleTheme: "Toggle theme",
     switchLanguage: "日本語",
     switchLanguageAria: "日本語に切り替え",
   },

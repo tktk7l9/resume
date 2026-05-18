@@ -9,7 +9,7 @@ type AboutSectionProps = {
 export function AboutSection({ locale, about }: AboutSectionProps) {
   return (
     <div className="space-y-4">
-      <div className="resume-card border border-border rounded-lg p-5 bg-card">
+      <div className="border border-border rounded-lg p-5 bg-card">
         <p className="text-base font-medium text-foreground mb-3 leading-relaxed">
           {about.headline[locale]}
         </p>
@@ -22,7 +22,7 @@ export function AboutSection({ locale, about }: AboutSectionProps) {
         {about.strengths.map((strength) => (
           <div
             key={strength.title[locale]}
-            className="resume-card border border-border rounded-lg p-4 bg-card"
+            className="border border-border rounded-lg p-4 bg-card"
           >
             <h3 className="text-base font-medium text-foreground mb-2">
               {strength.title[locale]}

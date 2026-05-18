@@ -54,7 +54,7 @@ export function ResumeTimelineItem({
   const achievements = item.achievements?.[locale] ?? [];
 
   return (
-    <div className="timeline-item relative flex items-start">
+    <div className="relative flex items-start">
       <div className="absolute left-4 w-8 h-8 rounded-full bg-card border-4 border-border flex items-center justify-center transform -translate-x-1/2 z-5">
         <span
           className={`w-4 h-4 rounded-full ${typeColorClass} ${

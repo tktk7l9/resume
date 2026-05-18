@@ -12,7 +12,7 @@ export function LanguagesSection({ locale, languages }: LanguagesSectionProps) {
       {languages.map((language) => (
         <div
           key={language.name[locale]}
-          className="resume-card border border-border rounded-lg p-4 bg-card"
+          className="border border-border rounded-lg p-4 bg-card"
         >
           <h3 className="text-lg font-medium mb-2 text-foreground">
             {language.name[locale]}

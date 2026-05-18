@@ -1,7 +1,5 @@
 import { ExternalLink } from "@/components/external-link";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { PrintButton } from "@/components/print-button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { profile } from "@/data/profile";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
@@ -17,10 +15,7 @@ export function Header({ locale, dict }: HeaderProps) {
   const initials = locale === "ja" ? "齋" : "TS";
 
   return (
-    <header
-      data-print="hide"
-      className="border-b border-border sticky top-0 z-50 bg-card/95 backdrop-blur"
-    >
+    <header className="border-b border-border sticky top-0 z-50 bg-card">
       <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-3">
         <div className="flex items-center gap-4">
           <div
@@ -64,13 +59,11 @@ export function Header({ locale, dict }: HeaderProps) {
             </ExternalLink>
           </div>
 
-          <PrintButton label={dict.header.downloadPdf} />
           <LanguageSwitcher
             locale={locale}
             label={dict.header.switchLanguage}
             ariaLabel={dict.header.switchLanguageAria}
           />
-          <ThemeToggle label={dict.header.toggleTheme} />
         </div>
       </div>
     </header>

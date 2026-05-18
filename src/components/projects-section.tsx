@@ -14,7 +14,7 @@ export function ProjectsSection({ locale, projects }: ProjectsSectionProps) {
       {projects.map((project) => (
         <div
           key={project.title[locale]}
-          className="resume-card border border-border rounded-lg p-5 bg-card"
+          className="border border-border rounded-lg p-5 bg-card"
         >
           <h3 className="text-lg font-medium text-foreground mb-2">
             {project.title[locale]}
