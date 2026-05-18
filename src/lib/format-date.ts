@@ -27,7 +27,7 @@ export function formatDate(
   const totalYears = Math.floor(totalMonthsDifference / 12);
   const remainingMonths = (totalMonthsDifference % 12) + 1;
 
-  const startPattern = locale === "ja" ? "yyyy年MM月" : "MMM yyyy";
+  const startPattern = locale === "ja" ? "yyyy年M月" : "MMM yyyy";
   const formattedStartDate = format(startDateParsed, startPattern);
   const formattedEndDate = endDate
     ? format(endDateParsed, startPattern)
