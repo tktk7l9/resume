@@ -12,26 +12,15 @@ type HeaderProps = {
 
 export function Header({ locale, dict }: HeaderProps) {
   const fullName = profile.fullName[locale];
-  const initials = locale === "ja" ? "齋" : "TS";
 
   return (
     <header className="border-b border-border sticky top-0 z-50 bg-card">
       <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-3">
-        <div className="flex items-center gap-4">
-          <div
-            aria-hidden="true"
-            className="flex items-center justify-center w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] rounded-full bg-muted text-foreground font-bold text-2xl shrink-0"
-          >
-            {initials}
-          </div>
-          <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-foreground">
-              {fullName}
-            </h1>
-            <p className="text-muted-foreground text-sm">
-              {dict.meta.headline}
-            </p>
-          </div>
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground">
+            {fullName}
+          </h1>
+          <p className="text-muted-foreground text-sm">{dict.meta.headline}</p>
         </div>
 
         <div className="flex items-center gap-2">
