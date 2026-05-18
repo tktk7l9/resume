@@ -1,11 +1,7 @@
 import { ExternalLink } from "@/components/external-link";
-import {
-  ADDRESS,
-  EMAIL,
-  GITHUb_URL,
-  LINKEDIN_URL,
-  PHONE_NUMBER,
-} from "@/const";
+import { profile } from "@/data/profile";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries";
 import {
   ClockIcon,
   CodeIcon,
@@ -15,29 +11,60 @@ import {
   MailIcon,
   MapPinIcon,
   PhoneIcon,
+  RocketIcon,
+  UserIcon,
 } from "lucide-react";
 
-const navItems = [
-  { id: "timeline", label: "経歴", icon: <ClockIcon className="w-4 h-4" /> },
-  { id: "skills", label: "スキル", icon: <CodeIcon className="w-4 h-4" /> },
-  { id: "languages", label: "言語", icon: <LanguageIcon className="w-4 h-4" /> },
-];
+type SidebarProps = {
+  locale: Locale;
+  dict: Dictionary;
+};
 
-export function Sidebar() {
+export function Sidebar({ locale, dict }: SidebarProps) {
+  const navItems = [
+    {
+      id: "about",
+      label: dict.nav.about,
+      icon: <UserIcon className="w-4 h-4" />,
+    },
+    {
+      id: "timeline",
+      label: dict.nav.timeline,
+      icon: <ClockIcon className="w-4 h-4" />,
+    },
+    {
+      id: "projects",
+      label: dict.nav.projects,
+      icon: <RocketIcon className="w-4 h-4" />,
+    },
+    {
+      id: "skills",
+      label: dict.nav.skills,
+      icon: <CodeIcon className="w-4 h-4" />,
+    },
+    {
+      id: "languages",
+      label: dict.nav.languages,
+      icon: <LanguageIcon className="w-4 h-4" />,
+    },
+  ];
+
+  const address = profile.address[locale];
+
   return (
-    <aside className="w-full md:w-64 shrink-0">
-      <div className="mb-6">
+    <aside data-print="hide" className="w-full md:w-64 shrink-0">
+      <div className="mb-6 md:sticky md:top-28">
         <nav>
-          <div className="border border-[#e6e4df] rounded-lg overflow-hidden bg-[#f5f4f0] mb-6">
-            <p className="text-sm font-medium px-4 py-2 border-b border-[#e6e4df] text-[#4a4a4a]">
-              目次
+          <div className="border border-border rounded-lg overflow-hidden bg-card mb-6">
+            <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
+              {locale === "ja" ? "目次" : "Contents"}
             </p>
             <ul className="py-1">
               {navItems.map((item) => (
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="w-full text-left px-4 py-2 text-sm flex items-center gap-2 transition-colors text-[#6b6b6b] hover:bg-[#f0efe9] hover:text-[#4a4a4a]"
+                    className="w-full text-left px-4 py-2 text-sm flex items-center gap-2 transition-colors text-muted-foreground hover:bg-accent hover:text-foreground"
                   >
                     {item.icon}
                     {item.label}
@@ -47,43 +74,52 @@ export function Sidebar() {
             </ul>
           </div>
 
-          {/* デスクトップ表示 */}
           <div className="space-y-4 hidden md:block">
-            <div className="border border-[#e6e4df] rounded-lg overflow-hidden bg-[#f5f4f0]">
-              <p className="text-sm font-medium px-4 py-2 border-b border-[#e6e4df] text-[#4a4a4a]">
-                連絡先
+            <div className="border border-border rounded-lg overflow-hidden bg-card">
+              <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
+                {dict.nav.contact}
               </p>
-              <div className="p-4 text-sm text-[#6b6b6b] space-y-2">
+              <div className="p-4 text-sm text-muted-foreground space-y-2">
                 <div className="flex items-center gap-2">
-                  <MailIcon className="w-4 h-4 text-[#6b6b6b]" />
-                  <span>{EMAIL}</span>
+                  <MailIcon className="w-4 h-4 text-muted-foreground" />
+                  <a
+                    href={`mailto:${profile.email}`}
+                    className="hover:text-foreground transition-colors break-all"
+                  >
+                    {profile.email}
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
-                  <PhoneIcon className="w-4 h-4 text-[#6b6b6b]" />
-                  <span>{PHONE_NUMBER}</span>
+                  <PhoneIcon className="w-4 h-4 text-muted-foreground" />
+                  <a
+                    href={`tel:${profile.phoneNumber}`}
+                    className="hover:text-foreground transition-colors"
+                  >
+                    {profile.phoneNumber}
+                  </a>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPinIcon className="w-4 h-4 text-[#6b6b6b]" />
-                  <span>{ADDRESS}</span>
+                  <MapPinIcon className="w-4 h-4 text-muted-foreground" />
+                  <span>{address}</span>
                 </div>
               </div>
             </div>
 
-            <div className="border border-[#e6e4df] rounded-lg overflow-hidden bg-[#f5f4f0]">
-              <p className="text-sm font-medium px-4 py-2 border-b border-[#e6e4df] text-[#4a4a4a]">
-                リンク
+            <div className="border border-border rounded-lg overflow-hidden bg-card">
+              <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
+                {dict.nav.links}
               </p>
               <div className="p-4 flex gap-4">
                 <ExternalLink
-                  href={GITHUb_URL}
-                  className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
+                  href={profile.githubUrl}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                   ariaLabel="GitHub"
                 >
                   <GithubIcon className="w-5 h-5" />
                 </ExternalLink>
                 <ExternalLink
-                  href={LINKEDIN_URL}
-                  className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
+                  href={profile.linkedinUrl}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                   ariaLabel="LinkedIn"
                 >
                   <LinkedinIcon className="w-5 h-5" />
@@ -92,39 +128,38 @@ export function Sidebar() {
             </div>
           </div>
 
-          {/* モバイル表示 */}
           <div className="mt-6 md:hidden">
-            <div className="border border-[#e6e4df] rounded-lg p-3 bg-[#f5f4f0]">
-              <div className="flex flex-col flex-wrap gap-1 justify-center">
+            <div className="border border-border rounded-lg p-3 bg-card">
+              <div className="flex flex-col gap-1">
                 <a
-                  href={`mailto:${EMAIL}`}
-                  className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a] py-1.5"
+                  href={`mailto:${profile.email}`}
+                  className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground py-1.5"
                 >
                   <MailIcon className="w-3 h-3" />
-                  <span>{EMAIL}</span>
+                  <span className="break-all">{profile.email}</span>
                 </a>
                 <a
-                  href={`tel:${PHONE_NUMBER}`}
-                  className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a] py-1.5"
+                  href={`tel:${profile.phoneNumber}`}
+                  className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground py-1.5"
                 >
                   <PhoneIcon className="w-3 h-3" />
-                  <span>{PHONE_NUMBER}</span>
+                  <span>{profile.phoneNumber}</span>
                 </a>
-                <span className="flex items-center gap-1 text-xs text-[#6b6b6b]">
+                <span className="flex items-center gap-1 text-xs text-muted-foreground py-1.5">
                   <MapPinIcon className="w-3 h-3" />
-                  <span>{ADDRESS}</span>
+                  <span>{address}</span>
                 </span>
-                <div className="flex flex-wrap gap-1">
+                <div className="flex gap-2 pt-1">
                   <ExternalLink
-                    href={GITHUb_URL}
-                    className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a] p-1.5"
+                    href={profile.githubUrl}
+                    className="text-muted-foreground hover:text-foreground p-1.5"
                     ariaLabel="GitHub"
                   >
                     <GithubIcon className="w-5 h-5" />
                   </ExternalLink>
                   <ExternalLink
-                    href={LINKEDIN_URL}
-                    className="flex items-center gap-1 text-xs text-[#6b6b6b] hover:text-[#4a4a4a] p-1.5"
+                    href={profile.linkedinUrl}
+                    className="text-muted-foreground hover:text-foreground p-1.5"
                     ariaLabel="LinkedIn"
                   >
                     <LinkedinIcon className="w-5 h-5" />

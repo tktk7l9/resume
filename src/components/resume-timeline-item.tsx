@@ -1,28 +1,23 @@
+import { ExternalLink } from "@/components/external-link";
+import type { ExperienceItem } from "@/data/experience";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries";
 import { formatDate } from "@/lib/format-date";
 import { BriefcaseIcon, CodeIcon, GraduationCapIcon } from "lucide-react";
-import type { ReactNode } from "react";
 
 interface ResumeTimelineItemProps {
-  startDate: string;
-  endDate?: string;
-  title: string;
-  company: ReactNode;
-  description: ReactNode;
-  type: "work" | "education" | "project";
-  tags?: string[];
+  locale: Locale;
+  dict: Dictionary;
+  item: ExperienceItem;
 }
 
 export function ResumeTimelineItem({
-  startDate,
-  endDate,
-  title,
-  company,
-  description,
-  type,
-  tags = [],
+  locale,
+  dict,
+  item,
 }: ResumeTimelineItemProps) {
   const getIcon = () => {
-    switch (type) {
+    switch (item.type) {
       case "work":
         return <BriefcaseIcon className="h-5 w-5" />;
       case "education":
@@ -34,64 +29,103 @@ export function ResumeTimelineItem({
     }
   };
 
-  const getTypeColor = () => {
-    switch (type) {
+  const typeColorClass = (() => {
+    switch (item.type) {
       case "work":
-        return "bg-[#7eb0d5]";
+        return "bg-timeline-work";
       case "education":
-        return "bg-[#a8d5ba]";
+        return "bg-timeline-education";
       case "project":
-        return "bg-[#d5d0a8]";
+        return "bg-timeline-project";
       default:
-        return "bg-[#d5a8c6]";
+        return "bg-timeline-work";
     }
-  };
+  })();
 
   const { periodStartEndLabel, formattedPeriod } = formatDate(
-    startDate,
-    endDate,
+    item.startDate,
+    item.endDate,
+    locale,
+    dict,
   );
 
+  const companyName = item.company.name[locale];
+  const responsibilities = item.responsibilities[locale];
+  const achievements = item.achievements?.[locale] ?? [];
+
   return (
-    <div className="relative flex items-start">
-      {/* タイムラインのドット */}
-      <div className="absolute left-4 w-8 h-8 rounded-full bg-[#f5f4f0] border-4 border-[#e6e4df] flex items-center justify-center transform -translate-x-1/2 z-5">
+    <div className="timeline-item relative flex items-start">
+      <div className="absolute left-4 w-8 h-8 rounded-full bg-card border-4 border-border flex items-center justify-center transform -translate-x-1/2 z-5">
         <span
-          className={`w-4 h-4 rounded-full ${getTypeColor()} ${
-            !endDate && "animate-pulse"
+          className={`w-4 h-4 rounded-full ${typeColorClass} ${
+            !item.endDate ? "animate-pulse" : ""
           }`}
         />
       </div>
 
-      {/* コンテンツ */}
       <div className="ml-16 w-full">
-        <div className="font-medium text-[#6b6b6b] mb-1">
+        <div className="font-medium text-muted-foreground mb-1">
           {periodStartEndLabel}
-          <span className="text-[#6b6b6b] font-normal ml-2 text-sm">
+          <span className="text-muted-foreground font-normal ml-2 text-sm">
             （{formattedPeriod}）
           </span>
         </div>
-        <div className="bg-[#f5f4f0] p-4 rounded-lg border border-[#e6e4df] shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
+        <div className="bg-card p-4 rounded-lg border border-border shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
           <div className="flex items-center gap-2 mb-2">
             <span
-              className={`inline-flex items-center justify-center w-6 h-6 rounded-full ${getTypeColor()} text-white`}
+              className={`inline-flex items-center justify-center w-6 h-6 rounded-full ${typeColorClass} text-white`}
             >
               {getIcon()}
             </span>
-            <h3 className="text-lg font-medium text-[#4a4a4a]">{title}</h3>
+            <h3 className="text-lg font-medium text-foreground">
+              {item.title[locale]}
+            </h3>
           </div>
-          <div className="text-[#6b6b6b] mb-2">{company}</div>
-          <div className="text-sm text-[#6b6b6b] whitespace-pre-wrap">
-            {description}
+          <div className="text-muted-foreground mb-3">
+            {item.company.url ? (
+              <ExternalLink
+                href={item.company.url}
+                className="underline-offset-2 hover:underline"
+              >
+                {companyName}
+              </ExternalLink>
+            ) : (
+              companyName
+            )}
           </div>
 
-          {/* タグの表示 */}
-          {tags.length > 0 && (
+          {responsibilities.length > 0 && (
+            <div className="mb-2">
+              <div className="text-xs font-semibold text-foreground mb-1 uppercase tracking-wide">
+                {dict.timeline.responsibilities}
+              </div>
+              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-outside ml-5">
+                {responsibilities.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {achievements.length > 0 && (
+            <div className="mb-2">
+              <div className="text-xs font-semibold text-foreground mb-1 uppercase tracking-wide">
+                {dict.timeline.achievements}
+              </div>
+              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-outside ml-5">
+                {achievements.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {item.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-3">
-              {tags.map((tag) => (
+              {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs bg-[#f8f7f4] text-[#6b6b6b] border border-[#e6e4df]"
+                  className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs bg-background text-muted-foreground border border-border"
                 >
                   {tag}
                 </span>

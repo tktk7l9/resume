@@ -1,58 +1,76 @@
 import { ExternalLink } from "@/components/external-link";
-import {
-  EMAIL,
-  FULL_NAME,
-  GITHUb_URL,
-  LINKEDIN_URL,
-  PHONE_NUMBER,
-} from "@/const";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { PrintButton } from "@/components/print-button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { profile } from "@/data/profile";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries";
 import { GithubIcon, LinkedinIcon } from "lucide-react";
 
-export function Header() {
+type HeaderProps = {
+  locale: Locale;
+  dict: Dictionary;
+};
+
+export function Header({ locale, dict }: HeaderProps) {
+  const fullName = profile.fullName[locale];
+  const initials = locale === "ja" ? "齋" : "TS";
+
   return (
-    <header className="border-b border-[#e6e4df] sticky top-0 z-50 bg-[#f5f4f0]">
-      <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+    <header
+      data-print="hide"
+      className="border-b border-border sticky top-0 z-50 bg-card/95 backdrop-blur"
+    >
+      <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-3">
         <div className="flex items-center gap-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48Y2lyY2xlIGN4PSI2MCIgY3k9IjYwIiByPSI2MCIgZmlsbD0iI2U2ZTRkZiIvPjx0ZXh0IHg9IjYwIiB5PSI3MiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmIiBmb250LXNpemU9IjM2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzRhNGE0YSI+U1Q8L3RleHQ+PC9zdmc+"
-            alt="齋藤 拓也"
-            width={120}
-            height={120}
-            className="w-[120px] h-[120px] rounded-full shrink-0"
-          />
+          <div
+            aria-hidden="true"
+            className="flex items-center justify-center w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] rounded-full bg-muted text-foreground font-bold text-2xl shrink-0"
+          >
+            {initials}
+          </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#4a4a4a]">{FULL_NAME}</h1>
-            <p className="text-[#6b6b6b]">フロントエンドエンジニア（業務委託）</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">
+              {fullName}
+            </h1>
+            <p className="text-muted-foreground text-sm">
+              {dict.meta.headline}
+            </p>
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-2 text-sm text-[#6b6b6b]">
-            <a href={`mailto:${EMAIL}`} className="hover:text-[#4a4a4a]">
-              {EMAIL}
+
+        <div className="flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground mr-2">
+            <a
+              href={`mailto:${profile.email}`}
+              className="hover:text-foreground transition-colors"
+            >
+              {profile.email}
             </a>
             <span>•</span>
-            <a href={`tel:${PHONE_NUMBER}`} className="hover:text-[#4a4a4a]">
-              {PHONE_NUMBER}
-            </a>
-            <span>•</span>
-            <div className="flex gap-2">
-              <ExternalLink
-                href={GITHUb_URL}
-                className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
-                ariaLabel="GitHub"
-              >
-                <GithubIcon className="w-4 h-4" />
-              </ExternalLink>
-              <ExternalLink
-                href={LINKEDIN_URL}
-                className="text-[#6b6b6b] hover:text-[#4a4a4a] transition-colors"
-                ariaLabel="LinkedIn"
-              >
-                <LinkedinIcon className="w-4 h-4" />
-              </ExternalLink>
-            </div>
+            <ExternalLink
+              href={profile.githubUrl}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              ariaLabel="GitHub"
+            >
+              <GithubIcon className="w-4 h-4" />
+            </ExternalLink>
+            <ExternalLink
+              href={profile.linkedinUrl}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              ariaLabel="LinkedIn"
+            >
+              <LinkedinIcon className="w-4 h-4" />
+            </ExternalLink>
           </div>
+
+          <PrintButton label={dict.header.downloadPdf} />
+          <LanguageSwitcher
+            locale={locale}
+            label={dict.header.switchLanguage}
+            ariaLabel={dict.header.switchLanguageAria}
+          />
+          <ThemeToggle label={dict.header.toggleTheme} />
         </div>
       </div>
     </header>
