@@ -7,7 +7,6 @@ export type Project = {
   summary: Localized<string>;
   highlights: Localized<string[]>;
   tags: string[];
-  ctaLabel: Localized<string>;
 };
 
 export const projects: Project[] = [
@@ -44,9 +43,5 @@ export const projects: Project[] = [
       "Tailwind CSS",
       "Performance",
     ],
-    ctaLabel: {
-      ja: "ポータルサイトを開く",
-      en: "Open the portal",
-    },
   },
 ];
