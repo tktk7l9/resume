@@ -7,10 +7,10 @@ import {
   CodeIcon,
   GithubIcon,
   LanguagesIcon as LanguageIcon,
+  LayoutGridIcon,
   LinkedinIcon,
   MailIcon,
   MapPinIcon,
-  PhoneIcon,
   RocketIcon,
   UserIcon,
 } from "lucide-react";
@@ -90,15 +90,6 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
-                  <PhoneIcon className="w-4 h-4 text-muted-foreground" />
-                  <a
-                    href={`tel:${profile.phoneNumber}`}
-                    className="hover:text-foreground transition-colors"
-                  >
-                    {profile.phoneNumber}
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
                   <MapPinIcon className="w-4 h-4 text-muted-foreground" />
                   <span>{address}</span>
                 </div>
@@ -124,6 +115,17 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                 >
                   <LinkedinIcon className="w-5 h-5" />
                 </ExternalLink>
+                <ExternalLink
+                  href={profile.portfolioUrl}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  ariaLabel={
+                    locale === "ja"
+                      ? "個人開発ポータル"
+                      : "Personal apps portal"
+                  }
+                >
+                  <LayoutGridIcon className="w-5 h-5" />
+                </ExternalLink>
               </div>
             </div>
           </div>
@@ -137,13 +139,6 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                 >
                   <MailIcon className="w-3 h-3" />
                   <span className="break-all">{profile.email}</span>
-                </a>
-                <a
-                  href={`tel:${profile.phoneNumber}`}
-                  className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground py-1.5"
-                >
-                  <PhoneIcon className="w-3 h-3" />
-                  <span>{profile.phoneNumber}</span>
                 </a>
                 <span className="flex items-center gap-1 text-xs text-muted-foreground py-1.5">
                   <MapPinIcon className="w-3 h-3" />
@@ -163,6 +158,17 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                     ariaLabel="LinkedIn"
                   >
                     <LinkedinIcon className="w-5 h-5" />
+                  </ExternalLink>
+                  <ExternalLink
+                    href={profile.portfolioUrl}
+                    className="text-muted-foreground hover:text-foreground p-1.5"
+                    ariaLabel={
+                      locale === "ja"
+                        ? "個人開発ポータル"
+                        : "Personal apps portal"
+                    }
+                  >
+                    <LayoutGridIcon className="w-5 h-5" />
                   </ExternalLink>
                 </div>
               </div>

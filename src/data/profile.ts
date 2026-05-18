@@ -6,7 +6,6 @@ export const profile = {
     en: "Takuya Saito",
   } satisfies Localized<string>,
   email: "saitotakuya0719@gmail.com",
-  phoneNumber: "090-5572-0816",
   address: {
     ja: "東京都多摩市",
     en: "Tama, Tokyo, Japan",

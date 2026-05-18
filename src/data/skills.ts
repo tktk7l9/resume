@@ -41,6 +41,9 @@ export const skillCategories: SkillCategory[] = [
       "Slack",
       "Figma",
       "Notion",
+      "Claude Code",
+      "ChatGPT",
+      "GitHub Copilot",
     ],
   },
   {

@@ -3,7 +3,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { profile } from "@/data/profile";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { GithubIcon, LinkedinIcon } from "lucide-react";
+import { GithubIcon, LayoutGridIcon, LinkedinIcon } from "lucide-react";
 
 type HeaderProps = {
   locale: Locale;
@@ -56,6 +56,15 @@ export function Header({ locale, dict }: HeaderProps) {
               ariaLabel="LinkedIn"
             >
               <LinkedinIcon className="w-4 h-4" />
+            </ExternalLink>
+            <ExternalLink
+              href={profile.portfolioUrl}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              ariaLabel={
+                locale === "ja" ? "個人開発ポータル" : "Personal apps portal"
+              }
+            >
+              <LayoutGridIcon className="w-4 h-4" />
             </ExternalLink>
           </div>
 
