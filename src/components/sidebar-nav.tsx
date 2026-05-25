@@ -17,13 +17,28 @@ export type SidebarNavItem = {
   label: string;
 };
 
-export function SidebarNav({ items }: { items: SidebarNavItem[] }) {
-  const [activeId, setActiveId] = useState<SidebarNavId | null>(
-    items[0]?.id ?? null,
-  );
+export function SidebarNav({
+  items,
+  basePath = "",
+}: {
+  items: SidebarNavItem[];
+  basePath?: string;
+}) {
+  const [activeId, setActiveId] = useState<SidebarNavId | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    const targets = items
+      .map((item) => document.getElementById(item.id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (targets.length === 0) {
+      setActiveId(null);
+      return;
+    }
+
+    setActiveId(items[0]?.id ?? null);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -37,9 +52,8 @@ export function SidebarNav({ items }: { items: SidebarNavItem[] }) {
       { rootMargin: "-96px 0px -60% 0px", threshold: 0 },
     );
 
-    for (const item of items) {
-      const el = document.getElementById(item.id);
-      if (el) observer.observe(el);
+    for (const el of targets) {
+      observer.observe(el);
     }
 
     return () => observer.disconnect();
@@ -53,7 +67,7 @@ export function SidebarNav({ items }: { items: SidebarNavItem[] }) {
         return (
           <li key={item.id}>
             <a
-              href={`#${item.id}`}
+              href={`${basePath}#${item.id}`}
               aria-current={active ? "true" : undefined}
               className={
                 active

@@ -9,7 +9,9 @@ import {
   LinkedinIcon,
   MailIcon,
   MapPinIcon,
+  SendIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 type SidebarProps = {
   locale: Locale;
@@ -27,6 +29,9 @@ export function Sidebar({ locale, dict }: SidebarProps) {
   const portfolioAria =
     locale === "ja" ? "個人開発ポータル" : "Personal apps portal";
   const address = profile.address[locale];
+  const contactFormLabel =
+    locale === "ja" ? "お問い合わせフォーム" : "Contact form";
+  const contactHref = `/${locale}/contact`;
 
   return (
     <aside className="w-full md:w-64 shrink-0">
@@ -36,7 +41,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
             <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
               {locale === "ja" ? "目次" : "Contents"}
             </p>
-            <SidebarNav items={navItems} />
+            <SidebarNav items={navItems} basePath={`/${locale}`} />
           </div>
 
           <div className="space-y-4 hidden md:block">
@@ -58,6 +63,15 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                   <MapPinIcon className="w-4 h-4 text-muted-foreground" />
                   <span>{address}</span>
                 </div>
+                <Link
+                  href={contactHref}
+                  className="flex items-center gap-2 pt-1 text-foreground hover:opacity-80 transition-opacity"
+                >
+                  <SendIcon className="w-4 h-4" />
+                  <span className="underline underline-offset-4">
+                    {contactFormLabel}
+                  </span>
+                </Link>
               </div>
             </div>
 
@@ -105,6 +119,15 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                   <MapPinIcon className="w-3 h-3" />
                   <span>{address}</span>
                 </span>
+                <Link
+                  href={contactHref}
+                  className="flex items-center gap-1 text-xs text-foreground hover:opacity-80 py-1.5"
+                >
+                  <SendIcon className="w-3 h-3" />
+                  <span className="underline underline-offset-4">
+                    {contactFormLabel}
+                  </span>
+                </Link>
                 <div className="flex gap-2 pt-1">
                   <ExternalLink
                     href={profile.githubUrl}
