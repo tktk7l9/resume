@@ -2,13 +2,21 @@
 
 import { submitContactForm } from "@/app/[locale]/contact/actions";
 import {
+  type ContactFieldError,
   type ContactFormState,
   initialContactState,
+  validateContactField,
 } from "@/app/[locale]/contact/state";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { CheckCircle2Icon } from "lucide-react";
-import { useActionState, useId } from "react";
+import {
+  type ChangeEvent,
+  type FocusEvent,
+  useActionState,
+  useId,
+  useState,
+} from "react";
 import { useFormStatus } from "react-dom";
 
 type ContactDict = Dictionary["contact"];
@@ -17,6 +25,8 @@ type ContactFormProps = {
   locale: Locale;
   dict: ContactDict;
 };
+
+type ClientErrors = Partial<Record<ContactFieldError, true>>;
 
 const inputBaseClass =
   "w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring";
@@ -45,6 +55,7 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
     submitContactForm,
     initialContactState,
   );
+  const [clientErrors, setClientErrors] = useState<ClientErrors>({});
   const nameId = useId();
   const emailId = useId();
   const subjectId = useId();
@@ -80,6 +91,39 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
       </output>
     );
   }
+
+  const handleBlur =
+    (field: ContactFieldError) =>
+    (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const valid = validateContactField(field, event.currentTarget.value);
+      setClientErrors((prev) => {
+        if (valid) {
+          if (!prev[field]) return prev;
+          const next = { ...prev };
+          delete next[field];
+          return next;
+        }
+        if (prev[field]) return prev;
+        return { ...prev, [field]: true };
+      });
+    };
+
+  const handleChange =
+    (field: ContactFieldError) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      // Only clear errors as the user types — don't add new ones mid-typing.
+      if (!clientErrors[field]) return;
+      if (validateContactField(field, event.currentTarget.value)) {
+        setClientErrors((prev) => {
+          const next = { ...prev };
+          delete next[field];
+          return next;
+        });
+      }
+    };
+
+  const hasError = (field: ContactFieldError) =>
+    Boolean(clientErrors[field] ?? state.fieldErrors[field]);
 
   const formErrorMessage =
     state.formError === "config"
@@ -123,13 +167,13 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
           maxLength={100}
           autoComplete="name"
           placeholder={dict.form.namePlaceholder}
-          aria-invalid={state.fieldErrors.name ? "true" : undefined}
-          aria-describedby={
-            state.fieldErrors.name ? `${nameId}-error` : undefined
-          }
-          className={fieldClassName(Boolean(state.fieldErrors.name))}
+          onBlur={handleBlur("name")}
+          onChange={handleChange("name")}
+          aria-invalid={hasError("name") ? "true" : undefined}
+          aria-describedby={hasError("name") ? `${nameId}-error` : undefined}
+          className={fieldClassName(hasError("name"))}
         />
-        {state.fieldErrors.name && (
+        {hasError("name") && (
           <p id={`${nameId}-error`} className="text-xs text-red-600">
             {dict.errors.name}
           </p>
@@ -154,13 +198,13 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
           maxLength={254}
           autoComplete="email"
           placeholder={dict.form.emailPlaceholder}
-          aria-invalid={state.fieldErrors.email ? "true" : undefined}
-          aria-describedby={
-            state.fieldErrors.email ? `${emailId}-error` : undefined
-          }
-          className={fieldClassName(Boolean(state.fieldErrors.email))}
+          onBlur={handleBlur("email")}
+          onChange={handleChange("email")}
+          aria-invalid={hasError("email") ? "true" : undefined}
+          aria-describedby={hasError("email") ? `${emailId}-error` : undefined}
+          className={fieldClassName(hasError("email"))}
         />
-        {state.fieldErrors.email && (
+        {hasError("email") && (
           <p id={`${emailId}-error`} className="text-xs text-red-600">
             {dict.errors.email}
           </p>
@@ -184,13 +228,15 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
           required
           maxLength={150}
           placeholder={dict.form.subjectPlaceholder}
-          aria-invalid={state.fieldErrors.subject ? "true" : undefined}
+          onBlur={handleBlur("subject")}
+          onChange={handleChange("subject")}
+          aria-invalid={hasError("subject") ? "true" : undefined}
           aria-describedby={
-            state.fieldErrors.subject ? `${subjectId}-error` : undefined
+            hasError("subject") ? `${subjectId}-error` : undefined
           }
-          className={fieldClassName(Boolean(state.fieldErrors.subject))}
+          className={fieldClassName(hasError("subject"))}
         />
-        {state.fieldErrors.subject && (
+        {hasError("subject") && (
           <p id={`${subjectId}-error`} className="text-xs text-red-600">
             {dict.errors.subject}
           </p>
@@ -215,13 +261,15 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
           maxLength={5000}
           rows={7}
           placeholder={dict.form.messagePlaceholder}
-          aria-invalid={state.fieldErrors.message ? "true" : undefined}
+          onBlur={handleBlur("message")}
+          onChange={handleChange("message")}
+          aria-invalid={hasError("message") ? "true" : undefined}
           aria-describedby={
-            state.fieldErrors.message ? `${messageId}-error` : undefined
+            hasError("message") ? `${messageId}-error` : undefined
           }
-          className={`${fieldClassName(Boolean(state.fieldErrors.message))} resize-y`}
+          className={`${fieldClassName(hasError("message"))} resize-y`}
         />
-        {state.fieldErrors.message && (
+        {hasError("message") && (
           <p id={`${messageId}-error`} className="text-xs text-red-600">
             {dict.errors.message}
           </p>

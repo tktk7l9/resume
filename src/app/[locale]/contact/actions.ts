@@ -1,11 +1,12 @@
 "use server";
 
-import type { ContactFormState } from "@/app/[locale]/contact/state";
+import {
+  type ContactFormState,
+  validateContactField,
+} from "@/app/[locale]/contact/state";
 import { profile } from "@/data/profile";
 import { type Locale, isLocale } from "@/i18n/config";
 import { Resend } from "resend";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function pickLocale(value: FormDataEntryValue | null): Locale {
   if (typeof value === "string" && isLocale(value)) {
@@ -36,12 +37,10 @@ export async function submitContactForm(
   const message = readField(formData, "message");
 
   const fieldErrors: ContactFormState["fieldErrors"] = {};
-  if (name.length === 0 || name.length > 100) fieldErrors.name = true;
-  if (email.length === 0 || email.length > 254 || !EMAIL_RE.test(email)) {
-    fieldErrors.email = true;
-  }
-  if (subject.length === 0 || subject.length > 150) fieldErrors.subject = true;
-  if (message.length < 10 || message.length > 5000) fieldErrors.message = true;
+  if (!validateContactField("name", name)) fieldErrors.name = true;
+  if (!validateContactField("email", email)) fieldErrors.email = true;
+  if (!validateContactField("subject", subject)) fieldErrors.subject = true;
+  if (!validateContactField("message", message)) fieldErrors.message = true;
 
   if (Object.keys(fieldErrors).length > 0) {
     return { status: "error", fieldErrors, formError: null };
