@@ -7,7 +7,6 @@ import {
   GithubIcon,
   LayoutGridIcon,
   LinkedinIcon,
-  MailIcon,
   MapPinIcon,
   SendIcon,
 } from "lucide-react";
@@ -29,8 +28,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
   const portfolioAria =
     locale === "ja" ? "個人開発ポータル" : "Personal apps portal";
   const address = profile.address[locale];
-  const contactFormLabel =
-    locale === "ja" ? "お問い合わせフォーム" : "Contact form";
+  const contactLabel = dict.contact.pageTitle;
   const contactHref = `/${locale}/contact`;
 
   return (
@@ -51,15 +49,6 @@ export function Sidebar({ locale, dict }: SidebarProps) {
               </p>
               <div className="p-4 text-sm text-muted-foreground space-y-2">
                 <div className="flex items-center gap-2">
-                  <MailIcon className="w-4 h-4 text-muted-foreground" />
-                  <a
-                    href={`mailto:${profile.email}`}
-                    className="hover:text-foreground transition-colors break-all"
-                  >
-                    {profile.email}
-                  </a>
-                </div>
-                <div className="flex items-center gap-2">
                   <MapPinIcon className="w-4 h-4 text-muted-foreground" />
                   <span>{address}</span>
                 </div>
@@ -69,7 +58,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                 >
                   <SendIcon className="w-4 h-4" />
                   <span className="underline underline-offset-4">
-                    {contactFormLabel}
+                    {contactLabel}
                   </span>
                 </Link>
               </div>
@@ -108,13 +97,6 @@ export function Sidebar({ locale, dict }: SidebarProps) {
           <div className="mt-6 md:hidden">
             <div className="border border-border rounded-lg p-3 bg-card">
               <div className="flex flex-col gap-1">
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground py-1.5"
-                >
-                  <MailIcon className="w-3 h-3" />
-                  <span className="break-all">{profile.email}</span>
-                </a>
                 <span className="flex items-center gap-1 text-xs text-muted-foreground py-1.5">
                   <MapPinIcon className="w-3 h-3" />
                   <span>{address}</span>
@@ -125,7 +107,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                 >
                   <SendIcon className="w-3 h-3" />
                   <span className="underline underline-offset-4">
-                    {contactFormLabel}
+                    {contactLabel}
                   </span>
                 </Link>
                 <div className="flex gap-2 pt-1">

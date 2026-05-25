@@ -3,7 +3,13 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { profile } from "@/data/profile";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { GithubIcon, LayoutGridIcon, LinkedinIcon } from "lucide-react";
+import {
+  GithubIcon,
+  LayoutGridIcon,
+  LinkedinIcon,
+  MailIcon,
+} from "lucide-react";
+import Link from "next/link";
 
 type HeaderProps = {
   locale: Locale;
@@ -24,14 +30,16 @@ export function Header({ locale, dict }: HeaderProps) {
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground mr-2">
-            <a
-              href={`mailto:${profile.email}`}
-              className="hover:text-foreground transition-colors"
-            >
-              {profile.email}
-            </a>
-            <span>•</span>
+          <Link
+            href={`/${locale}/contact`}
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <MailIcon className="w-4 h-4" />
+            <span>{dict.contact.pageTitle}</span>
+          </Link>
+
+          <div className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground mx-2">
+            <span aria-hidden="true">•</span>
             <ExternalLink
               href={profile.githubUrl}
               className="text-muted-foreground hover:text-foreground transition-colors"
