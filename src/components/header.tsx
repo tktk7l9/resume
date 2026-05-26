@@ -32,10 +32,10 @@ export function Header({ locale, dict }: HeaderProps) {
         <div className="flex items-center gap-2">
           <Link
             href={`/${locale}/contact`}
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            aria-label={dict.contact.pageTitle}
+            className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors p-1"
           >
             <MailIcon className="w-4 h-4" />
-            <span>{dict.contact.pageTitle}</span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground mx-2">

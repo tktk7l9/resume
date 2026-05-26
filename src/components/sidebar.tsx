@@ -7,8 +7,8 @@ import {
   GithubIcon,
   LayoutGridIcon,
   LinkedinIcon,
+  MailIcon,
   MapPinIcon,
-  SendIcon,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -56,7 +56,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                   href={contactHref}
                   className="flex items-center gap-2 pt-1 text-foreground hover:opacity-80 transition-opacity"
                 >
-                  <SendIcon className="w-4 h-4" />
+                  <MailIcon className="w-4 h-4" />
                   <span className="underline underline-offset-4">
                     {contactLabel}
                   </span>
@@ -105,7 +105,7 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                   href={contactHref}
                   className="flex items-center gap-1 text-xs text-foreground hover:opacity-80 py-1.5"
                 >
-                  <SendIcon className="w-3 h-3" />
+                  <MailIcon className="w-3 h-3" />
                   <span className="underline underline-offset-4">
                     {contactLabel}
                   </span>
