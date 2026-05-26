@@ -29,34 +29,32 @@ export function Header({ locale, dict }: HeaderProps) {
           <p className="text-muted-foreground text-sm">{dict.meta.headline}</p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Link
-            href={`/${locale}/contact`}
-            aria-label={dict.contact.pageTitle}
-            className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors p-1"
-          >
-            <MailIcon className="w-4 h-4" />
-          </Link>
-
-          <div className="hidden lg:flex items-center gap-2 text-sm text-muted-foreground mx-2">
-            <span aria-hidden="true">•</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 text-muted-foreground">
+            <Link
+              href={`/${locale}/contact`}
+              aria-label={dict.contact.pageTitle}
+              className="inline-flex items-center hover:text-foreground transition-colors"
+            >
+              <MailIcon className="w-4 h-4" />
+            </Link>
             <ExternalLink
               href={profile.githubUrl}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center hover:text-foreground transition-colors"
               ariaLabel="GitHub"
             >
               <GithubIcon className="w-4 h-4" />
             </ExternalLink>
             <ExternalLink
               href={profile.linkedinUrl}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center hover:text-foreground transition-colors"
               ariaLabel="LinkedIn"
             >
               <LinkedinIcon className="w-4 h-4" />
             </ExternalLink>
             <ExternalLink
               href={profile.portfolioUrl}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center hover:text-foreground transition-colors"
               ariaLabel={
                 locale === "ja" ? "個人開発ポータル" : "Personal apps portal"
               }
