@@ -3,6 +3,20 @@ allowBuilds:
   '@vercel/speed-insights': set this to true or false
   sharp: set this to true or false
 
+minimumReleaseAgeExclude:
+  - '@next/env@16.2.7'
+  - '@next/swc-darwin-arm64@16.2.7'
+  - '@next/swc-darwin-x64@16.2.7'
+  - '@next/swc-linux-arm64-gnu@16.2.7'
+  - '@next/swc-linux-arm64-musl@16.2.7'
+  - '@next/swc-linux-x64-gnu@16.2.7'
+  - '@next/swc-linux-x64-musl@16.2.7'
+  - '@next/swc-win32-arm64-msvc@16.2.7'
+  - '@next/swc-win32-x64-msvc@16.2.7'
+  - next@16.2.7
+  - react-dom@19.2.7
+  - react@19.2.7
+
 overrides:
   'brace-expansion@>=2.0.0 <2.0.3': '^2.0.3'
   'glob@>=10.2.0 <10.5.0': '^10.5.0'
