@@ -15,8 +15,8 @@ export const about: {
     en: "Frontend engineer who cares equally about user experience and measurable code quality.",
   },
   summary: {
-    ja: "Next.js / React / TypeScript を軸に、業務委託として複数クライアントの新規プロダクト開発・既存サービスのリニューアルに参加。立教大学映像身体学科で学んだ「ユーザーの体験を起点に設計する」視点を活かし、UI 実装からパフォーマンス計測・改善まで担当しています。業務外でも 10 以上の個人開発を継続し、新しいフレームワークやベストプラクティスを実プロジェクトで検証しています。",
-    en: "I work as a contract frontend engineer on Next.js / React / TypeScript projects, taking products from greenfield builds to long-running redesigns. My background in performance/film studies at Rikkyo University shapes how I design from the user experience inward — covering UI, accessibility, and performance instrumentation. Outside of client work I maintain 10+ personal apps to validate new frameworks and best practices against real workloads.",
+    ja: "エンジニア歴 8 年・フロントエンド 5 年。Next.js / React / TypeScript を軸に、業務委託として複数クライアントの新規プロダクト開発・既存サービスのリニューアルに参加しています。直近は自動車サービスの査定申し込み・スカウト管理機能を担当。フルリモート歴 5 年で、Slack を中心としたチャットコミュニケーションにより BE / デザイナー / QA と日々チーム開発を行います。立教大学映像身体学科で学んだ「ユーザーの体験を起点に設計する」視点を活かし、UI 実装からパフォーマンス計測・改善まで担当。業務外でも 10 以上の個人開発を継続し、新しいフレームワークやベストプラクティスを実プロジェクトで検証しています。",
+    en: "8 years as an engineer, 5 as a frontend specialist. I work as a contract frontend engineer on Next.js / React / TypeScript projects, from greenfield builds to long-running redesigns — most recently the appraisal and scout-management features of an automotive service. With 5 years of fully-remote experience I collaborate daily with backend, design and QA over Slack-based chat. My background in performance/film studies at Rikkyo University shapes how I design from the user experience inward — covering UI, accessibility, and performance instrumentation. Outside client work I maintain 10+ personal apps to validate new frameworks and best practices against real workloads.",
   },
   strengths: [
     {
