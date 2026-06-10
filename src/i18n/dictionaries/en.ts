@@ -62,6 +62,7 @@ const dictionary = {
       server: "Something went wrong while sending. Please try again later.",
       config:
         "The contact form is not configured yet. Please email me directly for now.",
+      rate: "Too many messages were sent in a short time. Please wait a while and try again.",
     },
     success: {
       title: "Thank you for your message",

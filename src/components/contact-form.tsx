@@ -130,7 +130,9 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
       ? dict.errors.config
       : state.formError === "server"
         ? dict.errors.server
-        : null;
+        : state.formError === "rate"
+          ? dict.errors.rate
+          : null;
 
   return (
     <form action={formAction} noValidate className="space-y-5">

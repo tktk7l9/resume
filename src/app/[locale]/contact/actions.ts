@@ -1,5 +1,6 @@
 "use server";
 
+import { headers } from "next/headers";
 import {
   type ContactFormState,
   validateContactField,
@@ -20,6 +21,33 @@ function readField(formData: FormData, key: string): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+// In-memory fixed-window rate limit. サーバレスではインスタンス単位だが、
+// 単一インスタンスへの連投 (スパム・Resend クォータ浪費) には十分効く。
+const RATE_LIMIT = { perIp: 3, global: 20, windowMs: 10 * 60_000 };
+const rateBuckets = new Map<string, { count: number; resetAt: number }>();
+
+function takeRateSlot(key: string, limit: number): boolean {
+  const now = Date.now();
+  const bucket = rateBuckets.get(key);
+  if (!bucket || bucket.resetAt <= now) {
+    rateBuckets.set(key, { count: 1, resetAt: now + RATE_LIMIT.windowMs });
+    return true;
+  }
+  if (bucket.count >= limit) return false;
+  bucket.count += 1;
+  return true;
+}
+
+async function isRateLimited(): Promise<boolean> {
+  const h = await headers();
+  const ip =
+    h.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    h.get("x-real-ip") ??
+    "unknown";
+  if (!takeRateSlot("contact:global", RATE_LIMIT.global)) return true;
+  return !takeRateSlot(`contact:ip:${ip}`, RATE_LIMIT.perIp);
+}
+
 export async function submitContactForm(
   _prevState: ContactFormState,
   formData: FormData,
@@ -28,6 +56,10 @@ export async function submitContactForm(
   const honeypot = formData.get("website");
   if (typeof honeypot === "string" && honeypot.length > 0) {
     return { status: "success", fieldErrors: {}, formError: null };
+  }
+
+  if (await isRateLimited()) {
+    return { status: "error", fieldErrors: {}, formError: "rate" };
   }
 
   const locale = pickLocale(formData.get("locale"));
