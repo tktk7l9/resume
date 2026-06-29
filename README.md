@@ -1,5 +1,7 @@
 # 職務経歴書 — 齋藤拓也
 
+[![Keyway Secrets](https://www.keyway.sh/badge.svg?repo=tktk7l9/resume)](https://www.keyway.sh/vaults/tktk7l9/resume)
+
 **[▶ 公開サイト](https://resume-tktk7l9.vercel.app)**
 
 Next.js + Tailwind CSS で構築したインタラクティブな職務経歴書サイト。日本語 / English の 2 言語に対応。
