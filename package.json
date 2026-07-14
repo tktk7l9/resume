@@ -22,7 +22,7 @@
     "resend": "^6.12.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.5.3",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
