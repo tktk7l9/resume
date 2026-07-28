@@ -1,10 +1,6 @@
-import {
-  GithubIcon,
-  LayoutGridIcon,
-  LinkedinIcon,
-  MailIcon,
-} from "lucide-react";
+import { LayoutGridIcon, MailIcon } from "lucide-react";
 import Link from "next/link";
+import { GithubIcon, LinkedinIcon } from "@/components/brand-icons";
 import { ExternalLink } from "@/components/external-link";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { profile } from "@/data/profile";
