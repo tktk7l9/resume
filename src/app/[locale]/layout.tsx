@@ -1,12 +1,12 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/sidebar";
 import { profile } from "@/data/profile";
-import { type Locale, isLocale, locales } from "@/i18n/config";
+import { isLocale, type Locale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import type { ReactNode } from "react";
 
 const url = "https://resume-tktk7l9.vercel.app";
 

@@ -1,14 +1,5 @@
 "use client";
 
-import { submitContactForm } from "@/app/[locale]/contact/actions";
-import {
-  type ContactFieldError,
-  type ContactFormState,
-  initialContactState,
-  validateContactField,
-} from "@/app/[locale]/contact/state";
-import type { Locale } from "@/i18n/config";
-import type { Dictionary } from "@/i18n/dictionaries";
 import { CheckCircle2Icon } from "lucide-react";
 import {
   type ChangeEvent,
@@ -18,6 +9,15 @@ import {
   useState,
 } from "react";
 import { useFormStatus } from "react-dom";
+import { submitContactForm } from "@/app/[locale]/contact/actions";
+import {
+  type ContactFieldError,
+  type ContactFormState,
+  initialContactState,
+  validateContactField,
+} from "@/app/[locale]/contact/state";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 type ContactDict = Dictionary["contact"];
 

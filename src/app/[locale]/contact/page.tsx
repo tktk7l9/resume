@@ -1,10 +1,10 @@
-import { ContactForm } from "@/components/contact-form";
-import { type Locale, isLocale, locales } from "@/i18n/config";
-import { getDictionary } from "@/i18n/dictionaries";
 import { ArrowLeftIcon, MailIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ContactForm } from "@/components/contact-form";
+import { isLocale, type Locale, locales } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
 const url = "https://resume-tktk7l9.vercel.app";
 

@@ -1,3 +1,5 @@
+import { ClockIcon, CodeIcon, RocketIcon, UserIcon } from "lucide-react";
+import { notFound } from "next/navigation";
 import { AboutSection } from "@/components/about-section";
 import { ProjectsSection } from "@/components/projects-section";
 import { ResumeSection } from "@/components/resume-section";
@@ -8,10 +10,8 @@ import { about } from "@/data/about";
 import { experience } from "@/data/experience";
 import { projects } from "@/data/projects";
 import { skillCategories } from "@/data/skills";
-import { type Locale, isLocale } from "@/i18n/config";
+import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { ClockIcon, CodeIcon, RocketIcon, UserIcon } from "lucide-react";
-import { notFound } from "next/navigation";
 
 export default async function ResumePage({
   params,

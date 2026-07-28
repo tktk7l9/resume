@@ -1,9 +1,9 @@
+import { BriefcaseIcon, CodeIcon, GraduationCapIcon } from "lucide-react";
 import { ExternalLink } from "@/components/external-link";
 import type { ExperienceItem } from "@/data/experience";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { formatDate } from "@/lib/format-date";
-import { BriefcaseIcon, CodeIcon, GraduationCapIcon } from "lucide-react";
 
 interface ResumeTimelineItemProps {
   locale: Locale;
