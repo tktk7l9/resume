@@ -13,3 +13,18 @@ updates:
       npm-major:
         update-types:
           - "major"
+    ignore:
+      # TypeScript 7: Next.js 16.2.x build refuses it ("does not provide
+      # the compiler API required by Next.js").
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      # lucide-react 1.x removed brand-logo icons (GithubIcon, LinkedinIcon)
+      # entirely. Needs a deliberate replacement-icon decision, not a
+      # mechanical bump.
+      - dependency-name: "lucide-react"
+        update-types: ["version-update:semver-major"]
+      # Tailwind v3 -> v4 requires migrating tailwind.config.ts's custom
+      # theme (colors/radius/animation) into CSS @theme syntax. Real
+      # migration effort, do deliberately.
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
