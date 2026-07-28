@@ -1,8 +1,3 @@
-import { ExternalLink } from "@/components/external-link";
-import { LanguageSwitcher } from "@/components/language-switcher";
-import { profile } from "@/data/profile";
-import type { Locale } from "@/i18n/config";
-import type { Dictionary } from "@/i18n/dictionaries";
 import {
   GithubIcon,
   LayoutGridIcon,
@@ -10,6 +5,11 @@ import {
   MailIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { ExternalLink } from "@/components/external-link";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { profile } from "@/data/profile";
+import type { Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries";
 
 type HeaderProps = {
   locale: Locale;

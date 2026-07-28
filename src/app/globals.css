@@ -7,8 +7,9 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic",
-    "Meiryo", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Meiryo",
+    "Segoe UI", Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {

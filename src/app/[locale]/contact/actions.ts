@@ -1,13 +1,13 @@
 "use server";
 
 import { headers } from "next/headers";
+import { Resend } from "resend";
 import {
   type ContactFormState,
   validateContactField,
 } from "@/app/[locale]/contact/state";
 import { profile } from "@/data/profile";
-import { type Locale, isLocale } from "@/i18n/config";
-import { Resend } from "resend";
+import { isLocale, type Locale } from "@/i18n/config";
 
 function pickLocale(value: FormDataEntryValue | null): Locale {
   if (typeof value === "string" && isLocale(value)) {
