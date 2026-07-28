@@ -1,5 +1,5 @@
-import { locales } from "@/i18n/config";
 import type { MetadataRoute } from "next";
+import { locales } from "@/i18n/config";
 
 const base = "https://resume-tktk7l9.vercel.app";
 

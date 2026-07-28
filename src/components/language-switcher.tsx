@@ -1,5 +1,5 @@
-import { type Locale, locales } from "@/i18n/config";
 import Link from "next/link";
+import { type Locale, locales } from "@/i18n/config";
 
 type LanguageSwitcherProps = {
   locale: Locale;

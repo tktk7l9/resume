@@ -1,7 +1,7 @@
+import { ArrowUpRightIcon } from "lucide-react";
 import { ExternalLink } from "@/components/external-link";
 import type { Project } from "@/data/projects";
 import type { Locale } from "@/i18n/config";
-import { ArrowUpRightIcon } from "lucide-react";
 
 type ProjectsSectionProps = {
   locale: Locale;

@@ -1,5 +1,5 @@
-import type { Locale } from "@/i18n/config";
 import { differenceInMonths, format, parse } from "date-fns";
+import type { Locale } from "@/i18n/config";
 
 type Dict = {
   timeline: {
