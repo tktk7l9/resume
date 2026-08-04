@@ -19,6 +19,7 @@ export type ExperienceItem = {
 export const experience: ExperienceItem[] = [
   {
     startDate: "2026-04",
+    endDate: "2026-09",
     type: "project",
     title: {
       ja: "自動車サービス開発 — フロントエンドエンジニア（業務委託）",
@@ -34,14 +35,16 @@ export const experience: ExperienceItem[] = [
     responsibilities: {
       ja: [
         "所有車を登録すると事業者から買取価格が提示される「査定申し込み」機能を、設計・開発からリリース後の運用（追加開発・バグ対応）まで一貫して担当",
+        "リリース後は新規機能として「アンケート回答」「クチコミ投稿」ページのフロントエンドを開発、あわせて Next.js のバージョンアップ対応・不具合修正・テストコード整備を担当",
         "Next.js / React / TypeScript による UI 実装と再利用可能なコンポーネント設計、画面横断のステート管理・型定義の整備",
-        "技術選定・調査・リファクタリングを率先し、Copilot / ChatGPT などの AI ツールを開発に積極活用",
+        "技術選定・調査・リファクタリングを率先し、Claude Code / GitHub Copilot / ChatGPT などの AI ツールを開発に積極活用",
         "開発10名・全体13名のチームで、Slack 中心のフルリモート開発（BE / デザイナー / QA と協働）",
       ],
       en: [
         "Owned the vehicle-appraisal request feature end-to-end — from design and build to post-release operation (enhancements and bug fixes)",
+        "Built the survey-response and review-submission pages post-launch, alongside Next.js version upgrades, bug fixes and test coverage",
         "Implemented UI in Next.js / React / TypeScript, designing reusable components and structuring cross-screen state and typed API contracts",
-        "Drove technical selection, investigation and refactoring; used Copilot / ChatGPT actively in day-to-day development",
+        "Drove technical selection, investigation and refactoring; used Claude Code / GitHub Copilot / ChatGPT actively in day-to-day development",
         "Worked fully remote on a 10-developer / 13-person team, collaborating via Slack with backend, design and QA",
       ],
     },
