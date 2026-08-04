@@ -6,12 +6,15 @@ import { ResumeSection } from "@/components/resume-section";
 import { ResumeSkillCard } from "@/components/resume-skill-card";
 import { ResumeTimeline } from "@/components/resume-timeline";
 import { ResumeTimelineItem } from "@/components/resume-timeline-item";
-import { about } from "@/data/about";
+import { getAbout } from "@/data/about";
 import { experience } from "@/data/experience";
 import { projects } from "@/data/projects";
 import { skillCategories } from "@/data/skills";
 import { isLocale, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+
+/** Revalidate daily so experience-year labels stay current. */
+export const revalidate = 86400;
 
 export default async function ResumePage({
   params,
@@ -24,6 +27,7 @@ export default async function ResumePage({
   }
   const locale = rawLocale as Locale;
   const dict = await getDictionary(locale);
+  const about = getAbout();
 
   return (
     <>

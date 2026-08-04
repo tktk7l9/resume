@@ -1,9 +1,9 @@
-import type { about as aboutData } from "@/data/about";
+import type { About } from "@/data/about";
 import type { Locale } from "@/i18n/config";
 
 type AboutSectionProps = {
   locale: Locale;
-  about: typeof aboutData;
+  about: About;
 };
 
 export function AboutSection({ locale, about }: AboutSectionProps) {
