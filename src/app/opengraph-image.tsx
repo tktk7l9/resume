@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { siteHost } from "@/lib/site";
 
 export const alt = "Takuya Saito — Frontend Engineer Resume";
 export const size = { width: 1200, height: 630 };
@@ -53,7 +54,7 @@ export default function Image() {
           fontSize: 24,
         }}
       >
-        <div>resume-tktk7l9.vercel.app</div>
+        <div>{siteHost}</div>
         <div>github.com/tktk7l9</div>
       </div>
     </div>,

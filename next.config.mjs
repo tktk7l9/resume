@@ -32,9 +32,12 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    optimizeCss: true,
-  },
+  // experimental.optimizeCss (critters による CSS インライン化) は削除した。
+  // Next 16 の Turbopack ビルドでは効かず、実際に出力 HTML は
+  // <link rel="stylesheet"> のままでインライン <style> は 0 件だった。
+  // さらに @opennextjs/cloudflare は optimizeCss が true だと
+  // .next/static/css を無条件にコピーしようとするが、Next 16 は CSS を
+  // static/chunks/ に出すためディレクトリが無く ENOENT でビルドが落ちる。
   async headers() {
     return [
       {
