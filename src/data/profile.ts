@@ -12,5 +12,5 @@ export const profile = {
   } satisfies Localized<string>,
   githubUrl: "https://github.com/tktk7l9",
   linkedinUrl: "https://linkedin.com/in/tktk7l9",
-  portfolioUrl: "https://my-apps-portal-tau.vercel.app/",
+  portfolioUrl: "https://my-apps-portal.saitotakuya0719.workers.dev/",
 } as const;

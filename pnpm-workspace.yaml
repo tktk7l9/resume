@@ -1,7 +1,9 @@
 allowBuilds:
   '@biomejs/biome': true
   '@vercel/speed-insights': true
+  esbuild: true
   sharp: true
+  workerd: true
 
 minimumReleaseAgeExclude:
   - '@next/env@16.2.7'
@@ -29,7 +31,11 @@ minimumReleaseAgeExclude:
 
 overrides:
   'sharp@<0.35.0': '^0.35.0'
-  'brace-expansion': '^5.0.8'
+  # メジャーごとに範囲を絞ること。フラットに '^5.0.8' を当てると
+  # brace-expansion@2 を要求する minimatch@8 まで 5.x に置き換わり、
+  # 5.x は default export を持たないので実行時に SyntaxError になる。
+  'brace-expansion@>=5.0.0 <5.0.8': '^5.0.8'
+  'brace-expansion@>=2.0.0 <2.0.2': '^2.0.2'
   'glob@>=10.2.0 <10.5.0': '^10.5.0'
   'minimatch@>=9.0.0 <9.0.7': '^9.0.7'
   'picomatch@<2.3.2': '^2.3.2'
