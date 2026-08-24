@@ -1,0 +1,5 @@
+# OpenNext は Static Assets を Worker の前段で配信するため、
+# next.config の headers() は /_next/static に効かない。
+# https://opennext.js.org/cloudflare/caching
+/_next/static/*
+  Cache-Control: public,max-age=31536000,immutable

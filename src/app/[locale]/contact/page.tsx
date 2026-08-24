@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { ContactForm } from "@/components/contact-form";
 import { isLocale, type Locale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { siteUrl as url } from "@/lib/site";
+import { siteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -24,7 +24,7 @@ export async function generateMetadata({
   const dict = await getDictionary(locale);
 
   return {
-    metadataBase: new URL(url),
+    metadataBase: new URL(siteUrl),
     title: dict.contact.metaTitle,
     description: dict.contact.metaDescription,
     alternates: {
@@ -37,7 +37,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale: locale === "ja" ? "ja_JP" : "en_US",
-      url: `${url}/${locale}/contact`,
+      url: `${siteUrl}/${locale}/contact`,
       siteName: dict.meta.title,
       title: dict.contact.metaTitle,
       description: dict.contact.metaDescription,

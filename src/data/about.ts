@@ -61,7 +61,7 @@ function buildSummary(now: Date): Localized<string> {
   };
 }
 
-/** Build about content with experience years derived from the current date. */
+/** Experience years from `now`. SSG ではビルド（デプロイ）時点の日付で固まる。 */
 export function getAbout(now = new Date()): About {
   return {
     headline,
