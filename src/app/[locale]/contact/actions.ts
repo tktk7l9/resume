@@ -21,8 +21,10 @@ function readField(formData: FormData, key: string): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-// In-memory fixed-window rate limit. サーバレスではインスタンス単位だが、
-// 単一インスタンスへの連投 (スパム・Resend クォータ浪費) には十分効く。
+// In-memory fixed-window rate limit. Workers では isolate 単位なので
+// サイト全体の上限にはならないが、同一 isolate への連投は止められる。
+// IP は CF-Connecting-IP を使う。X-Forwarded-For の先頭はクライアントが
+// 仕込めるので信用しない（Cloudflare は既存 XFF に接続元を末尾へ足す）。
 const RATE_LIMIT = { perIp: 3, global: 20, windowMs: 10 * 60_000 };
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 
@@ -38,12 +40,25 @@ function takeRateSlot(key: string, limit: number): boolean {
   return true;
 }
 
+function clientIp(h: Headers): string {
+  const cf = h.get("cf-connecting-ip")?.trim();
+  if (cf) return cf;
+  const realIp = h.get("x-real-ip")?.trim();
+  if (realIp) return realIp;
+  const xff = h.get("x-forwarded-for");
+  if (xff) {
+    const hops = xff
+      .split(",")
+      .map((part) => part.trim())
+      .filter(Boolean);
+    const last = hops[hops.length - 1];
+    if (last) return last;
+  }
+  return "unknown";
+}
+
 async function isRateLimited(): Promise<boolean> {
-  const h = await headers();
-  const ip =
-    h.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    h.get("x-real-ip") ??
-    "unknown";
+  const ip = clientIp(await headers());
   if (!takeRateSlot("contact:global", RATE_LIMIT.global)) return true;
   return !takeRateSlot(`contact:ip:${ip}`, RATE_LIMIT.perIp);
 }

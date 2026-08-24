@@ -7,7 +7,7 @@ import { Sidebar } from "@/components/sidebar";
 import { profile } from "@/data/profile";
 import { isLocale, type Locale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
-import { siteUrl as url } from "@/lib/site";
+import { siteUrl } from "@/lib/site";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -26,7 +26,7 @@ export async function generateMetadata({
   const dict = await getDictionary(locale);
 
   return {
-    metadataBase: new URL(url),
+    metadataBase: new URL(siteUrl),
     title: dict.meta.title,
     description: dict.meta.description,
     alternates: {
@@ -39,7 +39,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale: locale === "ja" ? "ja_JP" : "en_US",
-      url: `${url}/${locale}`,
+      url: `${siteUrl}/${locale}`,
       siteName: dict.meta.title,
       title: dict.meta.title,
       description: dict.meta.description,
@@ -72,7 +72,7 @@ export default async function LocaleLayout({
     "@type": "Person",
     name: profile.fullName[locale],
     alternateName: profile.fullName[locale === "ja" ? "en" : "ja"],
-    url: `${url}/${locale}`,
+    url: `${siteUrl}/${locale}`,
     email: `mailto:${profile.email}`,
     jobTitle: dict.meta.headline,
     address: {

@@ -12,4 +12,4 @@
 export const siteUrl = "https://resume.saitotakuya0719.workers.dev";
 
 /** OGP 画像などに表示する、スキームを落としたホスト表記。 */
-export const siteHost = siteUrl.replace(/^https:\/\//, "");
+export const siteHost = new URL(siteUrl).host;

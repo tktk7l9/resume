@@ -26,7 +26,7 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   // 不要なブラウザ機能を無効化
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-  // HSTS (Vercel ではデフォルトで付くが明示)
+  // HSTS（Workers でも明示する）
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
 ];
 
@@ -38,6 +38,8 @@ const nextConfig = {
   // さらに @opennextjs/cloudflare は optimizeCss が true だと
   // .next/static/css を無条件にコピーしようとするが、Next 16 は CSS を
   // static/chunks/ に出すためディレクトリが無く ENOENT でビルドが落ちる。
+  // /_next/static の immutable cache は public/_headers（Workers Static Assets）。
+  // next.config の headers() はそこに効かない。
   async headers() {
     return [
       {
