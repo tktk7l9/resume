@@ -44,8 +44,8 @@ const strengths: Strength[] = [
       en: "Self-directed learning and execution",
     },
     body: {
-      ja: "新しい技術領域に対して、ドキュメント・公式リポジトリ・実プロダクトのコードを読み比べながら自分で検証する習慣を持っています。Next.js App Router、TailwindCSS v4、Astro、Three.js、Astro / Vite / Next.js といった複数の構成を業務外で実際に触り、得た知見をクライアント案件に持ち込んでいます。アサインされた範囲を超えて、不明点はバックエンドや Go のソースまで読みに行き、フロント / API 境界の調整も自分で進めることができます。",
-      en: "When picking up a new technology I cross-read documentation, the official repo, and real-world code, then validate it with a working prototype. I have shipped side projects on Next.js App Router, Tailwind CSS v4, Astro, Vite and Three.js, and feed what I learn back into client work. I happily step outside my assigned scope — reading the Go backend or API spec — to keep the frontend / API boundary moving forward.",
+      ja: "新しい技術領域に対して、ドキュメント・公式リポジトリ・実プロダクトのコードを読み比べながら自分で検証する習慣を持っています。Next.js App Router、TailwindCSS v4、Astro、Three.js、Astro / Vite / Next.js といった複数の構成を業務外で実際に触り、得た知見をクライアント案件に持ち込んでいます。アサインされた範囲を超えて動くことを意識しており、管理画面の案件ではチームの稼働状況を相談したうえで、未経験だった Go に自主的に手を挙げ、カルテ情報の取得・削除をバックエンドからフロントエンドまで一通り実装しました。",
+      en: "When picking up a new technology I cross-read documentation, the official repo, and real-world code, then validate it with a working prototype. I have shipped side projects on Next.js App Router, Tailwind CSS v4, Astro, Vite and Three.js, and feed what I learn back into client work. I deliberately step outside my assigned scope: on the admin-dashboard project I talked through the team's capacity, volunteered for Go despite having no prior experience with it, and implemented medical-record fetch / delete end-to-end from backend to frontend.",
     },
   },
 ];
@@ -56,8 +56,8 @@ function buildSummary(now: Date): Localized<string> {
   const remote = formatExperienceYears(careerStarts.remote, now);
 
   return {
-    ja: `エンジニア歴 ${engineer.ja}・フロントエンド ${frontend.ja}。Next.js / React / TypeScript を軸に、業務委託として複数クライアントの新規プロダクト開発・既存サービスのリニューアルに参加しています。直近は自動車サービスの査定申し込み機能を担当し、リリース後はアンケート・クチコミ機能の追加開発も行いました。フルリモート歴 ${remote.ja}で、Slack を中心としたチャットコミュニケーションにより BE / デザイナー / QA と日々チーム開発を行います。立教大学映像身体学科で学んだ「ユーザーの体験を起点に設計する」視点を活かし、UI 実装からパフォーマンス計測・改善まで担当。業務外でも 10 以上の個人開発を継続し、新しいフレームワークやベストプラクティスを実プロジェクトで検証しています。`,
-    en: `${engineer.en} as an engineer, ${frontend.enValue} as a frontend specialist. I work as a contract frontend engineer on Next.js / React / TypeScript projects, from greenfield builds to long-running redesigns — most recently the vehicle-appraisal request feature of an automotive service, followed by its survey and review functionality. With ${remote.en} of fully-remote experience I collaborate daily with backend, design and QA over Slack-based chat. My background in performance/film studies at Rikkyo University shapes how I design from the user experience inward — covering UI, accessibility, and performance instrumentation. Outside client work I maintain 10+ personal apps to validate new frameworks and best practices against real workloads.`,
+    ja: `エンジニア歴 ${engineer.ja}・フロントエンド ${frontend.ja}。Next.js / React / TypeScript を軸に、業務委託として複数クライアントの新規プロダクト開発・既存サービスのリニューアルに参加しています。直近は自動車サービスの査定申し込み機能を担当し、リリース後はアンケート・クチコミ機能の追加開発も行いました。フルリモート歴 ${remote.ja}で、Slack を中心としたチャットコミュニケーションにより BE / デザイナー / QA と日々チーム開発を行います。Claude Code をはじめとする AI ツールを日常の開発に組み込み、実装だけでなくコードレビューやリファクタリング、テスト作成にも活用しています。立教大学映像身体学科で学んだ「ユーザーの体験を起点に設計する」視点を活かし、UI 実装からパフォーマンス計測・改善まで担当。業務外でも 10 以上の個人開発を継続し、新しいフレームワークやベストプラクティスを実プロジェクトで検証しています。`,
+    en: `${engineer.en} as an engineer, ${frontend.enValue} as a frontend specialist. I work as a contract frontend engineer on Next.js / React / TypeScript projects, from greenfield builds to long-running redesigns — most recently the vehicle-appraisal request feature of an automotive service, followed by its survey and review functionality. With ${remote.en} of fully-remote experience I collaborate daily with backend, design and QA over Slack-based chat. I build AI tools such as Claude Code into everyday development — not only for writing code but for review, refactoring and tests. My background in performance/film studies at Rikkyo University shapes how I design from the user experience inward — covering UI, accessibility, and performance instrumentation. Outside client work I maintain 10+ personal apps to validate new frameworks and best practices against real workloads.`,
   };
 }
 
