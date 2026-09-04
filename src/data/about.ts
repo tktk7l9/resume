@@ -40,6 +40,16 @@ const strengths: Strength[] = [
   },
   {
     title: {
+      ja: "AI ツールを前提にした開発の進め方",
+      en: "Development built around AI tooling",
+    },
+    body: {
+      ja: "Claude Code / GitHub Copilot / ChatGPT / Gemini を日常の開発に組み込んでいます。コードを書かせる用途に留めず、コードレビュー・リファクタリング・テスト作成まで任せる範囲を広げ、実装したコードは必ず AI で確認して「他の人が読んで分かるか」を基準に整えてから出すようにしています。直近の案件では立ち上げフェーズから AI ツールを前提に開発を進め、技術選定やライブラリ調査の速度を上げました。個人開発でも 20 以上のアプリを設計・実装・計測まで同じ進め方で通しており、業務に持ち込む前に使いどころと限界を確かめています。",
+      en: "I build Claude Code, GitHub Copilot, ChatGPT and Gemini into everyday development. Rather than limiting them to writing code, I have widened what I delegate to include code review, refactoring and test authoring — and I check every change with AI against a single bar: will another engineer be able to read this? On my most recent engagement I worked with AI tooling from the earliest phase, which accelerated technical selection and library research. I run 20+ personal apps through the same workflow, from design to implementation to measurement, so I learn where these tools help and where they do not before bringing them to client work.",
+    },
+  },
+  {
+    title: {
       ja: "学習速度と自走力",
       en: "Self-directed learning and execution",
     },
@@ -56,8 +66,8 @@ function buildSummary(now: Date): Localized<string> {
   const remote = formatExperienceYears(careerStarts.remote, now);
 
   return {
-    ja: `エンジニア歴 ${engineer.ja}・フロントエンド ${frontend.ja}。Next.js / React / TypeScript を軸に、業務委託として複数クライアントの新規プロダクト開発・既存サービスのリニューアルに参加しています。直近は自動車サービスの査定申し込み機能を担当し、リリース後はアンケート・クチコミ機能の追加開発も行いました。フルリモート歴 ${remote.ja}で、Slack を中心としたチャットコミュニケーションにより BE / デザイナー / QA と日々チーム開発を行います。Claude Code をはじめとする AI ツールを日常の開発に組み込み、実装だけでなくコードレビューやリファクタリング、テスト作成にも活用しています。立教大学映像身体学科で学んだ「ユーザーの体験を起点に設計する」視点を活かし、UI 実装からパフォーマンス計測・改善まで担当。業務外でも 10 以上の個人開発を継続し、新しいフレームワークやベストプラクティスを実プロジェクトで検証しています。`,
-    en: `${engineer.en} as an engineer, ${frontend.enValue} as a frontend specialist. I work as a contract frontend engineer on Next.js / React / TypeScript projects, from greenfield builds to long-running redesigns — most recently the vehicle-appraisal request feature of an automotive service, followed by its survey and review functionality. With ${remote.en} of fully-remote experience I collaborate daily with backend, design and QA over Slack-based chat. I build AI tools such as Claude Code into everyday development — not only for writing code but for review, refactoring and tests. My background in performance/film studies at Rikkyo University shapes how I design from the user experience inward — covering UI, accessibility, and performance instrumentation. Outside client work I maintain 10+ personal apps to validate new frameworks and best practices against real workloads.`,
+    ja: `エンジニア歴 ${engineer.ja}・フロントエンド ${frontend.ja}。Next.js / React / TypeScript を軸に、業務委託として複数クライアントの新規プロダクト開発・既存サービスのリニューアルに参加しています。直近は自動車サービスの査定申し込み機能を担当し、リリース後はアンケート・クチコミ機能の追加開発も行いました。フルリモート歴 ${remote.ja}で、Slack を中心としたチャットコミュニケーションにより BE / デザイナー / QA と日々チーム開発を行います。Claude Code をはじめとする AI ツールを日常の開発に組み込み、実装だけでなくコードレビューやリファクタリング、テスト作成にも活用しています。立教大学映像身体学科で学んだ「ユーザーの体験を起点に設計する」視点を活かし、UI 実装からパフォーマンス計測・改善まで担当。業務外でも 20 以上の個人開発を継続し、新しいフレームワークやベストプラクティスを実プロジェクトで検証しています。`,
+    en: `${engineer.en} as an engineer, ${frontend.enValue} as a frontend specialist. I work as a contract frontend engineer on Next.js / React / TypeScript projects, from greenfield builds to long-running redesigns — most recently the vehicle-appraisal request feature of an automotive service, followed by its survey and review functionality. With ${remote.en} of fully-remote experience I collaborate daily with backend, design and QA over Slack-based chat. I build AI tools such as Claude Code into everyday development — not only for writing code but for review, refactoring and tests. My background in performance/film studies at Rikkyo University shapes how I design from the user experience inward — covering UI, accessibility, and performance instrumentation. Outside client work I maintain 20+ personal apps to validate new frameworks and best practices against real workloads.`,
   };
 }
 
