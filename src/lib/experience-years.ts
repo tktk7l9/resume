@@ -3,12 +3,15 @@ import { differenceInMonths, parse } from "date-fns";
 /**
  * Career start dates (yyyy-MM), aligned with entries in `src/data/experience.ts`.
  * - engineer: first professional role (ISOL training, 2018-04)
- * - frontend / remote: CAPS frontend role (2021-07)
+ * - frontend / remote: 電子クーポン券アプリ案件 (2021-03)。トップゲート在籍
+ *   (2019-11〜2021-06) の途中で、フロントエンド主担当かつフルリモートに
+ *   なったのがこの案件。CAPS 入社(2021-07)を起点にすると半年分が欠ける。
+ *   スキルシート・GitHub プロフィールの「5 年半」もこの起点に揃えている。
  */
 export const careerStarts = {
   engineer: "2018-04",
-  frontend: "2021-07",
-  remote: "2021-07",
+  frontend: "2021-03",
+  remote: "2021-03",
 } as const;
 
 export type ExperienceYearsLabel = {
