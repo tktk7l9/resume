@@ -36,7 +36,7 @@ export const experience: ExperienceItem[] = [
       ja: [
         "同一サービスのグロース期後半を担当（契約形態が SBテクノロジーからソフトバンクへ変更）。CVR 改善施策の実装と技術的負債の解消を継続",
         "アンケート・クチコミ機能を新規に設計から実装まで担当。「開始・入力・完了」を1ページ内の3コンポーネントで切り替える構成とし、画面遷移をまたぐ査定申し込みとは構成を分けて要件に合う形を選択",
-        "ディレクターが設計した「複数社選択推奨バルーン」の表示と、その AB 検証の実装を担当。社内 AB 検証ツールの複数キャンペーン ID 対応も実施",
+        "ディレクターが設計した「複数社選択推奨バルーン」の表示と、その AB 検証の実装を担当。社会的証明型と直接推奨型の2パターンのコピーを実装し、リリース後の指標推移まで追跡。結果として有意な変化は見られず、この施策では効果が確認できないという結論を共有した。社内 AB 検証ツールの複数キャンペーン ID 対応も実施",
         "相場比較グラフの実装、価格提示期限の表示対応など、ユーザーが判断に使う情報の可視化を担当",
         "ボタンが非活性のままになる不具合を、対症療法ではなく根本原因から修正",
         "SCSS の !important 削除、font-family 指定の整理など、リプレイス期に積み残した負債を施策の合間に返済",
@@ -45,7 +45,7 @@ export const experience: ExperienceItem[] = [
       en: [
         "Continued on the same service through the later growth phase (contract vehicle changed from SB Technology to SoftBank), implementing CVR-improvement work and paying down technical debt",
         "Designed and built the survey and review features, switching between three components (start / input / complete) within a single page — deliberately a different shape from the multi-page appraisal flow, chosen to fit the requirement",
-        "Implemented a director-designed \"multi-vendor recommendation\" balloon and the A/B test around it, plus multi-campaign-ID support in the in-house experimentation tool",
+        'Implemented a director-designed "multi-vendor recommendation" balloon and the A/B test around it — two copy variants, social proof against direct recommendation — and tracked the metric after release. There was no significant change, and I reported back that the feature could not be shown to work. Also added multi-campaign-ID support to the in-house experimentation tool',
         "Built the market-price comparison chart and the price-offer expiry display — surfacing the information users actually decide on",
         "Fixed a defect where a button stayed disabled, tracing it to the root cause rather than patching the symptom",
         "Removed SCSS !important declarations and tidied font-family definitions, paying down debt left over from the replacement phase between feature work",
@@ -82,7 +82,7 @@ export const experience: ExperienceItem[] = [
     },
     responsibilities: {
       ja: [
-        "所有車を登録すると事業者から買取価格が提示される査定サービスに、新規立ち上げのフェーズから参画。リリース前の7ヶ月で開発し、リリース後は CVR 改善と技術的負債の解消を継続（同一サービスをソフトバンク契約期間へ引き継ぎ）",
+        "所有車を登録すると事業者から買取価格が提示される査定サービスに、新規立ち上げのフェーズから参画。買取事業者とユーザーをつなぐマッチング事業で、査定申し込み数の獲得が事業 KPI。申し込みフォームの離脱削減と CVR 改善が開発の主目的だった。リリース前の7ヶ月で開発し、リリース後は CVR 改善と技術的負債の解消を継続（同一サービスをソフトバンク契約期間へ引き継ぎ）",
         "査定申し込みの「入力・確認・完了」3ページを、詳細設計から実装・テスト・リリースまで一貫して担当。確認ページに認証コードの入力を挟む仕様で、画面をまたいで入力値を共有する必要があったため FormProvider の context を用意し、React Hook Form と zod で状態とバリデーションを一元管理",
         "別チームが HTML / CSS / jQuery で実装していた画面を、React・Next.js へ置き換える作業を担当",
         "Next.js / React の採用は決まっていたが、チームに経験者が不在の立ち上げフェーズだったため、その上で使うライブラリの選定を主導。「他のメンバーが後から触れること」を基準に、必要最低限で API がシンプルな Jotai、情報量が多く自力で解決しやすい React Hook Form / zod、テストは Vitest / Testing Library を採用",
@@ -94,10 +94,10 @@ export const experience: ExperienceItem[] = [
         "Claude Code / GitHub Copilot を早い段階から日常の開発に組み込み、実装だけでなくコードレビュー・リファクタリング・テスト作成にも活用。実装したコードは必ず AI で確認し、他の人が読んでも分かりやすいコードになることを意識",
       ],
       en: [
-        "Joined an automotive appraisal service — where owners register a car and receive offers from dealers — at the greenfield stage. Built it over the seven months before launch, then continued with CVR improvements and debt paydown (the same service carried on into the SoftBank contract period)",
+        "Joined an automotive appraisal service — where owners register a car and receive offers from dealers — at the greenfield stage. It is a marketplace matching sellers with buying dealers, and appraisal requests were the business KPI — so cutting drop-off in the request form and improving CVR were the point of the work. Built it over the seven months before launch, then continued with CVR improvements and debt paydown (the same service carried on into the SoftBank contract period)",
         "Owned the three-page appraisal flow (input / confirm / complete) from detailed design through implementation, testing and release. An email verification code sits on the confirm step, so form values had to survive navigation: I set up a FormProvider context and centralised state and validation with React Hook Form and zod",
         "Replaced screens another team had built in HTML / CSS / jQuery with React and Next.js",
-        "Next.js / React were already chosen, but no one on the team had used them, so I led the selection of the libraries layered on top. My criterion was \"can the next person pick this up\": Jotai for its minimal, simple API; React Hook Form and zod for the volume of material available when someone gets stuck; Vitest / Testing Library for tests",
+        'Next.js / React were already chosen, but no one on the team had used them, so I led the selection of the libraries layered on top. My criterion was "can the next person pick this up": Jotai for its minimal, simple API; React Hook Form and zod for the volume of material available when someone gets stuck; Vitest / Testing Library for tests',
         "Paid down the styling left unoptimised during the replacement by splitting CSS extraction into three phases after launch. Doing it in one pass would have halted releases, so I sized each phase to run alongside feature work and shared it across the team",
         "Implemented director-designed A/B tests (appraisal CTA copy, a sell-timing survey modal), built two landing pages and added routing so the right one is served by traffic source",
         "Shipped nudge features — sell-timing copy, a countdown on the price-offer expiry, and a redesign of the waiting state in the scout list. Reworded the registration-complete screen to reduce drop-off caused by spam filtering",
@@ -177,14 +177,14 @@ export const experience: ExperienceItem[] = [
     },
     responsibilities: {
       ja: [
-        "正社員時代に自分が構築した採用サイト（https://recruit.caps365.jp/）を、退職後も業務委託として継続開発・運用。初回リリース時の12ページから、職種別採用ページ・社員インタビュー・FAQ などを追加",
+        "正社員時代に自分が構築した採用サイト（https://recruit.caps365.jp/）を、退職後も業務委託として継続開発・運用。初回リリース時の12ページから、職種別採用ページ（医師・看護師・医療クラーク・オフィス）・アルムナイ採用・新卒採用・FAQ などを追加し、31ページまで拡張",
         "MicroCMS（ヘッドレスCMS）のスキーマ設計を、編集する非エンジニアが迷わない形へ継続的に調整",
         "リッチなアニメーションを伴うランディングセクションと、SSGform を用いた問い合わせ・応募フォームの実装",
         "Cloudflare Pages へのデプロイと、コンテンツ更新を伴う運用フローの整備",
         "他クライアントの案件（人事労務システム／自動車サービス）と並行して担当。2026年6月頃をもって先方の社内チームへ移管",
       ],
       en: [
-        "Continued to develop and operate the recruiting site (https://recruit.caps365.jp/) that I had originally built as a full-time employee — growing it from the twelve pages of the first release with role-specific hiring pages, employee interviews and an FAQ",
+        "Continued to develop and operate the recruiting site (https://recruit.caps365.jp/) that I had originally built as a full-time employee — growing it from the twelve pages of the first release to 31: role-specific hiring pages (doctors, nurses, medical clerks, office staff), alumni and new-graduate hiring, and an FAQ",
         "Kept refining the MicroCMS schema so the non-engineers editing it would not get lost",
         "Implemented animated landing sections and contact / application forms via SSGform",
         "Deployed to Cloudflare Pages and refined the editorial update workflow",
@@ -223,7 +223,7 @@ export const experience: ExperienceItem[] = [
         "同案件では Mantine をヘッドレスで使い、デザイナーが Figma で作成したデザインに合わせて Tailwind CSS でスタイリング。UI ライブラリの既定のデザインに引っ張られず、デザイン通りに実装できる構成を選択",
         "チームの稼働状況やタスクの状況を相談しながら進め、Go は未経験だったが自主的に手を挙げ、カルテ情報の取得・削除をバックエンドからフロントエンドまで一通り実装。フロントエンドの範囲に閉じず担当を広げることを意識",
         "電子カルテ・患者マイページ（CakePHP / Go）の運用：機能追加・不具合対応",
-        "採用サイト（https://recruit.caps365.jp/）と健康経営支援事業サイト（https://healthmanagement.caps365.jp/）の2件を、エンジニア一人体制で技術選定から構築。採用サイトは初回リリース時点でヘッドレス CMS・問い合わせフォームを含む約12ページ構成",
+        "採用サイト（https://recruit.caps365.jp/）と健康経営支援事業サイト（https://healthmanagement.caps365.jp/）の2件を、エンジニア一人体制で技術選定から構築。採用サイトは自社クリニック約30拠点の採用強化、健康経営支援事業サイトは新規事業の立ち上げが目的で、いずれも事業部の事業目標に直結する位置づけだった。採用サイトは初回リリース時点でヘッドレス CMS・問い合わせフォームを含む約12ページ構成",
         "フレームワークと状態管理（Next.js / React / Jotai）は他プロダクトと構成を揃えて社内で読める人が多い状態を保ち、サイト固有の要件になる CMS・ホスティング・フォーム（microCMS / Cloudflare Pages / SSGform）だけを一から選定。CMS は運用者が非エンジニアの部署だったため Contentful / Newt / WordPress と比較し、管理画面の日本語対応・国内実績・想定記事量が無料枠に収まることの3点で microCMS を採用",
         "1件目で選定した構成と整備した運用ドキュメントを健康経営支援事業サイトにも流用し、2件目の立ち上げコストを下げた",
       ],
@@ -233,7 +233,7 @@ export const experience: ExperienceItem[] = [
         "Used Mantine headlessly on that project and styled with Tailwind CSS to match the designer's Figma work — a setup chosen so the UI library's default look would not pull the implementation away from the design",
         "Go was new to me, but after talking through the team's capacity and task load I volunteered and implemented medical-record fetch / delete end-to-end, from the Go backend through to the frontend — deliberately widening my scope beyond frontend work",
         "Operated the electronic medical record / patient portal (CakePHP / Go): feature additions and bug fixes",
-        "Built two sites single-handedly, from technical selection onward: the recruiting site (https://recruit.caps365.jp/) and the corporate-wellness business site (https://healthmanagement.caps365.jp/). The recruiting site shipped at roughly twelve pages including a headless CMS and contact forms",
+        "Built two sites single-handedly, from technical selection onward: the recruiting site (https://recruit.caps365.jp/) and the corporate-wellness business site (https://healthmanagement.caps365.jp/). The recruiting site existed to strengthen hiring across the ~30 in-house clinics and the wellness site to launch a new business line, so both sat directly against the division's targets. The recruiting site shipped at roughly twelve pages including a headless CMS and contact forms",
         "Kept the framework and state layer (Next.js / React / Jotai) aligned with the company's other products so more people internally could read the code, and selected only the site-specific pieces from scratch — CMS, hosting and forms (microCMS / Cloudflare Pages / SSGform). Since non-engineers would run the CMS day to day, I compared Contentful, Newt and WordPress and chose microCMS on three counts: a Japanese admin UI, domestic adoption so operators could research problems themselves, and the expected article volume fitting the free tier",
         "Reused that stack and the operations documentation on the second site, cutting the cost of standing it up",
       ],
