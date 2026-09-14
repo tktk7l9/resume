@@ -2,8 +2,8 @@ const dictionary = {
   meta: {
     title: "Takuya Saito — Resume",
     description:
-      "Resume of Takuya Saito, a frontend engineer specializing in Next.js, React and TypeScript.",
-    headline: "Frontend Engineer (Contract)",
+      "Resume of Takuya Saito, a full-stack engineer working across Next.js, React and TypeScript, Go backends and Cloudflare / AWS infrastructure.",
+    headline: "Full-stack Engineer (Contract)",
   },
   nav: {
     about: "About",
