@@ -2,8 +2,8 @@ const dictionary = {
   meta: {
     title: "齋藤拓也のresume",
     description:
-      "フロントエンドエンジニア 齋藤拓也の職務経歴書。Next.js・React・TypeScriptを中心としたWebアプリ開発の経歴とスキルを掲載。",
-    headline: "フロントエンドエンジニア（業務委託）",
+      "フルスタックエンジニア 齋藤拓也の職務経歴書。Next.js・React・TypeScript を軸に、Go によるバックエンドや Cloudflare / AWS でのインフラ構成まで含めた経歴とスキルを掲載。",
+    headline: "フルスタックエンジニア（業務委託）",
   },
   nav: {
     about: "自己紹介",

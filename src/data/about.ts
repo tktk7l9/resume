@@ -13,8 +13,8 @@ export type About = {
 };
 
 const headline: Localized<string> = {
-  ja: "ユーザー体験の質と、計測できる品質の両方にこだわるフロントエンドエンジニア",
-  en: "Frontend engineer who cares equally about user experience and measurable code quality.",
+  ja: "フロントエンドを軸に、API・データベース・デプロイまで一人で立ち上げるフルスタックエンジニア",
+  en: "Full-stack engineer who builds from the frontend through APIs, databases and deployment.",
 };
 
 const strengths: Strength[] = [
@@ -34,8 +34,8 @@ const strengths: Strength[] = [
       en: "Performance optimization grounded in measurement",
     },
     body: {
-      ja: "Lighthouse / Web Vitals / バンドル分析を日常的に使い、「速くなった気がする」ではなく数値で語れる改善を積み重ねます。個人開発の住宅性能シミュレーターやライフプランシミュレーターでは、Three.js / Recharts などの重量級ライブラリの動的 import、レンダーブロッキング CSS の削減、画像のプレロード設計などにより Lighthouse Desktop 100、Mobile 99 を達成しています。公開しているアプリでは lib のテストカバレッジ 100%、Lighthouse 100 点、Mozilla Observatory A+ を維持しており、CI のゲートで割り込ませて落とし続けています。チーム開発でも、Storybook・Vitest・型安全・CI/CD まで含めた DX 改善で「壊しにくいフロントエンド」を作ることを意識しています。",
-      en: "I rely on Lighthouse, Web Vitals and bundle analysis day-to-day so improvements can be discussed as numbers, not hunches. In my personal housing-performance and life-plan simulators I have reached Lighthouse Desktop 100 / Mobile 99 through dynamic imports of heavy libraries (Three.js, Recharts), elimination of render-blocking CSS and careful image preloading. Across my published apps I hold lib test coverage at 100%, Lighthouse at 100 and a Mozilla Observatory A+ — enforced as CI gates rather than checked by hand. On client teams I extend the same mindset to DX: Storybook documentation, Vitest coverage, type safety and CI/CD pipelines so the frontend stays hard to break.",
+      ja: "Lighthouse / Web Vitals / バンドル分析を日常的に使い、「速くなった気がする」ではなく数値で語れる改善を積み重ねます。個人開発の住宅性能シミュレーターやライフプランシミュレーターでは、Three.js / Recharts などの重量級ライブラリの動的 import、レンダーブロッキング CSS の削減、画像のプレロード設計などにより Lighthouse Desktop 100、Mobile 99 を達成しています。公開している 21 作品ではテスト総数 4,420 件、Lighthouse Performance は計測した 19 作品すべてが 90 点以上（平均 98.3）で、CI のゲートに割り込ませて落とし続けています。チーム開発でも、Storybook・Vitest・型安全・CI/CD まで含めた DX 改善で「壊しにくいフロントエンド」を作ることを意識しています。",
+      en: "I rely on Lighthouse, Web Vitals and bundle analysis day-to-day so improvements can be discussed as numbers, not hunches. In my personal housing-performance and life-plan simulators I have reached Lighthouse Desktop 100 / Mobile 99 through dynamic imports of heavy libraries (Three.js, Recharts), elimination of render-blocking CSS and careful image preloading. Across my 21 published projects I maintain 4,420 tests in total, and every one of the 19 measured apps scores 90+ on Lighthouse Performance (98.3 average) — enforced as CI gates rather than checked by hand. On client teams I extend the same mindset to DX: Storybook documentation, Vitest coverage, type safety and CI/CD pipelines so the frontend stays hard to break.",
     },
   },
   {
@@ -66,8 +66,8 @@ function buildSummary(now: Date): Localized<string> {
   const remote = formatExperienceYears(careerStarts.remote, now);
 
   return {
-    ja: `エンジニア歴 ${engineer.ja}・フロントエンド ${frontend.ja}。Next.js / React / TypeScript を軸に、業務委託として複数クライアントの新規プロダクト開発・既存サービスのリニューアルに参加しています。直近は自動車サービスの査定申し込み機能を担当し、リリース後はアンケート・クチコミ機能の追加開発も行いました。フルリモート歴 ${remote.ja}で、Slack を中心としたチャットコミュニケーションにより BE / デザイナー / QA と日々チーム開発を行います。Claude Code をはじめとする AI ツールを日常の開発に組み込み、実装だけでなくコードレビューやリファクタリング、テスト作成にも活用しています。立教大学映像身体学科で学んだ「ユーザーの体験を起点に設計する」視点を活かし、UI 実装からパフォーマンス計測・改善まで担当。業務外でも 22 本の個人開発を継続し、新しいフレームワークやベストプラクティスを実プロジェクトで検証しています。`,
-    en: `${engineer.en} as an engineer, ${frontend.enValue} as a frontend specialist. I work as a contract frontend engineer on Next.js / React / TypeScript projects, from greenfield builds to long-running redesigns — most recently the vehicle-appraisal request feature of an automotive service, followed by its survey and review functionality. With ${remote.en} of fully-remote experience I collaborate daily with backend, design and QA over Slack-based chat. I build AI tools such as Claude Code into everyday development — not only for writing code but for review, refactoring and tests. My background in performance/film studies at Rikkyo University shapes how I design from the user experience inward — covering UI, accessibility, and performance instrumentation. Outside client work I maintain 22 personal apps to validate new frameworks and best practices against real workloads.`,
+    ja: `エンジニア歴 ${engineer.ja}・フロントエンド ${frontend.ja}。Next.js / React / TypeScript を軸に、業務委託として複数クライアントの新規プロダクト開発・既存サービスのリニューアルに参加しています。直近は自動車サービスの査定申し込み機能を担当し、リリース後はアンケート・クチコミ機能の追加開発も行いました。フルリモート歴 ${remote.ja}で、Slack を中心としたチャットコミュニケーションにより BE / デザイナー / QA と日々チーム開発を行います。Claude Code をはじめとする AI ツールを日常の開発に組み込み、実装だけでなくコードレビューやリファクタリング、テスト作成にも活用しています。担当範囲はフロントエンドに閉じず、管理画面のリニューアルでは未経験だった Go に手を挙げてバックエンドまで一通り実装し、採用サイト 2 件はエンジニア一人体制で技術選定・CMS 設計・ホスティングまで担当しました。個人開発では Cloudflare Workers + D1 / KV / R2 や Supabase の RLS まで自分で組んでいます。立教大学映像身体学科で学んだ「ユーザーの体験を起点に設計する」視点を活かし、UI 実装からパフォーマンス計測・改善まで担当。業務外でも 21 作品の個人開発を継続し、新しいフレームワークやベストプラクティスを実プロジェクトで検証しています。`,
+    en: `${engineer.en} as an engineer, ${frontend.enValue} as a frontend specialist. I work as a contract frontend engineer on Next.js / React / TypeScript projects, from greenfield builds to long-running redesigns — most recently the vehicle-appraisal request feature of an automotive service, followed by its survey and review functionality. With ${remote.en} of fully-remote experience I collaborate daily with backend, design and QA over Slack-based chat. I build AI tools such as Claude Code into everyday development — not only for writing code but for review, refactoring and tests. My scope does not stop at the frontend: on an admin-dashboard renewal I volunteered for Go and implemented the backend end-to-end, and I built two recruitment sites single-handed — technology selection, CMS schema and hosting included. On personal projects I run Cloudflare Workers with D1 / KV / R2 and Supabase row-level security myself. My background in performance/film studies at Rikkyo University shapes how I design from the user experience inward — covering UI, accessibility, and performance instrumentation. Outside client work I maintain 21 personal projects to validate new frameworks and best practices against real workloads.`,
   };
 }
 

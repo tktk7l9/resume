@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { siteHost } from "@/lib/site";
 
-export const alt = "Takuya Saito — Frontend Engineer Resume";
+export const alt = "Takuya Saito — Full-stack Engineer Resume";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -41,7 +41,7 @@ export default function Image() {
           Takuya Saito
         </div>
         <div style={{ fontSize: 40, color: "#6b6b6b", lineHeight: 1.2 }}>
-          Frontend Engineer · Next.js / React / TypeScript
+          Full-stack Engineer · Next.js / React / TypeScript / Go
         </div>
       </div>
 
