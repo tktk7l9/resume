@@ -29,6 +29,6 @@ node_modules
 
 .vercel
 
-# Cloudflare Workers のビルド成果物とローカル状態
+# Cloudflare Workers build output and local state
 .open-next
 .wrangler

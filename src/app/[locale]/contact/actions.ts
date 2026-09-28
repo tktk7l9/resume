@@ -30,10 +30,10 @@ function readValues(formData: FormData): ContactFormValues {
   return values;
 }
 
-// In-memory fixed-window rate limit. Workers では isolate 単位なので
-// サイト全体の上限にはならないが、同一 isolate への連投は止められる。
-// IP は CF-Connecting-IP を使う。X-Forwarded-For の先頭はクライアントが
-// 仕込めるので信用しない（Cloudflare は既存 XFF に接続元を末尾へ足す）。
+// In-memory fixed-window rate limit. The count is per isolate on Workers, so it is not a
+// site-wide cap, but it does stop repeated posts to the same isolate instance.
+// The IP comes from CF-Connecting-IP. The first X-Forwarded-For entry can be planted
+// by the client, so it is not trusted (Cloudflare appends the connecting IP to an existing XFF).
 const RATE_LIMIT = { perIp: 3, global: 20, windowMs: 10 * 60_000 };
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 

@@ -1,20 +1,20 @@
 /**
- * 職務経歴書 — Cloudflare Workers 設定
+ * Résumé (職務経歴書) — Cloudflare Workers config
  * https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/
  *
- * Next.js を @opennextjs/cloudflare でビルドして Workers で動かす。
- * /contact の Server Action (Resend でメール送信) があるため純粋な静的配信
- * にはできず、Worker スクリプト(main)が必要。
+ * Next.js is built with @opennextjs/cloudflare and runs on Workers.
+ * The /contact Server Action (sends mail via Resend) means it cannot be served as
+ * purely prebuilt files, so a Worker script (main) is required.
  *
- * RESEND_API_KEY / RESEND_TO_EMAIL / RESEND_FROM_EMAIL は wrangler secret
- * で設定する(この設定ファイルには書かない)。
+ * RESEND_API_KEY / RESEND_TO_EMAIL / RESEND_FROM_EMAIL are set with wrangler secret
+ * (never written in this config file).
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "resume",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-08-16",
-  // Next.js の実行に必須。日付は 2024-09-23 以降であること。
+  // Required to run Next.js. The date must be 2024-09-23 or later.
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": ".open-next/assets",

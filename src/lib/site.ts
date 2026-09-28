@@ -1,15 +1,14 @@
 /**
- * サイトの正規 URL。
+ * The site's canonical URL.
  *
- * canonical / OGP / sitemap / robots が全てここを参照する。以前は 5 ファイルに
- * 同じ文字列がハードコードされており、ホスティング移行のたびに取りこぼす形に
- * なっていた。
+ * canonical / OGP / sitemap / robots all read it from here. The same string used to be
+ * hard-coded in 5 files, which meant something was missed on every hosting move.
  *
- * 2026-08-16 に Vercel (resume-tktk7l9.vercel.app) から Cloudflare Workers へ
- * 移行。Vercel 側は Fair Use 超過でアカウントごと 402 になっており、旧 URL を
- * canonical に残すと死んだページを正規扱いさせてしまう。
+ * Moved from Vercel (resume-tktk7l9.vercel.app) to Cloudflare Workers on 2026-08-16.
+ * The Vercel account as a whole returns 402 after exceeding Fair Use, so leaving the
+ * old URL as canonical would mark a dead page as the canonical one.
  */
 export const siteUrl = "https://resume.saitotakuya0719.workers.dev";
 
-/** OGP 画像などに表示する、スキームを落としたホスト表記。 */
+/** Host without the scheme, shown on the OGP image and elsewhere. */
 export const siteHost = new URL(siteUrl).host;
