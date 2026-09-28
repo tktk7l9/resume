@@ -68,14 +68,14 @@ export function SidebarNav({
           <li key={item.id}>
             <a
               href={`${basePath}#${item.id}`}
-              aria-current={active ? "true" : undefined}
+              aria-current={active ? "location" : undefined}
               className={
                 active
                   ? "w-full text-left px-4 py-2 text-sm flex items-center gap-2 bg-accent text-foreground font-medium transition-colors"
                   : "w-full text-left px-4 py-2 text-sm flex items-center gap-2 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
               }
             >
-              <Icon className="w-4 h-4" />
+              <Icon className="w-4 h-4" aria-hidden="true" />
               {item.label}
             </a>
           </li>

@@ -43,7 +43,14 @@ export async function generateMetadata({
       siteName: dict.meta.title,
       title: dict.meta.title,
       description: dict.meta.description,
-      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: dict.meta.title }],
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: dict.meta.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -92,11 +99,23 @@ export default async function LocaleLayout({
         // biome-ignore lint/security/noDangerouslySetInnerHtml: structured data
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:text-background"
+      >
+        {dict.nav.skipToContent}
+      </a>
       <Header locale={locale} dict={dict} />
       <div className="flex-1">
         <div className="flex flex-col md:flex-row max-w-6xl mx-auto px-4 py-8 gap-8">
           <Sidebar locale={locale} dict={dict} />
-          <main className="flex-1">{children}</main>
+          <main
+            id="main"
+            tabIndex={-1}
+            className="min-w-0 flex-1 focus:outline-none"
+          >
+            {children}
+          </main>
         </div>
       </div>
       <Footer locale={locale} dict={dict} />

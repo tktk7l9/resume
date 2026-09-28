@@ -16,54 +16,59 @@ export function Header({ locale, dict }: HeaderProps) {
   const fullName = profile.fullName[locale];
 
   return (
-    <header className="border-b border-border sticky top-0 z-50 bg-card">
+    <header className="border-b border-border bg-card md:sticky md:top-0 md:z-50 print:static">
       <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-3">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-foreground">
-            {fullName}
+            <Link
+              href={`/${locale}`}
+              className="underline-offset-4 hover:underline"
+            >
+              {fullName}
+            </Link>
           </h1>
           <p className="text-muted-foreground text-sm">{dict.meta.headline}</p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-3 text-muted-foreground">
+          <div className="flex items-center gap-1 text-muted-foreground print:hidden">
             <Link
               href={`/${locale}/contact`}
               aria-label={dict.contact.pageTitle}
-              className="inline-flex items-center hover:text-foreground transition-colors"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent hover:text-foreground transition-colors"
             >
               <MailIcon className="w-4 h-4" />
             </Link>
             <ExternalLink
               href={profile.githubUrl}
-              className="inline-flex items-center hover:text-foreground transition-colors"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent hover:text-foreground transition-colors"
               ariaLabel="GitHub"
             >
               <GithubIcon className="w-4 h-4" />
             </ExternalLink>
             <ExternalLink
               href={profile.linkedinUrl}
-              className="inline-flex items-center hover:text-foreground transition-colors"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent hover:text-foreground transition-colors"
               ariaLabel="LinkedIn"
             >
               <LinkedinIcon className="w-4 h-4" />
             </ExternalLink>
             <ExternalLink
               href={profile.portfolioUrl}
-              className="inline-flex items-center hover:text-foreground transition-colors"
-              ariaLabel={
-                locale === "ja" ? "個人開発ポータル" : "Personal apps portal"
-              }
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent hover:text-foreground transition-colors"
+              ariaLabel={dict.nav.portfolio}
             >
               <LayoutGridIcon className="w-4 h-4" />
             </ExternalLink>
           </div>
 
-          <LanguageSwitcher
-            locale={locale}
-            label={dict.header.switchLanguage}
-            ariaLabel={dict.header.switchLanguageAria}
-          />
+          <div className="print:hidden">
+            <LanguageSwitcher
+              locale={locale}
+              label={dict.header.switchLanguage}
+              ariaLabel={dict.header.switchLanguageAria}
+            />
+          </div>
         </div>
       </div>
     </header>

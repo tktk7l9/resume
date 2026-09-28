@@ -12,6 +12,9 @@ const dictionary = {
     skills: "スキル",
     contact: "連絡先",
     links: "リンク",
+    toc: "目次",
+    portfolio: "個人開発ポータル",
+    skipToContent: "本文へ移動",
   },
   sections: {
     about: "自己紹介",

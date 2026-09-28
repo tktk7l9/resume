@@ -22,8 +22,21 @@
   --animate-pulse: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Recruiters often save the résumé as PDF: print the content only. */
+@media print {
+  body {
+    background: #fff;
+  }
+  h2,
+  h3 {
+    break-after: avoid;
+  }
 }
 
 body {

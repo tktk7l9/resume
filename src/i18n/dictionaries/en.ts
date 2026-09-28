@@ -12,6 +12,9 @@ const dictionary = {
     skills: "Skills",
     contact: "Contact",
     links: "Links",
+    toc: "Contents",
+    portfolio: "Personal apps portal",
+    skipToContent: "Skip to content",
   },
   sections: {
     about: "About",

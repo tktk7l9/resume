@@ -14,7 +14,7 @@ export function ResumeSection({
   icon,
 }: ResumeSectionProps) {
   return (
-    <section id={id} className="mb-10 scroll-mt-24">
+    <section id={id} className="mb-10 scroll-mt-4 md:scroll-mt-24">
       <div className="flex items-center gap-2 mb-4 pb-2 border-b border-border">
         <span className="text-muted-foreground">{icon}</span>
         <h2 className="text-xl font-bold text-foreground">{title}</h2>

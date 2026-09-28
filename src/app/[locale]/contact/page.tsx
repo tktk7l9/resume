@@ -64,7 +64,7 @@ export default async function ContactPage({
   const dict = await getDictionary(locale);
 
   return (
-    <section id="contact" className="mb-10 scroll-mt-24">
+    <section id="contact" className="mb-10 scroll-mt-4 md:scroll-mt-24">
       <div className="flex items-center gap-2 mb-4 pb-2 border-b border-border">
         <span className="text-muted-foreground">
           <MailIcon className="w-5 h-5" />
