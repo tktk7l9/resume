@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { type Locale, locales } from "@/i18n/config";
+import { switchLocalePath } from "@/lib/locale-path";
 
 type LanguageSwitcherProps = {
   locale: Locale;
@@ -12,11 +16,13 @@ export function LanguageSwitcher({
   label,
   ariaLabel,
 }: LanguageSwitcherProps) {
+  const pathname = usePathname();
   const nextLocale = locales.find((l) => l !== locale) ?? locale;
 
   return (
     <Link
-      href={`/${nextLocale}`}
+      href={switchLocalePath(pathname, nextLocale)}
+      hrefLang={nextLocale}
       aria-label={ariaLabel}
       className="inline-flex items-center justify-center h-9 px-3 rounded-md border border-border bg-card text-foreground hover:bg-accent transition-colors text-sm font-medium"
     >
