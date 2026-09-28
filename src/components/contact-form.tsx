@@ -6,7 +6,9 @@ import {
   type FocusEvent,
   type FormEvent,
   useActionState,
+  useEffect,
   useId,
+  useRef,
   useState,
 } from "react";
 import { useFormStatus } from "react-dom";
@@ -15,6 +17,7 @@ import {
   type ContactFieldError,
   type ContactFormState,
   contactFields,
+  focusTargetAfterSubmit,
   initialContactState,
   validateContactField,
 } from "@/app/[locale]/contact/state";
@@ -75,6 +78,14 @@ export function ContactForm({ locale, dict, email }: ContactFormProps) {
   const baseId = useId();
   const formErrorId = useId();
   const idFor = (field: ContactFieldError) => `${baseId}-${field}`;
+  const formErrorRef = useRef<HTMLDivElement>(null);
+
+  // Runs once per server answer (each answer is a new state object).
+  useEffect(() => {
+    const target = focusTargetAfterSubmit(state);
+    if (target === "formError") formErrorRef.current?.focus();
+    else if (target) document.getElementById(`${baseId}-${target}`)?.focus();
+  }, [state, baseId]);
 
   if (state.status === "success") {
     return (
@@ -289,8 +300,10 @@ export function ContactForm({ locale, dict, email }: ContactFormProps) {
       {formErrorMessage && (
         <div
           id={formErrorId}
+          ref={formErrorRef}
+          tabIndex={-1}
           role="alert"
-          className="space-y-1 rounded-md border border-red-500/40 bg-red-500/5 px-3 py-2 text-sm text-red-700"
+          className="space-y-1 rounded-md border border-red-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 bg-red-500/5 px-3 py-2 text-sm text-red-700"
         >
           <p>{formErrorMessage}</p>
           {offerDirectEmail && (

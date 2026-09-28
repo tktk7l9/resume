@@ -63,3 +63,17 @@ export function validateContactField(
       return value.length >= 10 && value.length <= 5000;
   }
 }
+
+/**
+ * Where keyboard focus should land after the server answers. The submit
+ * button is disabled while pending, so the browser drops focus to <body>;
+ * without this a keyboard user would restart from the top of the page.
+ */
+export function focusTargetAfterSubmit(
+  state: ContactFormState,
+): ContactFieldError | "formError" | null {
+  if (state.status !== "error") return null;
+  const firstInvalid = contactFields.find((field) => state.fieldErrors[field]);
+  if (firstInvalid) return firstInvalid;
+  return state.formError ? "formError" : null;
+}

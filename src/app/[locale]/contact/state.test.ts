@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  focusTargetAfterSubmit,
   initialContactState,
   normalizeContactField,
   validateContactField,
@@ -44,5 +45,31 @@ describe("initialContactState", () => {
       subject: "",
       message: "",
     });
+  });
+});
+
+describe("focusTargetAfterSubmit", () => {
+  const base = { ...initialContactState, status: "error" as const };
+
+  it("does nothing before the first submit or after success", () => {
+    expect(focusTargetAfterSubmit(initialContactState)).toBeNull();
+    expect(
+      focusTargetAfterSubmit({ ...initialContactState, status: "success" }),
+    ).toBeNull();
+  });
+
+  it("returns the first invalid field in form order", () => {
+    expect(
+      focusTargetAfterSubmit({
+        ...base,
+        fieldErrors: { message: true, email: true },
+      }),
+    ).toBe("email");
+  });
+
+  it("returns the form-level error when no field is invalid", () => {
+    expect(focusTargetAfterSubmit({ ...base, formError: "server" })).toBe(
+      "formError",
+    );
   });
 });
