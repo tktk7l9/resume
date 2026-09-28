@@ -1,8 +1,8 @@
 const isDev = process.env.NODE_ENV === "development";
 
-// 外部から読み込むリソースは無し (外部 URL はすべて単なるリンク)。
-// 'unsafe-inline' は Next のハイドレーション用インラインスクリプトと
-// JSON-LD (layout.tsx) に必要。'unsafe-eval' は dev の HMR のみ。
+// No resources are loaded from outside (all external URLs are plain links).
+// 'unsafe-inline' is needed for Next's hydration scripts embedded in the HTML and for
+// JSON-LD (layout.tsx). 'unsafe-eval' is only for HMR in dev.
 const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
@@ -18,28 +18,28 @@ const csp = [
 
 const securityHeaders = [
   { key: "Content-Security-Policy", value: csp },
-  // CSP の frame-ancestors と冗長だが古いブラウザ向けに残す
+  // Redundant with CSP frame-ancestors, but kept for older browsers
   { key: "X-Frame-Options", value: "DENY" },
-  // MIME スニッフィング対策
+  // Prevent MIME sniffing
   { key: "X-Content-Type-Options", value: "nosniff" },
-  // リファラ情報の制限
+  // Limit referrer information
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  // 不要なブラウザ機能を無効化
+  // Disable browser features we do not need
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-  // HSTS（Workers でも明示する）
+  // HSTS (set explicitly on Workers too)
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
 ];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // experimental.optimizeCss (critters による CSS インライン化) は削除した。
-  // Next 16 の Turbopack ビルドでは効かず、実際に出力 HTML は
-  // <link rel="stylesheet"> のままでインライン <style> は 0 件だった。
-  // さらに @opennextjs/cloudflare は optimizeCss が true だと
-  // .next/static/css を無条件にコピーしようとするが、Next 16 は CSS を
-  // static/chunks/ に出すためディレクトリが無く ENOENT でビルドが落ちる。
-  // /_next/static の immutable cache は public/_headers（Workers Static Assets）。
-  // next.config の headers() はそこに効かない。
+  // experimental.optimizeCss (CSS inlining via critters) was removed.
+  // It has no effect in Next 16 Turbopack builds: the output HTML still had
+  // <link rel="stylesheet"> and zero embedded <style> tags.
+  // On top of that, with optimizeCss true @opennextjs/cloudflare always tries to
+  // copy .next/static/css, but Next 16 emits CSS into static/chunks/, so the
+  // directory does not exist and the build fails with ENOENT.
+  // The immutable cache for /_next/static lives in public/_headers (Workers Static Assets).
+  // headers() in next.config does not apply there.
   async headers() {
     return [
       {

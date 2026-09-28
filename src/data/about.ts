@@ -71,7 +71,7 @@ function buildSummary(now: Date): Localized<string> {
   };
 }
 
-/** Experience years from `now`. SSG ではビルド（デプロイ）時点の日付で固まる。 */
+/** Experience years from `now`. With SSG it is frozen at the build (deploy) date. */
 export function getAbout(now = new Date()): About {
   return {
     headline,

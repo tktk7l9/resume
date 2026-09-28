@@ -1,7 +1,7 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
 
-// 既定の dummy incremental cache のまま。ページはデプロイ時 SSG で、
-// 経験年数ラベルもその時点の日付で固まる（0.5 年刻みなので十分）。
-// ISR / on-demand revalidate は使わないので R2 等は不要。
+// Keeps the default dummy incremental cache. Pages are SSG at deploy time, and the
+// experience-years label is frozen at that date too (fine, since it moves in 0.5-year steps).
+// ISR / on-demand revalidation is not used, so R2 and the like are not needed.
 // https://opennext.js.org/cloudflare/caching
 export default defineCloudflareConfig();
