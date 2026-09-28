@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ContactForm } from "@/components/contact-form";
+import { profile } from "@/data/profile";
 import { isLocale, type Locale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { siteUrl } from "@/lib/site";
@@ -63,7 +64,7 @@ export default async function ContactPage({
   const dict = await getDictionary(locale);
 
   return (
-    <section id="contact" className="mb-10 scroll-mt-24">
+    <section id="contact" className="mb-10 scroll-mt-4 md:scroll-mt-24">
       <div className="flex items-center gap-2 mb-4 pb-2 border-b border-border">
         <span className="text-muted-foreground">
           <MailIcon className="w-5 h-5" />
@@ -77,7 +78,7 @@ export default async function ContactPage({
         {dict.contact.description}
       </p>
 
-      <ContactForm locale={locale} dict={dict.contact} />
+      <ContactForm locale={locale} dict={dict.contact} email={profile.email} />
 
       <div className="mt-8">
         <Link

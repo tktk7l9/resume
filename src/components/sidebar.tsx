@@ -20,19 +20,18 @@ export function Sidebar({ locale, dict }: SidebarProps) {
     { id: "skills", label: dict.nav.skills },
   ];
 
-  const portfolioAria =
-    locale === "ja" ? "個人開発ポータル" : "Personal apps portal";
+  const portfolioAria = dict.nav.portfolio;
   const address = profile.address[locale];
   const contactLabel = dict.contact.pageTitle;
   const contactHref = `/${locale}/contact`;
 
   return (
-    <aside className="w-full md:w-64 shrink-0">
+    <aside className="w-full md:w-64 shrink-0 print:hidden">
       <div className="mb-6 md:sticky md:top-28">
-        <nav>
+        <nav aria-label={dict.nav.toc}>
           <div className="border border-border rounded-lg overflow-hidden bg-card mb-6">
             <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
-              {locale === "ja" ? "目次" : "Contents"}
+              {dict.nav.toc}
             </p>
             <SidebarNav items={navItems} basePath={`/${locale}`} />
           </div>
@@ -63,24 +62,24 @@ export function Sidebar({ locale, dict }: SidebarProps) {
               <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
                 {dict.nav.links}
               </p>
-              <div className="p-4 flex gap-4">
+              <div className="px-2.5 py-2 flex gap-1">
                 <ExternalLink
                   href={profile.githubUrl}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
                   ariaLabel="GitHub"
                 >
                   <GithubIcon className="w-5 h-5" />
                 </ExternalLink>
                 <ExternalLink
                   href={profile.linkedinUrl}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
                   ariaLabel="LinkedIn"
                 >
                   <LinkedinIcon className="w-5 h-5" />
                 </ExternalLink>
                 <ExternalLink
                   href={profile.portfolioUrl}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
                   ariaLabel={portfolioAria}
                 >
                   <LayoutGridIcon className="w-5 h-5" />
@@ -105,24 +104,24 @@ export function Sidebar({ locale, dict }: SidebarProps) {
                     {contactLabel}
                   </span>
                 </Link>
-                <div className="flex gap-2 pt-1">
+                <div className="flex gap-1 pt-1 -ml-2">
                   <ExternalLink
                     href={profile.githubUrl}
-                    className="text-muted-foreground hover:text-foreground p-1.5"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground"
                     ariaLabel="GitHub"
                   >
                     <GithubIcon className="w-5 h-5" />
                   </ExternalLink>
                   <ExternalLink
                     href={profile.linkedinUrl}
-                    className="text-muted-foreground hover:text-foreground p-1.5"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground"
                     ariaLabel="LinkedIn"
                   >
                     <LinkedinIcon className="w-5 h-5" />
                   </ExternalLink>
                   <ExternalLink
                     href={profile.portfolioUrl}
-                    className="text-muted-foreground hover:text-foreground p-1.5"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground"
                     ariaLabel={portfolioAria}
                   >
                     <LayoutGridIcon className="w-5 h-5" />

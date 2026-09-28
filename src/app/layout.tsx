@@ -9,7 +9,7 @@ export const metadata: Metadata = { metadataBase: new URL(siteUrl) };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ja">
+    <html lang="ja" data-scroll-behavior="smooth">
       <body className="min-h-screen bg-background text-foreground flex flex-col">
         {children}
       </body>

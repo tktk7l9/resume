@@ -42,7 +42,7 @@ export function ResumeTimelineItem({
     }
   })();
 
-  const { periodStartEndLabel, formattedPeriod } = formatDate(
+  const { periodStartEndLabel, periodLabel } = formatDate(
     item.startDate,
     item.endDate,
     locale,
@@ -63,11 +63,11 @@ export function ResumeTimelineItem({
         />
       </div>
 
-      <div className="ml-16 w-full">
+      <div className="ml-16 min-w-0 flex-1 [overflow-wrap:anywhere]">
         <div className="font-medium text-muted-foreground mb-1">
           {periodStartEndLabel}
           <span className="text-muted-foreground font-normal ml-2 text-sm">
-            （{formattedPeriod}）
+            {periodLabel}
           </span>
         </div>
         <div className="bg-card p-4 rounded-lg border border-border shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
