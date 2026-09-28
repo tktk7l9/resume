@@ -51,6 +51,7 @@ const dictionary = {
       message: "Message",
       messagePlaceholder: "Tell me about your project, question, or idea.",
       required: "required",
+      messageHint: "at least 10 characters",
       submit: "Send message",
       submitting: "Sending…",
     },
@@ -59,10 +60,11 @@ const dictionary = {
       email: "Please enter a valid email address.",
       subject: "Please enter a subject.",
       message: "Please enter a message of at least 10 characters.",
-      server: "Something went wrong while sending. Please try again later.",
+      server:
+        "Something went wrong while sending. Your message is still here — please try again later, or email me directly at the address below.",
       config:
-        "The contact form is not configured yet. Please email me directly for now.",
-      rate: "Too many messages were sent in a short time. Please wait a while and try again.",
+        "The contact form is not configured yet, so it cannot send right now. Your message is still here — please email me directly at the address below.",
+      rate: "Too many messages were sent in a short time. Your message is still here — please wait a while and try again.",
     },
     success: {
       title: "Thank you for your message",

@@ -1,24 +1,57 @@
 export type ContactFieldError = "name" | "email" | "subject" | "message";
 
+export type ContactFormValues = Record<ContactFieldError, string>;
+
 export type ContactFormState = {
   status: "idle" | "success" | "error";
   fieldErrors: Partial<Record<ContactFieldError, true>>;
   formError: "server" | "config" | "rate" | null;
+  /** What the visitor submitted, so a failed send never wipes their message. */
+  values: ContactFormValues;
+};
+
+export const contactFields: readonly ContactFieldError[] = [
+  "name",
+  "email",
+  "subject",
+  "message",
+];
+
+export const emptyContactValues: ContactFormValues = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
 };
 
 export const initialContactState: ContactFormState = {
   status: "idle",
   fieldErrors: {},
   formError: null,
+  values: emptyContactValues,
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * Trim every field; fold full-width characters in the email address
+ * (e.g. "ｙａｍａｄａ＠example.com") so an IME-typed address still works.
+ */
+export function normalizeContactField(
+  field: ContactFieldError,
+  rawValue: string,
+): string {
+  const value = rawValue.trim();
+  return field === "email"
+    ? value.normalize("NFKC").replace(/\s+/g, "")
+    : value;
+}
 
 export function validateContactField(
   field: ContactFieldError,
   rawValue: string,
 ): boolean {
-  const value = rawValue.trim();
+  const value = normalizeContactField(field, rawValue);
   switch (field) {
     case "name":
       return value.length > 0 && value.length <= 100;

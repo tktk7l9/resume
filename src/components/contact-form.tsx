@@ -4,6 +4,7 @@ import { CheckCircle2Icon } from "lucide-react";
 import {
   type ChangeEvent,
   type FocusEvent,
+  type FormEvent,
   useActionState,
   useId,
   useState,
@@ -13,6 +14,7 @@ import { submitContactForm } from "@/app/[locale]/contact/actions";
 import {
   type ContactFieldError,
   type ContactFormState,
+  contactFields,
   initialContactState,
   validateContactField,
 } from "@/app/[locale]/contact/state";
@@ -24,9 +26,23 @@ type ContactDict = Dictionary["contact"];
 type ContactFormProps = {
   locale: Locale;
   dict: ContactDict;
+  /** Fallback address shown when the form itself cannot send. */
+  email: string;
 };
 
 type ClientErrors = Partial<Record<ContactFieldError, true>>;
+
+type FieldConfig = {
+  field: ContactFieldError;
+  type: "text" | "email" | "textarea";
+  maxLength: number;
+  minLength?: number;
+  autoComplete?: string;
+  label: string;
+  placeholder: string;
+  error: string;
+  hint?: string;
+};
 
 const inputBaseClass =
   "w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring";
@@ -43,24 +59,22 @@ function SubmitButton({ dict }: { dict: ContactDict }) {
     <button
       type="submit"
       disabled={pending}
-      className="inline-flex items-center justify-center rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
+      className="inline-flex min-h-11 items-center justify-center rounded-md bg-foreground px-5 py-2 text-sm font-medium text-background transition-colors hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
     >
       {pending ? dict.form.submitting : dict.form.submit}
     </button>
   );
 }
 
-export function ContactForm({ locale, dict }: ContactFormProps) {
+export function ContactForm({ locale, dict, email }: ContactFormProps) {
   const [state, formAction] = useActionState<ContactFormState, FormData>(
     submitContactForm,
     initialContactState,
   );
   const [clientErrors, setClientErrors] = useState<ClientErrors>({});
-  const nameId = useId();
-  const emailId = useId();
-  const subjectId = useId();
-  const messageId = useId();
+  const baseId = useId();
   const formErrorId = useId();
+  const idFor = (field: ContactFieldError) => `${baseId}-${field}`;
 
   if (state.status === "success") {
     return (
@@ -122,6 +136,28 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
       }
     };
 
+  // Catch mistakes before the round trip and move focus to the first one,
+  // so the visitor sees what to fix without hunting for it.
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const form = event.currentTarget;
+    const errors: ClientErrors = {};
+    for (const field of contactFields) {
+      const control = form.elements.namedItem(field);
+      const value =
+        control instanceof HTMLInputElement ||
+        control instanceof HTMLTextAreaElement
+          ? control.value
+          : "";
+      if (!validateContactField(field, value)) errors[field] = true;
+    }
+    const firstInvalid = contactFields.find((field) => errors[field]);
+    if (!firstInvalid) return;
+    event.preventDefault();
+    setClientErrors(errors);
+    const control = form.elements.namedItem(firstInvalid);
+    if (control instanceof HTMLElement) control.focus();
+  };
+
   const hasError = (field: ContactFieldError) =>
     Boolean(clientErrors[field] ?? state.fieldErrors[field]);
 
@@ -133,9 +169,55 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
         : state.formError === "rate"
           ? dict.errors.rate
           : null;
+  const offerDirectEmail =
+    state.formError === "config" || state.formError === "server";
+
+  const fields: FieldConfig[] = [
+    {
+      field: "name",
+      type: "text",
+      maxLength: 100,
+      autoComplete: "name",
+      label: dict.form.name,
+      placeholder: dict.form.namePlaceholder,
+      error: dict.errors.name,
+    },
+    {
+      field: "email",
+      type: "email",
+      maxLength: 254,
+      autoComplete: "email",
+      label: dict.form.email,
+      placeholder: dict.form.emailPlaceholder,
+      error: dict.errors.email,
+    },
+    {
+      field: "subject",
+      type: "text",
+      maxLength: 150,
+      label: dict.form.subject,
+      placeholder: dict.form.subjectPlaceholder,
+      error: dict.errors.subject,
+    },
+    {
+      field: "message",
+      type: "textarea",
+      maxLength: 5000,
+      minLength: 10,
+      label: dict.form.message,
+      placeholder: dict.form.messagePlaceholder,
+      error: dict.errors.message,
+      hint: dict.form.messageHint,
+    },
+  ];
 
   return (
-    <form action={formAction} noValidate className="space-y-5">
+    <form
+      action={formAction}
+      onSubmit={handleSubmit}
+      noValidate
+      className="space-y-5"
+    >
       <input type="hidden" name="locale" value={locale} />
       <div
         aria-hidden="true"
@@ -151,141 +233,77 @@ export function ContactForm({ locale, dict }: ContactFormProps) {
         />
       </div>
 
-      <div className="space-y-1.5">
-        <label
-          htmlFor={nameId}
-          className="block text-sm font-medium text-foreground"
-        >
-          {dict.form.name}
-          <span className="ml-1 text-xs text-muted-foreground">
-            ({dict.form.required})
-          </span>
-        </label>
-        <input
-          id={nameId}
-          type="text"
-          name="name"
-          required
-          maxLength={100}
-          autoComplete="name"
-          placeholder={dict.form.namePlaceholder}
-          onBlur={handleBlur("name")}
-          onChange={handleChange("name")}
-          aria-invalid={hasError("name") ? "true" : undefined}
-          aria-describedby={hasError("name") ? `${nameId}-error` : undefined}
-          className={fieldClassName(hasError("name"))}
-        />
-        {hasError("name") && (
-          <p id={`${nameId}-error`} className="text-xs text-red-600">
-            {dict.errors.name}
-          </p>
-        )}
-      </div>
-
-      <div className="space-y-1.5">
-        <label
-          htmlFor={emailId}
-          className="block text-sm font-medium text-foreground"
-        >
-          {dict.form.email}
-          <span className="ml-1 text-xs text-muted-foreground">
-            ({dict.form.required})
-          </span>
-        </label>
-        <input
-          id={emailId}
-          type="email"
-          name="email"
-          required
-          maxLength={254}
-          autoComplete="email"
-          placeholder={dict.form.emailPlaceholder}
-          onBlur={handleBlur("email")}
-          onChange={handleChange("email")}
-          aria-invalid={hasError("email") ? "true" : undefined}
-          aria-describedby={hasError("email") ? `${emailId}-error` : undefined}
-          className={fieldClassName(hasError("email"))}
-        />
-        {hasError("email") && (
-          <p id={`${emailId}-error`} className="text-xs text-red-600">
-            {dict.errors.email}
-          </p>
-        )}
-      </div>
-
-      <div className="space-y-1.5">
-        <label
-          htmlFor={subjectId}
-          className="block text-sm font-medium text-foreground"
-        >
-          {dict.form.subject}
-          <span className="ml-1 text-xs text-muted-foreground">
-            ({dict.form.required})
-          </span>
-        </label>
-        <input
-          id={subjectId}
-          type="text"
-          name="subject"
-          required
-          maxLength={150}
-          placeholder={dict.form.subjectPlaceholder}
-          onBlur={handleBlur("subject")}
-          onChange={handleChange("subject")}
-          aria-invalid={hasError("subject") ? "true" : undefined}
-          aria-describedby={
-            hasError("subject") ? `${subjectId}-error` : undefined
-          }
-          className={fieldClassName(hasError("subject"))}
-        />
-        {hasError("subject") && (
-          <p id={`${subjectId}-error`} className="text-xs text-red-600">
-            {dict.errors.subject}
-          </p>
-        )}
-      </div>
-
-      <div className="space-y-1.5">
-        <label
-          htmlFor={messageId}
-          className="block text-sm font-medium text-foreground"
-        >
-          {dict.form.message}
-          <span className="ml-1 text-xs text-muted-foreground">
-            ({dict.form.required})
-          </span>
-        </label>
-        <textarea
-          id={messageId}
-          name="message"
-          required
-          minLength={10}
-          maxLength={5000}
-          rows={7}
-          placeholder={dict.form.messagePlaceholder}
-          onBlur={handleBlur("message")}
-          onChange={handleChange("message")}
-          aria-invalid={hasError("message") ? "true" : undefined}
-          aria-describedby={
-            hasError("message") ? `${messageId}-error` : undefined
-          }
-          className={`${fieldClassName(hasError("message"))} resize-y`}
-        />
-        {hasError("message") && (
-          <p id={`${messageId}-error`} className="text-xs text-red-600">
-            {dict.errors.message}
-          </p>
-        )}
-      </div>
+      {fields.map((config) => {
+        const id = idFor(config.field);
+        const invalid = hasError(config.field);
+        const errorId = `${id}-error`;
+        const common = {
+          id,
+          name: config.field,
+          required: true,
+          maxLength: config.maxLength,
+          placeholder: config.placeholder,
+          // Echoed back by the action so a failed send keeps the input.
+          defaultValue: state.values[config.field],
+          onBlur: handleBlur(config.field),
+          onChange: handleChange(config.field),
+          "aria-invalid": invalid ? ("true" as const) : undefined,
+          "aria-describedby": invalid ? errorId : undefined,
+        };
+        return (
+          <div key={config.field} className="space-y-1.5">
+            <label
+              htmlFor={id}
+              className="block text-sm font-medium text-foreground"
+            >
+              {config.label}
+              <span className="ml-1 text-xs text-muted-foreground">
+                ({dict.form.required}
+                {config.hint ? ` · ${config.hint}` : ""})
+              </span>
+            </label>
+            {config.type === "textarea" ? (
+              <textarea
+                {...common}
+                minLength={config.minLength}
+                rows={7}
+                className={`${fieldClassName(invalid)} resize-y`}
+              />
+            ) : (
+              <input
+                {...common}
+                type={config.type}
+                autoComplete={config.autoComplete}
+                className={fieldClassName(invalid)}
+              />
+            )}
+            {invalid && (
+              <p id={errorId} className="text-xs text-red-600">
+                {config.error}
+              </p>
+            )}
+          </div>
+        );
+      })}
 
       {formErrorMessage && (
-        <p
+        <div
           id={formErrorId}
           role="alert"
-          className="rounded-md border border-red-500/40 bg-red-500/5 px-3 py-2 text-sm text-red-700"
+          className="space-y-1 rounded-md border border-red-500/40 bg-red-500/5 px-3 py-2 text-sm text-red-700"
         >
-          {formErrorMessage}
-        </p>
+          <p>{formErrorMessage}</p>
+          {offerDirectEmail && (
+            <p>
+              <a
+                href={`mailto:${email}`}
+                className="font-medium underline underline-offset-4 [overflow-wrap:anywhere]"
+              >
+                {email}
+              </a>
+            </p>
+          )}
+        </div>
       )}
 
       <div>
