@@ -14,18 +14,16 @@ export function formatDate(
   endDate: string | undefined,
   locale: Locale,
   dict: Dict,
+  now: Date = new Date(),
 ) {
-  const startDateParsed = parse(startDate, "yyyy-MM", new Date());
-  const endDateParsed = endDate
-    ? parse(endDate, "yyyy-MM", new Date())
-    : new Date();
+  const startDateParsed = parse(startDate, "yyyy-MM", now);
+  const endDateParsed = endDate ? parse(endDate, "yyyy-MM", now) : now;
 
-  const totalMonthsDifference = differenceInMonths(
-    endDateParsed,
-    startDateParsed,
-  );
-  const totalYears = Math.floor(totalMonthsDifference / 12);
-  const remainingMonths = (totalMonthsDifference % 12) + 1;
+  // Both ends are inclusive: 2026-04 to 2026-09 is six months.
+  const totalMonths =
+    Math.max(0, differenceInMonths(endDateParsed, startDateParsed)) + 1;
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
 
   const startPattern = locale === "ja" ? "yyyy年M月" : "MMM yyyy";
   const formattedStartDate = format(startDateParsed, startPattern);
@@ -33,19 +31,15 @@ export function formatDate(
     ? format(endDateParsed, startPattern)
     : dict.timeline.present;
 
-  let formattedPeriod = "";
-  if (totalYears > 0) {
-    formattedPeriod += `${totalYears}${dict.timeline.yearLabel}${locale === "en" ? " " : ""}`;
-  }
-  if (remainingMonths > 0) {
-    formattedPeriod += `${remainingMonths}${dict.timeline.monthLabel}`;
-  }
-  if (!formattedPeriod) {
-    formattedPeriod = `1${dict.timeline.monthLabel}`;
-  }
+  const parts: string[] = [];
+  if (years > 0) parts.push(`${years}${dict.timeline.yearLabel}`);
+  if (months > 0) parts.push(`${months}${dict.timeline.monthLabel}`);
+  const formattedPeriod = parts.join(locale === "en" ? " " : "");
 
   return {
     periodStartEndLabel: `${formattedStartDate} - ${formattedEndDate}`,
-    formattedPeriod: formattedPeriod.trim(),
+    formattedPeriod,
+    periodLabel:
+      locale === "ja" ? `（${formattedPeriod}）` : `(${formattedPeriod})`,
   };
 }
