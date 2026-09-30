@@ -1,5 +1,4 @@
 import { ArrowLeftIcon } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { defaultLocale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -8,11 +7,11 @@ import { getDictionary } from "@/i18n/dictionaries";
  * Global 404. The root layout has no locale param, so the page is bilingual:
  * each block is marked with its own language and points back to that locale's
  * résumé (SHIG 59, 60). Next's default 404 has no landmark or heading.
+ *
+ * The <title> is rendered inline like Next's own fallback does: a `metadata`
+ * export is only supported for global-not-found.js, and although it shows up
+ * in the prerendered HTML, hydration drops it and the document ends up untitled.
  */
-export const metadata: Metadata = {
-  title: "404 | ページが見つかりません / Page not found",
-};
-
 export default async function NotFound() {
   const dicts = await Promise.all(
     locales.map(
@@ -25,6 +24,7 @@ export default async function NotFound() {
       id="main"
       className="flex flex-1 flex-col items-center justify-center gap-8 px-4 py-16"
     >
+      <title>404 | ページが見つかりません / Page not found</title>
       {dicts.map(([locale, dict]) => {
         // One h1 per page: the default locale's block is the primary one.
         const Heading = locale === defaultLocale ? "h1" : "h2";
