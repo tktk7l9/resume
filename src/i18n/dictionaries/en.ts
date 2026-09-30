@@ -28,6 +28,11 @@ const dictionary = {
     present: "Present",
     yearLabel: "y",
     monthLabel: "mo",
+    types: {
+      work: "Work",
+      education: "Education",
+      project: "Project",
+    },
   },
   header: {
     switchLanguage: "日本語",
@@ -35,6 +40,11 @@ const dictionary = {
   },
   footer: {
     copyright: "© {year} {name}",
+  },
+  notFound: {
+    title: "Page not found",
+    description: "The URL may have changed or the page may have been removed.",
+    backToResume: "Back to resume",
   },
   contact: {
     pageTitle: "Contact",

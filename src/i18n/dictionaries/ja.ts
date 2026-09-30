@@ -28,6 +28,11 @@ const dictionary = {
     present: "現在",
     yearLabel: "年",
     monthLabel: "ヶ月",
+    types: {
+      work: "職歴",
+      education: "学歴",
+      project: "プロジェクト",
+    },
   },
   header: {
     switchLanguage: "English",
@@ -35,6 +40,11 @@ const dictionary = {
   },
   footer: {
     copyright: "© {year} {name}",
+  },
+  notFound: {
+    title: "ページが見つかりません",
+    description: "URLが変わったか、削除された可能性があります。",
+    backToResume: "経歴書に戻る",
   },
   contact: {
     pageTitle: "お問い合わせ",
