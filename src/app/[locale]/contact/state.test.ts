@@ -51,11 +51,14 @@ describe("initialContactState", () => {
 describe("focusTargetAfterSubmit", () => {
   const base = { ...initialContactState, status: "error" as const };
 
-  it("does nothing before the first submit or after success", () => {
+  it("does nothing before the first submit", () => {
     expect(focusTargetAfterSubmit(initialContactState)).toBeNull();
+  });
+
+  it("moves to the success message once the form is gone", () => {
     expect(
       focusTargetAfterSubmit({ ...initialContactState, status: "success" }),
-    ).toBeNull();
+    ).toBe("success");
   });
 
   it("returns the first invalid field in form order", () => {

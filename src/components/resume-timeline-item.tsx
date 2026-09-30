@@ -90,9 +90,12 @@ export function ResumeTimelineItem({
           </div>
           <div className="text-muted-foreground mb-3">
             {item.company.url ? (
+              // Always underlined: on a phone there is no hover to reveal
+              // that the name is a link (SHIG 4, 37).
               <ExternalLink
                 href={item.company.url}
-                className="underline-offset-2 hover:underline"
+                className="inline-flex min-h-11 items-center underline decoration-border underline-offset-4 hover:text-foreground hover:decoration-current"
+                newTabHint={dict.nav.opensInNewTab}
               >
                 {companyName}
               </ExternalLink>

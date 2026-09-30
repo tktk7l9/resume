@@ -83,9 +83,9 @@ export default async function ContactPage({
       <div className="mt-8">
         <Link
           href={`/${locale}`}
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex min-h-11 items-center gap-1 text-sm text-foreground underline underline-offset-4 hover:opacity-80"
         >
-          <ArrowLeftIcon className="w-4 h-4" />
+          <ArrowLeftIcon className="h-4 w-4" aria-hidden="true" />
           {dict.contact.backToResume}
         </Link>
       </div>

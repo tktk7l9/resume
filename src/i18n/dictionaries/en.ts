@@ -14,6 +14,7 @@ const dictionary = {
     links: "Links",
     toc: "Contents",
     portfolio: "Personal apps portal",
+    opensInNewTab: " (opens in a new tab)",
     skipToContent: "Skip to content",
   },
   sections: {
@@ -40,6 +41,13 @@ const dictionary = {
   },
   footer: {
     copyright: "© {year} {name}",
+    backToTop: "Back to top",
+  },
+  closing: {
+    title: "Thanks for reading this far",
+    description:
+      "For project inquiries or collaboration, feel free to reach out through the form. I usually reply within 2–3 business days.",
+    cta: "Go to the contact form",
   },
   notFound: {
     title: "Page not found",

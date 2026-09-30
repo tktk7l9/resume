@@ -14,6 +14,7 @@ const dictionary = {
     links: "リンク",
     toc: "目次",
     portfolio: "個人開発ポータル",
+    opensInNewTab: "（新しいタブで開く）",
     skipToContent: "本文へ移動",
   },
   sections: {
@@ -40,6 +41,13 @@ const dictionary = {
   },
   footer: {
     copyright: "© {year} {name}",
+    backToTop: "ページの先頭へ",
+  },
+  closing: {
+    title: "ここまでお読みいただきありがとうございます",
+    description:
+      "お仕事のご依頼・ご相談は、フォームからお気軽にご連絡ください。通常2〜3営業日以内にご返信いたします。",
+    cta: "お問い合わせフォームへ",
   },
   notFound: {
     title: "ページが見つかりません",

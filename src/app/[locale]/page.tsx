@@ -1,4 +1,11 @@
-import { ClockIcon, CodeIcon, RocketIcon, UserIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  ClockIcon,
+  CodeIcon,
+  RocketIcon,
+  UserIcon,
+} from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AboutSection } from "@/components/about-section";
 import { ProjectsSection } from "@/components/projects-section";
@@ -58,7 +65,11 @@ export default async function ResumePage({
         id="projects"
         icon={<RocketIcon className="w-5 h-5" />}
       >
-        <ProjectsSection locale={locale} projects={projects} />
+        <ProjectsSection
+          locale={locale}
+          projects={projects}
+          newTabHint={dict.nav.opensInNewTab}
+        />
       </ResumeSection>
 
       <ResumeSection
@@ -76,6 +87,31 @@ export default async function ResumePage({
           ))}
         </div>
       </ResumeSection>
+
+      {/* The résumé ends here; the next step for a reader is to get in
+          touch, so offer it where they are instead of 11,000px up in the
+          sidebar (SHIG 20, 41, 60). */}
+      <section
+        aria-labelledby="closing-contact-title"
+        className="mb-10 rounded-lg border border-border bg-card p-5 print:hidden"
+      >
+        <h2
+          id="closing-contact-title"
+          className="text-base font-medium text-foreground"
+        >
+          {dict.closing.title}
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {dict.closing.description}
+        </p>
+        <Link
+          href={`/${locale}/contact`}
+          className="mt-3 inline-flex min-h-11 items-center gap-1 rounded-md bg-foreground px-5 py-2 text-sm font-medium text-background transition-colors hover:opacity-90"
+        >
+          {dict.closing.cta}
+          <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      </section>
     </>
   );
 }

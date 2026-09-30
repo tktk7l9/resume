@@ -12,6 +12,10 @@ type SidebarProps = {
   dict: Dictionary;
 };
 
+// 44px ≈ 7mm: the smallest comfortable touch target (SHIG 78).
+const iconLinkClass =
+  "inline-flex h-11 w-11 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors";
+
 export function Sidebar({ locale, dict }: SidebarProps) {
   const navItems: SidebarNavItem[] = [
     { id: "about", label: dict.nav.about },
@@ -21,9 +25,39 @@ export function Sidebar({ locale, dict }: SidebarProps) {
   ];
 
   const portfolioAria = dict.nav.portfolio;
+  const newTabHint = dict.nav.opensInNewTab;
   const address = profile.address[locale];
   const contactLabel = dict.contact.pageTitle;
   const contactHref = `/${locale}/contact`;
+
+  const socialLinks = (
+    <>
+      <ExternalLink
+        href={profile.githubUrl}
+        className={iconLinkClass}
+        ariaLabel="GitHub"
+        newTabHint={newTabHint}
+      >
+        <GithubIcon className="w-5 h-5" />
+      </ExternalLink>
+      <ExternalLink
+        href={profile.linkedinUrl}
+        className={iconLinkClass}
+        ariaLabel="LinkedIn"
+        newTabHint={newTabHint}
+      >
+        <LinkedinIcon className="w-5 h-5" />
+      </ExternalLink>
+      <ExternalLink
+        href={profile.portfolioUrl}
+        className={iconLinkClass}
+        ariaLabel={portfolioAria}
+        newTabHint={newTabHint}
+      >
+        <LayoutGridIcon className="w-5 h-5" />
+      </ExternalLink>
+    </>
+  );
 
   return (
     <aside className="w-full md:w-64 shrink-0 print:hidden">
@@ -41,14 +75,14 @@ export function Sidebar({ locale, dict }: SidebarProps) {
               <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
                 {dict.nav.contact}
               </p>
-              <div className="p-4 text-sm text-muted-foreground space-y-2">
-                <div className="flex items-center gap-2">
+              <div className="p-4 text-sm text-muted-foreground space-y-1">
+                <div className="flex items-center gap-2 py-1">
                   <MapPinIcon className="w-4 h-4 text-muted-foreground" />
                   <span>{address}</span>
                 </div>
                 <Link
                   href={contactHref}
-                  className="flex items-center gap-2 pt-1 text-foreground hover:opacity-80 transition-opacity"
+                  className="flex min-h-11 items-center gap-2 text-foreground hover:opacity-80 transition-opacity"
                 >
                   <MailIcon className="w-4 h-4" />
                   <span className="underline underline-offset-4">
@@ -62,71 +96,27 @@ export function Sidebar({ locale, dict }: SidebarProps) {
               <p className="text-sm font-medium px-4 py-2 border-b border-border text-foreground">
                 {dict.nav.links}
               </p>
-              <div className="px-2.5 py-2 flex gap-1">
-                <ExternalLink
-                  href={profile.githubUrl}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-                  ariaLabel="GitHub"
-                >
-                  <GithubIcon className="w-5 h-5" />
-                </ExternalLink>
-                <ExternalLink
-                  href={profile.linkedinUrl}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-                  ariaLabel="LinkedIn"
-                >
-                  <LinkedinIcon className="w-5 h-5" />
-                </ExternalLink>
-                <ExternalLink
-                  href={profile.portfolioUrl}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
-                  ariaLabel={portfolioAria}
-                >
-                  <LayoutGridIcon className="w-5 h-5" />
-                </ExternalLink>
-              </div>
+              <div className="px-2 py-1 flex gap-0.5">{socialLinks}</div>
             </div>
           </div>
 
           <div className="mt-6 md:hidden">
             <div className="border border-border rounded-lg p-3 bg-card">
               <div className="flex flex-col gap-1">
-                <span className="flex items-center gap-1 text-xs text-muted-foreground py-1.5">
-                  <MapPinIcon className="w-3 h-3" />
+                <span className="flex items-center gap-1.5 text-sm text-muted-foreground py-1.5">
+                  <MapPinIcon className="w-4 h-4" />
                   <span>{address}</span>
                 </span>
                 <Link
                   href={contactHref}
-                  className="flex items-center gap-1 text-xs text-foreground hover:opacity-80 py-1.5"
+                  className="flex min-h-11 items-center gap-1.5 text-sm text-foreground hover:opacity-80"
                 >
-                  <MailIcon className="w-3 h-3" />
+                  <MailIcon className="w-4 h-4" />
                   <span className="underline underline-offset-4">
                     {contactLabel}
                   </span>
                 </Link>
-                <div className="flex gap-1 pt-1 -ml-2">
-                  <ExternalLink
-                    href={profile.githubUrl}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground"
-                    ariaLabel="GitHub"
-                  >
-                    <GithubIcon className="w-5 h-5" />
-                  </ExternalLink>
-                  <ExternalLink
-                    href={profile.linkedinUrl}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground"
-                    ariaLabel="LinkedIn"
-                  >
-                    <LinkedinIcon className="w-5 h-5" />
-                  </ExternalLink>
-                  <ExternalLink
-                    href={profile.portfolioUrl}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent hover:text-foreground"
-                    ariaLabel={portfolioAria}
-                  >
-                    <LayoutGridIcon className="w-5 h-5" />
-                  </ExternalLink>
-                </div>
+                <div className="flex gap-0.5 -ml-2">{socialLinks}</div>
               </div>
             </div>
           </div>

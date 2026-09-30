@@ -68,10 +68,13 @@ export function validateContactField(
  * Where keyboard focus should land after the server answers. The submit
  * button is disabled while pending, so the browser drops focus to <body>;
  * without this a keyboard user would restart from the top of the page.
+ * On success the whole form is replaced by the confirmation, which needs
+ * focus for the same reason (SHIG 12, 66, 94).
  */
 export function focusTargetAfterSubmit(
   state: ContactFormState,
-): ContactFieldError | "formError" | null {
+): ContactFieldError | "formError" | "success" | null {
+  if (state.status === "success") return "success";
   if (state.status !== "error") return null;
   const firstInvalid = contactFields.find((field) => state.fieldErrors[field]);
   if (firstInvalid) return firstInvalid;
