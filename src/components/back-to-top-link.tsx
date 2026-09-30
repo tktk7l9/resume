@@ -2,7 +2,7 @@
 
 import { ArrowUpIcon } from "lucide-react";
 import type { MouseEvent } from "react";
-import { anchorScrollBehavior } from "@/lib/anchor-scroll";
+import { jumpToAnchor } from "@/lib/anchor-scroll";
 
 /**
  * Plain "#top" anchor that jumps at once from far down the page instead of
@@ -18,12 +18,12 @@ export function BackToTopLink({ label }: { label: string }) {
     const top = document.getElementById("top");
     if (!top) return;
     event.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: anchorScrollBehavior(window.scrollY, window.innerHeight),
+    jumpToAnchor(window, {
+      href: "#top",
+      distancePx: window.scrollY,
+      scroll: (behavior) => window.scrollTo({ top: 0, behavior }),
+      focus: () => top.focus({ preventScroll: true }),
     });
-    history.pushState(null, "", "#top");
-    top.focus({ preventScroll: true });
   };
 
   return (

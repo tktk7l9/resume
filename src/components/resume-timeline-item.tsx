@@ -94,7 +94,7 @@ export function ResumeTimelineItem({
               // that the name is a link (SHIG 4, 37).
               <ExternalLink
                 href={item.company.url}
-                className="inline-flex min-h-11 items-center underline decoration-border underline-offset-4 hover:text-foreground hover:decoration-current"
+                className="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-foreground"
                 newTabHint={dict.nav.opensInNewTab}
               >
                 {companyName}

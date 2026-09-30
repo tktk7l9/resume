@@ -2,7 +2,7 @@
 
 import { ClockIcon, CodeIcon, RocketIcon, UserIcon } from "lucide-react";
 import { type MouseEvent, useEffect, useState } from "react";
-import { anchorScrollBehavior } from "@/lib/anchor-scroll";
+import { jumpToAnchor } from "@/lib/anchor-scroll";
 
 const iconMap = {
   about: UserIcon,
@@ -72,13 +72,13 @@ export function SidebarNav({
       const target = document.getElementById(id);
       if (!target) return;
       event.preventDefault();
-      const behavior = anchorScrollBehavior(
-        target.getBoundingClientRect().top,
-        window.innerHeight,
-      );
-      target.scrollIntoView({ behavior, block: "start" });
-      history.pushState(null, "", href);
-      target.focus({ preventScroll: true });
+      jumpToAnchor(window, {
+        href,
+        distancePx: target.getBoundingClientRect().top,
+        scroll: (behavior) =>
+          target.scrollIntoView({ behavior, block: "start" }),
+        focus: () => target.focus({ preventScroll: true }),
+      });
       setActiveId(id);
     };
 
