@@ -52,13 +52,19 @@ export function ResumeTimelineItem({
   const companyName = item.company.name[locale];
   const responsibilities = item.responsibilities[locale];
   const achievements = item.achievements?.[locale] ?? [];
+  // The type is otherwise conveyed only by the badge colour and a decorative
+  // icon, so name it for screen readers (SHIG 96).
+  const typeLabel = dict.timeline.types[item.type];
 
   return (
     <div className="relative flex items-start">
-      <div className="absolute left-4 w-8 h-8 rounded-full bg-card border-4 border-border flex items-center justify-center transform -translate-x-1/2 z-5">
+      <div
+        aria-hidden="true"
+        className="absolute left-4 w-8 h-8 rounded-full bg-card border-4 border-border flex items-center justify-center transform -translate-x-1/2 z-5"
+      >
         <span
           className={`w-4 h-4 rounded-full ${typeColorClass} ${
-            !item.endDate ? "animate-pulse" : ""
+            !item.endDate ? "motion-safe:animate-pulse" : ""
           }`}
         />
       </div>
@@ -76,6 +82,7 @@ export function ResumeTimelineItem({
               className={`inline-flex items-center justify-center w-6 h-6 rounded-full ${typeColorClass} text-white`}
             >
               {getIcon()}
+              <span className="sr-only">{typeLabel}</span>
             </span>
             <h3 className="text-lg font-medium text-foreground">
               {item.title[locale]}

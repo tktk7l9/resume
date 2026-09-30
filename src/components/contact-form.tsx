@@ -289,7 +289,7 @@ export function ContactForm({ locale, dict, email }: ContactFormProps) {
               />
             )}
             {invalid && (
-              <p id={errorId} className="text-xs text-red-600">
+              <p id={errorId} className="text-xs text-red-700">
                 {config.error}
               </p>
             )}
