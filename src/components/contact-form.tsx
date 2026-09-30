@@ -33,7 +33,11 @@ type ContactFormProps = {
   email: string;
 };
 
-type ClientErrors = Partial<Record<ContactFieldError, true>>;
+/**
+ * Client-side verdict per field. `false` is recorded explicitly so it can
+ * override a server-reported error once the visitor has fixed the value.
+ */
+type ClientErrors = Partial<Record<ContactFieldError, boolean>>;
 
 type FieldConfig = {
   field: ContactFieldError;
@@ -74,7 +78,19 @@ export function ContactForm({ locale, dict, email }: ContactFormProps) {
     submitContactForm,
     initialContactState,
   );
-  const [clientErrors, setClientErrors] = useState<ClientErrors>({});
+  // Client verdicts are tied to the server answer they were made against,
+  // so a fresh answer starts from a clean slate instead of being overridden
+  // by a stale "valid" recorded on blur before the round trip.
+  const [verdicts, setVerdicts] = useState<{
+    answer: ContactFormState;
+    errors: ClientErrors;
+  }>({ answer: state, errors: {} });
+  const clientErrors = verdicts.answer === state ? verdicts.errors : {};
+  const setClientErrors = (update: (prev: ClientErrors) => ClientErrors) =>
+    setVerdicts((prev) => ({
+      answer: state,
+      errors: update(prev.answer === state ? prev.errors : {}),
+    }));
   const baseId = useId();
   const formErrorId = useId();
   const idFor = (field: ContactFieldError) => `${baseId}-${field}`;
@@ -121,33 +137,26 @@ export function ContactForm({ locale, dict, email }: ContactFormProps) {
     );
   }
 
+  // The client verdict wins once there is one; until then, the server's.
+  const hasError = (field: ContactFieldError) =>
+    clientErrors[field] ?? Boolean(state.fieldErrors[field]);
+
   const handleBlur =
     (field: ContactFieldError) =>
     (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const valid = validateContactField(field, event.currentTarget.value);
-      setClientErrors((prev) => {
-        if (valid) {
-          if (!prev[field]) return prev;
-          const next = { ...prev };
-          delete next[field];
-          return next;
-        }
-        if (prev[field]) return prev;
-        return { ...prev, [field]: true };
-      });
+      setClientErrors((prev) =>
+        prev[field] === !valid ? prev : { ...prev, [field]: !valid },
+      );
     };
 
   const handleChange =
     (field: ContactFieldError) =>
     (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       // Only clear errors as the user types — don't add new ones mid-typing.
-      if (!clientErrors[field]) return;
+      if (!hasError(field)) return;
       if (validateContactField(field, event.currentTarget.value)) {
-        setClientErrors((prev) => {
-          const next = { ...prev };
-          delete next[field];
-          return next;
-        });
+        setClientErrors((prev) => ({ ...prev, [field]: false }));
       }
     };
 
@@ -168,13 +177,10 @@ export function ContactForm({ locale, dict, email }: ContactFormProps) {
     const firstInvalid = contactFields.find((field) => errors[field]);
     if (!firstInvalid) return;
     event.preventDefault();
-    setClientErrors(errors);
+    setClientErrors(() => errors);
     const control = form.elements.namedItem(firstInvalid);
     if (control instanceof HTMLElement) control.focus();
   };
-
-  const hasError = (field: ContactFieldError) =>
-    Boolean(clientErrors[field] ?? state.fieldErrors[field]);
 
   const formErrorMessage =
     state.formError === "config"
