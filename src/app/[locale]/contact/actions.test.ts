@@ -25,6 +25,10 @@ async function loadAction() {
   };
 }
 
+function initialValues() {
+  return { name: "", email: "", subject: "", message: "" };
+}
+
 const valid = {
   locale: "ja",
   name: "山田 太郎",
@@ -88,6 +92,52 @@ describe("submitContactForm", () => {
     expect(send).toHaveBeenCalledWith(
       expect.objectContaining({ replyTo: "yamada@example.com" }),
     );
+  });
+
+  it("silently succeeds when the honeypot is filled, without sending", async () => {
+    const submit = await loadAction();
+    const res = await submit({ ...valid, website: "http://spam.example" });
+    expect(res.status).toBe("success");
+    expect(res.values).toEqual(initialValues());
+    expect(send).not.toHaveBeenCalled();
+  });
+
+  it("clears the echoed values after a successful send", async () => {
+    const submit = await loadAction();
+    const res = await submit(valid);
+    expect(res.status).toBe("success");
+    expect(res.values).toEqual(initialValues());
+  });
+
+  it("reports a server error when the mail client throws", async () => {
+    send.mockRejectedValue(new Error("network down"));
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const submit = await loadAction();
+    const res = await submit(valid);
+    expect(res.formError).toBe("server");
+    expect(res.values.name).toBe(valid.name);
+  });
+
+  it("falls back to the last X-Forwarded-For hop when Cloudflare headers are absent", async () => {
+    headerStore.clear();
+    headerStore.set("x-forwarded-for", "10.0.0.1, 198.51.100.9 ");
+    const submit = await loadAction();
+    for (let i = 0; i < 3; i++) {
+      expect((await submit(valid)).status).toBe("success");
+    }
+    expect((await submit(valid)).formError).toBe("rate");
+    // A different last hop is a different visitor.
+    headerStore.set("x-forwarded-for", "10.0.0.1, 198.51.100.10");
+    expect((await submit(valid)).status).toBe("success");
+  });
+
+  it("treats requests without any IP header as one shared visitor", async () => {
+    headerStore.clear();
+    const submit = await loadAction();
+    for (let i = 0; i < 3; i++) {
+      expect((await submit(valid)).status).toBe("success");
+    }
+    expect((await submit(valid)).formError).toBe("rate");
   });
 
   it("still rate-limits repeated valid submissions", async () => {
