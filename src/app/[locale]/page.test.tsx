@@ -14,7 +14,7 @@ const notFound = vi.fn(() => {
 vi.mock("next/navigation", () => ({ notFound: () => notFound() }));
 
 describe("résumé page", () => {
-  it("renders the four anchored sections in navigation order", async () => {
+  it("renders the four anchored sections in navigation order, then the closing contact prompt", async () => {
     await renderAsync(ResumePage(localeParams("ja")));
     const headings = screen
       .getAllByRole("heading", { level: 2 })
@@ -24,10 +24,15 @@ describe("résumé page", () => {
       ja.sections.timeline,
       ja.sections.projects,
       ja.sections.skills,
+      ja.closing.title,
     ]);
     for (const id of ["about", "timeline", "projects", "skills"]) {
       expect(document.getElementById(id)?.tagName).toBe("SECTION");
     }
+    const closing = screen.getByRole("region", { name: ja.closing.title });
+    expect(
+      within(closing).getByRole("link", { name: ja.closing.cta }),
+    ).toHaveAttribute("href", "/ja/contact");
   });
 
   it("lists every experience entry, project and skill category", async () => {
@@ -41,7 +46,11 @@ describe("résumé page", () => {
     const projectsSection = document.getElementById("projects") as HTMLElement;
     for (const project of projects) {
       expect(
-        within(projectsSection).getByRole("link", { name: project.title.en }),
+        within(projectsSection).getByRole("link", {
+          // The hint is an sr-only child; jsdom's accname drops its leading
+          // space, so compare against the trimmed hint.
+          name: `${project.title.en}${en.nav.opensInNewTab.trim()}`,
+        }),
       ).toHaveAttribute("href", project.url);
     }
 

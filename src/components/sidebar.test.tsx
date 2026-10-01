@@ -49,7 +49,9 @@ describe("Sidebar", () => {
       ["LinkedIn", profile.linkedinUrl],
       [ja.nav.portfolio, profile.portfolioUrl],
     ] as const) {
-      const links = screen.getAllByRole("link", { name });
+      const links = screen.getAllByRole("link", {
+        name: `${name}${ja.nav.opensInNewTab}`,
+      });
       expect(links).toHaveLength(2);
       for (const link of links) {
         expect(link).toHaveAttribute("href", href);

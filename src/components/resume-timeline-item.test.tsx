@@ -30,7 +30,9 @@ describe("ResumeTimelineItem", () => {
     ).toBeVisible();
     expect(screen.getByText(/2021年7月 - 2024年8月/)).toBeVisible();
     expect(screen.getByText("（3年2ヶ月）")).toBeVisible();
-    const company = screen.getByRole("link", { name: base.company.name.ja });
+    const company = screen.getByRole("link", {
+      name: `${base.company.name.ja}${ja.nav.opensInNewTab}`,
+    });
     expect(company).toHaveAttribute("href", base.company.url);
     expect(company).toHaveAttribute("target", "_blank");
 
@@ -79,7 +81,7 @@ describe("ResumeTimelineItem", () => {
       />,
     );
     expect(screen.getByText("Sample Inc.")).toBeVisible();
-    expect(screen.queryByRole("link", { name: "Sample Inc." })).toBeNull();
+    expect(screen.queryByRole("link")).toBeNull();
   });
 
   it("omits empty sections rather than showing bare headings", () => {

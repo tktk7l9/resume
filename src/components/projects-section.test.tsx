@@ -2,6 +2,8 @@ import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ProjectsSection } from "@/components/projects-section";
 import type { Project } from "@/data/projects";
+import en from "@/i18n/dictionaries/en";
+import ja from "@/i18n/dictionaries/ja";
 
 const projects: Project[] = [
   {
@@ -22,15 +24,29 @@ const projects: Project[] = [
 
 describe("ProjectsSection", () => {
   it("links each project title to its site in a new tab", () => {
-    render(<ProjectsSection locale="ja" projects={projects} />);
-    const link = screen.getByRole("link", { name: "サムウェア・ナウ" });
+    render(
+      <ProjectsSection
+        locale="ja"
+        projects={projects}
+        newTabHint={ja.nav.opensInNewTab}
+      />,
+    );
+    const link = screen.getByRole("link", {
+      name: `サムウェア・ナウ${ja.nav.opensInNewTab}`,
+    });
     expect(link).toHaveAttribute("href", "https://example.com/somewhere");
     expect(link).toHaveAttribute("target", "_blank");
     expect(screen.getByText("世界のライブカメラ")).toBeVisible();
   });
 
   it("shows highlights and tags only when there are any", () => {
-    render(<ProjectsSection locale="en" projects={projects} />);
+    render(
+      <ProjectsSection
+        locale="en"
+        projects={projects}
+        newTabHint={en.nav.opensInNewTab}
+      />,
+    );
     const lists = screen.getAllByRole("list");
     expect(lists).toHaveLength(1);
     expect(

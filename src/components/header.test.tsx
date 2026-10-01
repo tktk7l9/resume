@@ -19,19 +19,19 @@ describe("Header", () => {
 
   it("links to contact, GitHub, LinkedIn and the portfolio with names", () => {
     render(<Header locale="en" dict={en} />);
+    const hint = en.nav.opensInNewTab;
     expect(
       screen.getByRole("link", { name: en.contact.pageTitle }),
     ).toHaveAttribute("href", "/en/contact");
-    const github = screen.getByRole("link", { name: "GitHub" });
+    const github = screen.getByRole("link", { name: `GitHub${hint}` });
     expect(github).toHaveAttribute("href", profile.githubUrl);
     expect(github).toHaveAttribute("target", "_blank");
     expect(github).toHaveAttribute("rel", "noopener noreferrer");
-    expect(screen.getByRole("link", { name: "LinkedIn" })).toHaveAttribute(
-      "href",
-      profile.linkedinUrl,
-    );
     expect(
-      screen.getByRole("link", { name: en.nav.portfolio }),
+      screen.getByRole("link", { name: `LinkedIn${hint}` }),
+    ).toHaveAttribute("href", profile.linkedinUrl);
+    expect(
+      screen.getByRole("link", { name: `${en.nav.portfolio}${hint}` }),
     ).toHaveAttribute("href", profile.portfolioUrl);
   });
 

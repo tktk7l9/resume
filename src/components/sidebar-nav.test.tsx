@@ -1,4 +1,4 @@
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { SidebarNav, type SidebarNavItem } from "@/components/sidebar-nav";
 
@@ -136,5 +136,99 @@ describe("SidebarNav", () => {
     const { unmount } = render(<SidebarNav items={items} basePath="/ja" />);
     unmount();
     expect(observers[0]?.disconnect).toHaveBeenCalledTimes(1);
+  });
+
+  describe("when a TOC row is clicked", () => {
+    let reducedMotion = false;
+
+    beforeEach(() => {
+      reducedMotion = false;
+      vi.stubGlobal(
+        "matchMedia",
+        vi.fn(() => ({ matches: reducedMotion })),
+      );
+      vi.spyOn(window.history, "pushState");
+    });
+
+    afterEach(() => vi.restoreAllMocks());
+
+    function mountTarget(id: string, top: number) {
+      mountSections([id]);
+      const target = document.getElementById(id) as HTMLElement;
+      target.tabIndex = -1;
+      target.scrollIntoView = vi.fn();
+      vi.spyOn(target, "getBoundingClientRect").mockReturnValue({
+        top,
+      } as DOMRect);
+      return target;
+    }
+
+    it("jumps at once to a far section, records history first and focuses it", () => {
+      const target = mountTarget("skills", 11_389);
+      render(<SidebarNav items={items} basePath="/ja" />);
+
+      const click = fireEvent.click(
+        screen.getByRole("link", { name: "スキル" }),
+      );
+
+      expect(click).toBe(false);
+      expect(window.history.pushState).toHaveBeenCalledWith(
+        null,
+        "",
+        "/ja#skills",
+      );
+      expect(target.scrollIntoView).toHaveBeenCalledWith({
+        behavior: "instant",
+        block: "start",
+      });
+      expect(document.activeElement).toBe(target);
+      expect(activeLink()).toHaveTextContent("スキル");
+    });
+
+    it("animates a near hop unless reduced motion is requested", () => {
+      const target = mountTarget("timeline", 300);
+      render(<SidebarNav items={items} basePath="/ja" />);
+      const link = screen.getByRole("link", { name: "経歴" });
+
+      fireEvent.click(link);
+      expect(target.scrollIntoView).toHaveBeenLastCalledWith({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      reducedMotion = true;
+      fireEvent.click(link);
+      expect(target.scrollIntoView).toHaveBeenLastCalledWith({
+        behavior: "instant",
+        block: "start",
+      });
+    });
+
+    it("leaves modified, non-primary and already-handled clicks to the browser", () => {
+      const target = mountTarget("projects", 2_000);
+      render(<SidebarNav items={items} basePath="/ja" />);
+      const link = screen.getByRole("link", { name: "個人開発" });
+
+      expect(fireEvent.click(link, { metaKey: true })).toBe(true);
+      expect(fireEvent.click(link, { ctrlKey: true })).toBe(true);
+      expect(fireEvent.click(link, { shiftKey: true })).toBe(true);
+      expect(fireEvent.click(link, { altKey: true })).toBe(true);
+      expect(fireEvent.click(link, { button: 1 })).toBe(true);
+      link.addEventListener("click", (e) => e.preventDefault(), {
+        once: true,
+      });
+      fireEvent.click(link);
+
+      expect(target.scrollIntoView).not.toHaveBeenCalled();
+      expect(window.history.pushState).not.toHaveBeenCalled();
+    });
+
+    it("falls back to the native anchor when the section is missing", () => {
+      render(<SidebarNav items={items} basePath="/ja" />);
+      expect(
+        fireEvent.click(screen.getByRole("link", { name: "自己紹介" })),
+      ).toBe(true);
+      expect(window.history.pushState).not.toHaveBeenCalled();
+    });
   });
 });
