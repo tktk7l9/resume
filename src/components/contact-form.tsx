@@ -48,7 +48,7 @@ type FieldConfig = {
 };
 
 const inputBaseClass =
-  "w-full rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring";
+  "w-full min-h-11 rounded-md border bg-background px-3 py-2 text-sm text-foreground transition-colors placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring";
 
 function fieldClassName(hasError: boolean) {
   return `${inputBaseClass} ${
@@ -79,18 +79,22 @@ export function ContactForm({ locale, dict, email }: ContactFormProps) {
   const formErrorId = useId();
   const idFor = (field: ContactFieldError) => `${baseId}-${field}`;
   const formErrorRef = useRef<HTMLDivElement>(null);
+  const successRef = useRef<HTMLOutputElement>(null);
 
   // Runs once per server answer (each answer is a new state object).
   useEffect(() => {
     const target = focusTargetAfterSubmit(state);
     if (target === "formError") formErrorRef.current?.focus();
+    else if (target === "success") successRef.current?.focus();
     else if (target) document.getElementById(`${baseId}-${target}`)?.focus();
   }, [state, baseId]);
 
   if (state.status === "success") {
     return (
       <output
-        className="block rounded-lg border border-border bg-card p-6"
+        ref={successRef}
+        tabIndex={-1}
+        className="block rounded-lg border border-border bg-card p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         aria-live="polite"
       >
         <div className="flex items-start gap-3">
@@ -107,7 +111,7 @@ export function ContactForm({ locale, dict, email }: ContactFormProps) {
             </p>
             <a
               href={`/${locale}/contact`}
-              className="inline-block text-sm text-foreground underline underline-offset-4 hover:opacity-80"
+              className="inline-flex min-h-11 items-center text-sm text-foreground underline underline-offset-4 hover:opacity-80"
             >
               {dict.success.sendAnother}
             </a>

@@ -1,7 +1,8 @@
 "use client";
 
 import { ClockIcon, CodeIcon, RocketIcon, UserIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { type MouseEvent, useEffect, useState } from "react";
+import { jumpToAnchor } from "@/lib/anchor-scroll";
 
 const iconMap = {
   about: UserIcon,
@@ -59,20 +60,44 @@ export function SidebarNav({
     return () => observer.disconnect();
   }, [items]);
 
+  // Same-page hops: land at once when the section is far away instead of
+  // animating for seconds (SHIG 65), and hand focus to the section so a
+  // keyboard or screen-reader user continues from there (SHIG 94).
+  const handleClick =
+    (id: SidebarNavId, href: string) =>
+    (event: MouseEvent<HTMLAnchorElement>) => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      event.preventDefault();
+      jumpToAnchor(window, {
+        href,
+        distancePx: target.getBoundingClientRect().top,
+        scroll: (behavior) =>
+          target.scrollIntoView({ behavior, block: "start" }),
+        focus: () => target.focus({ preventScroll: true }),
+      });
+      setActiveId(id);
+    };
+
   return (
     <ul className="py-1">
       {items.map((item) => {
         const Icon = iconMap[item.id];
         const active = item.id === activeId;
+        const href = `${basePath}#${item.id}`;
         return (
           <li key={item.id}>
             <a
-              href={`${basePath}#${item.id}`}
+              href={href}
+              onClick={handleClick(item.id, href)}
               aria-current={active ? "location" : undefined}
               className={
                 active
-                  ? "w-full text-left px-4 py-2 text-sm flex items-center gap-2 bg-accent text-foreground font-medium transition-colors"
-                  : "w-full text-left px-4 py-2 text-sm flex items-center gap-2 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
+                  ? "w-full min-h-11 text-left px-4 py-2 text-sm flex items-center gap-2 bg-accent text-foreground font-medium transition-colors"
+                  : "w-full min-h-11 text-left px-4 py-2 text-sm flex items-center gap-2 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
               }
             >
               <Icon className="w-4 h-4" aria-hidden="true" />

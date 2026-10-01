@@ -6,9 +6,15 @@ import type { Locale } from "@/i18n/config";
 type ProjectsSectionProps = {
   locale: Locale;
   projects: Project[];
+  /** Localized "(opens in a new tab)" for the project links. */
+  newTabHint: string;
 };
 
-export function ProjectsSection({ locale, projects }: ProjectsSectionProps) {
+export function ProjectsSection({
+  locale,
+  projects,
+  newTabHint,
+}: ProjectsSectionProps) {
   return (
     <div className="space-y-4">
       {projects.map((project) => (
@@ -19,7 +25,8 @@ export function ProjectsSection({ locale, projects }: ProjectsSectionProps) {
           <h3 className="text-lg font-medium mb-2">
             <ExternalLink
               href={project.url}
-              className="inline-flex items-center gap-1 text-foreground underline-offset-4 hover:underline"
+              className="inline-flex min-h-11 items-center gap-1 text-foreground underline-offset-4 hover:underline"
+              newTabHint={newTabHint}
             >
               {project.title[locale]}
               <ArrowUpRightIcon
