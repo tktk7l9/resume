@@ -36,15 +36,21 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 /**
  * Trim every field; fold full-width characters in the email address
  * (e.g. "ｙａｍａｄａ＠example.com") so an IME-typed address still works.
+ * Name and subject are single-line values that end up in the mail subject,
+ * so line breaks and other control characters are collapsed into a space.
  */
 export function normalizeContactField(
   field: ContactFieldError,
   rawValue: string,
 ): string {
-  const value = rawValue.trim();
-  return field === "email"
-    ? value.normalize("NFKC").replace(/\s+/g, "")
-    : value;
+  if (field === "email") {
+    return rawValue.trim().normalize("NFKC").replace(/\s+/g, "");
+  }
+  if (field === "name" || field === "subject") {
+    // biome-ignore lint/suspicious/noControlCharactersInRegex: stripping control characters is the point
+    return rawValue.replace(/[\u0000-\u001f\u007f\u2028\u2029]+/g, " ").trim();
+  }
+  return rawValue.trim();
 }
 
 export function validateContactField(

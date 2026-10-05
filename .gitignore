@@ -32,6 +32,7 @@ node_modules
 # Cloudflare Workers build output and local state
 .open-next
 .wrangler
+.dev.vars*
 
 # Vitest coverage output
 coverage

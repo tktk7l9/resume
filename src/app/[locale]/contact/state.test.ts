@@ -17,6 +17,19 @@ describe("normalizeContactField", () => {
     ).toBe("yamada@example.com");
   });
 
+  it("collapses line breaks in single-line fields", () => {
+    expect(
+      normalizeContactField("subject", "Hello\r\nBcc: x@example.com"),
+    ).toBe("Hello Bcc: x@example.com");
+    expect(normalizeContactField("name", "Taro\nYamada\t")).toBe("Taro Yamada");
+  });
+
+  it("keeps line breaks in the message", () => {
+    expect(normalizeContactField("message", "line one\nline two")).toBe(
+      "line one\nline two",
+    );
+  });
+
   it("keeps full-width characters in free text", () => {
     expect(normalizeContactField("message", "ＡＢＣ")).toBe("ＡＢＣ");
   });

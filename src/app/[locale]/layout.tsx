@@ -97,7 +97,9 @@ export default async function LocaleLayout({
       <script
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: structured data
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
       />
       <a
         href="#main"
