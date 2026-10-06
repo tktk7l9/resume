@@ -26,6 +26,8 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   // Disable browser features we do not need
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  // No window.open / cross-origin popups are used, so isolating the browsing context costs nothing.
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   // HSTS (set explicitly on Workers too)
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
 ];
