@@ -47,6 +47,25 @@ export function ProjectsSection({
             </ul>
           )}
 
+          {project.links && project.links.length > 0 && (
+            <p className="flex flex-wrap gap-x-4 mb-3 text-sm">
+              {project.links.map((link) => (
+                <ExternalLink
+                  key={link.url}
+                  href={link.url}
+                  className="inline-flex min-h-11 items-center gap-1 text-foreground underline underline-offset-4"
+                  newTabHint={newTabHint}
+                >
+                  {link.label[locale]}
+                  <ArrowUpRightIcon
+                    className="w-4 h-4 text-muted-foreground"
+                    aria-hidden="true"
+                  />
+                </ExternalLink>
+              ))}
+            </p>
+          )}
+
           {project.tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {project.tags.map((tag) => (
