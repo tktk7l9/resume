@@ -34,13 +34,13 @@ export const projects: Project[] = [
       ja: [
         "テスト総数 9,427 件。Lighthouse Performance は計測した 19 作品の平均 95.4（うち 16 作品が 90 点以上）",
         "作品ごとに構成を選び分けている: Next.js App Router・SvelteKit・TanStack Start・Vite のほか、Electron と SwiftUI のデスクトップアプリも",
-        "学習アプリ: AI Primer（9 トラック 46 レッスン）、CSS Atelier・GLSL Atelier（各 19 トラック 47 レッスン）、Snippet Sprint（17 言語 286 問）",
+        "学習アプリ: AI Primer（9 トラック 46 レッスン）、CSS Atelier（23 トラック 56 レッスン）、GLSL Atelier（19 トラック 47 レッスン）、Snippet Sprint（17 言語 286 問）",
         "Three.js を使う作品は動的 import で初期バンドルから外し、常時 3D 描画でもモバイルの Lighthouse を落とさない",
       ],
       en: [
         "9,427 tests in total; the 19 apps measured on Lighthouse average 95.4 for Performance, 16 of them at 90 or above",
         "The stack is chosen per app — Next.js App Router, SvelteKit, TanStack Start and Vite on the web, plus desktop apps in Electron and SwiftUI",
-        "Learning apps: AI Primer (9 tracks, 46 lessons), CSS Atelier and GLSL Atelier (19 tracks, 47 lessons each) and Snippet Sprint (286 problems across 17 languages)",
+        "Learning apps: AI Primer (9 tracks, 46 lessons), CSS Atelier (23 tracks, 56 lessons), GLSL Atelier (19 tracks, 47 lessons) and Snippet Sprint (286 problems across 17 languages)",
         "Apps built on Three.js load it through dynamic imports, keeping mobile Lighthouse scores up even with continuous 3D rendering",
       ],
     },
