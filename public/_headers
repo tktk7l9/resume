@@ -1,5 +1,7 @@
 # OpenNext serves Static Assets in front of the Worker, so headers() in
-# next.config does not apply to /_next/static.
+# next.config does not apply to /_next/static. nosniff is restated here for
+# the same reason: the Worker's header set never reaches these files.
 # https://opennext.js.org/cloudflare/caching
 /_next/static/*
   Cache-Control: public,max-age=31536000,immutable
+  X-Content-Type-Options: nosniff
