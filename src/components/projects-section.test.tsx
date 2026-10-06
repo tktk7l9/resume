@@ -12,6 +12,12 @@ const projects: Project[] = [
     summary: { ja: "世界のライブカメラ", en: "Live cameras worldwide" },
     highlights: { ja: ["5,720 地点"], en: ["5,720 spots"] },
     tags: ["Workers", "KV"],
+    links: [
+      {
+        label: { ja: "開発ブログ", en: "Development blog" },
+        url: "https://example.com/blog",
+      },
+    ],
   },
   {
     title: { ja: "ミニマル", en: "Minimal" },
@@ -37,6 +43,11 @@ describe("ProjectsSection", () => {
     expect(link).toHaveAttribute("href", "https://example.com/somewhere");
     expect(link).toHaveAttribute("target", "_blank");
     expect(screen.getByText("世界のライブカメラ")).toBeVisible();
+    const blog = screen.getByRole("link", {
+      name: `開発ブログ${ja.nav.opensInNewTab}`,
+    });
+    expect(blog).toHaveAttribute("href", "https://example.com/blog");
+    expect(blog).toHaveAttribute("target", "_blank");
   });
 
   it("shows highlights and tags only when there are any", () => {
