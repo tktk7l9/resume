@@ -18,7 +18,7 @@ export type Project = {
 
 // Figures come from public sources only: the portal's header totals, each
 // public repository's README / content on origin/main, and the live sites.
-// Last checked 2026-10-06.
+// Last checked 2026-10-10 (each repository's origin/main and the live sitemaps on that day).
 export const projects: Project[] = [
   {
     title: {
@@ -32,15 +32,15 @@ export const projects: Project[] = [
     },
     highlights: {
       ja: [
-        "テスト総数 9,427 件。Lighthouse Performance は計測した 19 作品の平均 95.4（うち 16 作品が 90 点以上）",
+        "テスト総数 11,231 件。Lighthouse Performance は計測した 19 作品の平均 96.2（19 作品すべてが 90 点以上）",
         "作品ごとに構成を選び分けている: Next.js App Router・SvelteKit・TanStack Start・Vite のほか、Electron と SwiftUI のデスクトップアプリも",
-        "学習アプリ: AI Primer（9 トラック 46 レッスン）、CSS Atelier（23 トラック 56 レッスン）、GLSL Atelier（19 トラック 47 レッスン）、Snippet Sprint（17 言語 286 問）",
+        "学習アプリ: AI Primer（12 トラック 70 レッスン）、CSS Atelier（39 トラック 104 レッスン）、GLSL Atelier（23 トラック 84 レッスン）、Snippet Sprint（29 言語 491 問）",
         "Three.js を使う作品は動的 import で初期バンドルから外し、常時 3D 描画でもモバイルの Lighthouse を落とさない",
       ],
       en: [
-        "9,427 tests in total; the 19 apps measured on Lighthouse average 95.4 for Performance, 16 of them at 90 or above",
+        "11,231 tests in total; the 19 apps measured on Lighthouse average 96.2 for Performance, all 19 of them at 90 or above",
         "The stack is chosen per app — Next.js App Router, SvelteKit, TanStack Start and Vite on the web, plus desktop apps in Electron and SwiftUI",
-        "Learning apps: AI Primer (9 tracks, 46 lessons), CSS Atelier (23 tracks, 56 lessons), GLSL Atelier (19 tracks, 47 lessons) and Snippet Sprint (286 problems across 17 languages)",
+        "Learning apps: AI Primer (12 tracks, 70 lessons), CSS Atelier (39 tracks, 104 lessons), GLSL Atelier (23 tracks, 84 lessons) and Snippet Sprint (491 problems across 29 languages)",
         "Apps built on Three.js load it through dynamic imports, keeping mobile Lighthouse scores up even with continuous 3D rendering",
       ],
     },
@@ -89,16 +89,16 @@ export const projects: Project[] = [
     },
     url: "https://serviceanatomy.com/",
     summary: {
-      ja: "人気サービスを、サービス解説・UX 分析・技術構成の推定・ビジネスモデルの 4 面から公開情報をもとに読み解く日英バイリンガルの分析マガジン。記事 94 本と、2 サービスを突き合わせる比較解剖 27 本を掲載しています。",
-      en: "A bilingual (Japanese / English) magazine that analyses popular services from public information on four fronts: what the service does, its UX, its likely technology stack and its business model. It carries 94 articles plus 27 head-to-head comparisons.",
+      ja: "人気サービスを、サービス解説・UX 分析・技術構成の推定・ビジネスモデルの 4 面から公開情報をもとに読み解く日英バイリンガルの分析マガジン。記事 100 本と、2 サービスを突き合わせる比較解剖 29 本を掲載しています。",
+      en: "A bilingual (Japanese / English) magazine that analyses popular services from public information on four fronts: what the service does, its UX, its likely technology stack and its business model. It carries 100 articles plus 29 head-to-head comparisons.",
     },
     highlights: {
       ja: [
-        "Next.js 16 の全ルートをビルド時に静的生成し、Cloudflare Workers から配信（sitemap 2,196 URL）",
+        "Next.js 16 の全ルートをビルド時に静的生成し、Cloudflare Workers から配信（sitemap 2,280 URL）",
         "日英の項目一致や、確度「確認済み」の技術に一次情報 URL を必須とするなど、全記事の整合性をテストで CI 強制",
       ],
       en: [
-        "Every Next.js 16 route is generated statically at build time and served from Cloudflare Workers (2,196 URLs in the sitemap)",
+        "Every Next.js 16 route is generated statically at build time and served from Cloudflare Workers (2,280 URLs in the sitemap)",
         "Tests enforced in CI keep every article consistent — matching language-neutral fields across Japanese and English, and a primary-source URL for every technology marked as confirmed",
       ],
     },
@@ -111,8 +111,8 @@ export const projects: Project[] = [
     },
     url: "https://chronoscroll.saitotakuya0719.workers.dev/",
     summary: {
-      ja: "1829 年から現在までの国内外の出来事 27,453 件を、ズームで詳しさが変わる縦スクロール年表で読める Web アプリ。Wikipedia の年ページをビルド時のデータパイプラインで解析し、注目度をスコアリングしています。",
-      en: "A vertical, zoomable timeline of 27,453 events in Japan and worldwide from 1829 to today — the closer you zoom, the more detail appears. A build-time data pipeline parses Wikipedia's year pages and scores each event for prominence.",
+      ja: "1829 年から現在までの国内外の出来事 27,453 件を、ズームで詳しさが変わる縦スクロール年表で読める Web アプリ。Wikipedia の年ページをビルド時のデータパイプラインで解析し、注目度をスコアリングしています。テーマ別の特集 27 本（812 件）を読み物として通読することもできます。",
+      en: "A vertical, zoomable timeline of 27,453 events in Japan and worldwide from 1829 to today — the closer you zoom, the more detail appears. A build-time data pipeline parses Wikipedia's year pages and scores each event for prominence. Twenty-seven themed collections (812 events) can also be read end to end.",
     },
     highlights: {
       ja: [
