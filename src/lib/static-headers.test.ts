@@ -3,7 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 
 // public/_headers is applied by Workers Assets to files it serves directly
-// (/_next/static/*), which bypass headers() in next.config.mjs. Pin the two
+// (/_next/static/*), which bypass headers() in next.config.ts. Pin the two
 // headers so a rewrite of the file cannot silently drop them.
 const rules = readFileSync(
   path.resolve(__dirname, "../../public/_headers"),
