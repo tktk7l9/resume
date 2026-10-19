@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { contentSecurityPolicy } from "@/lib/csp";
 import {
   applyScriptNonce,
+  browserCacheControl,
   CSP_HEADER,
   createNonce,
   isInlineJavaScript,
@@ -13,6 +14,11 @@ import {
 
 const STATIC_CSP = contentSecurityPolicy();
 const NONCE_FORMAT = /^[A-Za-z0-9+/]{22}==$/;
+/** What Next sends with a prerendered page and with its RSC payload. */
+const NEXT_PRERENDER_CACHE =
+  "s-maxage=31536000, stale-while-revalidate=2592000";
+/** What Vercel's CDN gives the browser instead. */
+const BROWSER_CACHE = "public, max-age=0, must-revalidate";
 const NONCE_CSP = (nonce: string) =>
   STATIC_CSP.replace(
     "script-src 'self' 'unsafe-inline'",
@@ -328,6 +334,36 @@ describe("applyScriptNonce", () => {
   });
 });
 
+describe("browserCacheControl", () => {
+  it.each([
+    ["Next's prerender header", NEXT_PRERENDER_CACHE],
+    ["s-maxage alone", "s-maxage=31536000"],
+    [
+      "s-maxage after other directives",
+      "public, max-age=0, s-maxage=31536000, must-revalidate",
+    ],
+    ["s-maxage in any case", "S-MaxAge=60"],
+  ])("rewrites %s for the browser", (_label, value) => {
+    expect(browserCacheControl(value)).toBe(BROWSER_CACHE);
+  });
+
+  it.each([
+    [
+      "Next's dynamic-page header",
+      "private, no-cache, no-store, max-age=0, must-revalidate",
+    ],
+    ["the immutable /_next/static header", "public,max-age=31536000,immutable"],
+    ["max-age without s-maxage", "public, max-age=3600"],
+    ["a directive whose name only ends in s-maxage", "x-s-maxage=60"],
+  ])("leaves %s unchanged", (_label, value) => {
+    expect(browserCacheControl(value)).toBe(value);
+  });
+
+  it("keeps a missing header missing", () => {
+    expect(browserCacheControl(null)).toBeNull();
+  });
+});
+
 describe("withScriptNonceWorker", () => {
   it("passes request, env and ctx through and gives each HTML response its own nonce", async () => {
     const inner = { fetch: vi.fn(async () => html()) };
@@ -354,5 +390,94 @@ describe("withScriptNonceWorker", () => {
     expect(
       await worker.fetch(new Request("https://example.com/api"), {}, {}),
     ).toBe(json);
+  });
+
+  it("gives HTML and RSC responses the browser Cache-Control, and HTML still its nonce", async () => {
+    const page = html({ "cache-control": NEXT_PRERENDER_CACHE });
+    const rsc = new Response("0:{}", {
+      headers: {
+        "content-type": "text/x-component",
+        "cache-control": NEXT_PRERENDER_CACHE,
+        [CSP_HEADER]: STATIC_CSP,
+      },
+    });
+    const fake = fakeRewriter();
+    const worker = withScriptNonceWorker(
+      {
+        fetch: (request) =>
+          new URL(request.url).searchParams.has("_rsc") ? rsc : page,
+      },
+      { rewriter: fake.rewriter },
+    );
+
+    const outPage = await worker.fetch(
+      new Request("https://example.com/ja"),
+      {},
+      {},
+    );
+    const outRsc = await worker.fetch(
+      new Request("https://example.com/ja?_rsc=1"),
+      {},
+      {},
+    );
+
+    expect(outPage.headers.get("cache-control")).toBe(BROWSER_CACHE);
+    expect(nonceOf(outPage)).toMatch(NONCE_FORMAT);
+    expect(fake.transformed).toHaveLength(1);
+
+    expect(outRsc.headers.get("cache-control")).toBe(BROWSER_CACHE);
+    expect(outRsc.headers.get("content-type")).toBe("text/x-component");
+    // Not HTML: the static CSP stays as it is.
+    expect(outRsc.headers.get(CSP_HEADER)).toBe(STATIC_CSP);
+    expect(await outRsc.text()).toBe("0:{}");
+
+    // Copied, not edited in place: a Response from fetch() has immutable headers.
+    expect(page.headers.get("cache-control")).toBe(NEXT_PRERENDER_CACHE);
+    expect(rsc.headers.get("cache-control")).toBe(NEXT_PRERENDER_CACHE);
+  });
+
+  it("keeps the status and the other headers when it rewrites Cache-Control", async () => {
+    const redirect = new Response(null, {
+      status: 307,
+      statusText: "Temporary Redirect",
+      headers: { location: "/ja", "cache-control": NEXT_PRERENDER_CACHE },
+    });
+    const worker = withScriptNonceWorker({ fetch: () => redirect });
+    const out = await worker.fetch(new Request("https://example.com/"), {}, {});
+    expect(out.status).toBe(307);
+    expect(out.statusText).toBe("Temporary Redirect");
+    expect(out.headers.get("location")).toBe("/ja");
+    expect(out.headers.get("cache-control")).toBe(BROWSER_CACHE);
+  });
+
+  it("adds no Cache-Control to a response that has none", async () => {
+    const fake = fakeRewriter();
+    const worker = withScriptNonceWorker(
+      { fetch: () => html() },
+      { rewriter: fake.rewriter },
+    );
+    const out = await worker.fetch(
+      new Request("https://example.com/ja"),
+      {},
+      {},
+    );
+    expect(nonceOf(out)).toMatch(NONCE_FORMAT);
+    expect(out.headers.has("cache-control")).toBe(false);
+  });
+
+  it("returns a response whose Cache-Control has no s-maxage as it is", async () => {
+    for (const value of [
+      "private, no-cache, no-store, max-age=0, must-revalidate",
+      BROWSER_CACHE,
+    ]) {
+      const response = new Response("x", {
+        status: 404,
+        headers: { "cache-control": value },
+      });
+      const worker = withScriptNonceWorker({ fetch: () => response });
+      expect(
+        await worker.fetch(new Request("https://example.com/x"), {}, {}),
+      ).toBe(response);
+    }
   });
 });
