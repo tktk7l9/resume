@@ -24,7 +24,12 @@ updates:
         update-types:
           - "major"
     ignore:
-      # TypeScript 7: Next.js 16.2.x build refuses it ("does not provide
-      # the compiler API required by Next.js").
+      # TypeScript 7: its package no longer ships the JavaScript compiler API
+      # ("typescript" exports only its version), and
+      # src/lib/trust-boundary.test.tsx parses the app source with that API,
+      # so typecheck, tests and next build fail. Next.js 16.4 itself accepts
+      # TypeScript 7 (its build runs the tsc CLI). Only 7.0.0 and later are
+      # ignored; 6.x updates still come through. Remove once that scan no
+      # longer imports "typescript".
       - dependency-name: "typescript"
-        update-types: ["version-update:semver-major"]
+        versions: [">=7.0.0"]
