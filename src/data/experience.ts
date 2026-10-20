@@ -18,6 +18,34 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
+    startDate: "2026-10",
+    type: "project",
+    title: {
+      ja: "ライブチャットサービスの Next.js リプレイス — フロントエンドエンジニア（業務委託）",
+      en: "Live-chat service replacement in Next.js — Frontend engineer (Contract)",
+    },
+    company: {
+      name: {
+        ja: "合同会社DMM.com",
+        en: "DMM.com LLC",
+      },
+      url: "https://dmm-corp.com/",
+    },
+    responsibilities: {
+      ja: [
+        "長年運用されているライブチャットサービスのフロントエンドを Next.js へ置き換えるリプレイス案件に、フロントエンドエンジニアとして 2026 年 10 月から参画",
+        "開発部内のプロダクトチーム（5 名：チームリーダー、バックエンド兼インフラ、フロントエンド 2 名、バックエンド）に所属。フルリモートで、仕様のやりとりは Slack / GitHub / Jira / Confluence に残しながら進行",
+        "1 週間スプリントのスクラムで開発。既存画面の挙動を把握しながら、新しい構成に移す作業を担当",
+      ],
+      en: [
+        "Joined in October 2026 as a frontend engineer on a project replacing the frontend of a long-running live-chat service with Next.js",
+        "Part of a five-person product team in the development department (team lead, backend / infrastructure, two frontend engineers, backend). Fully remote, with specs and decisions kept in Slack / GitHub / Jira / Confluence",
+        "One-week Scrum sprints; my work is moving existing screens onto the new stack while preserving their current behaviour",
+      ],
+    },
+    tags: ["Next.js", "React", "TypeScript"],
+  },
+  {
     startDate: "2026-04",
     endDate: "2026-09",
     type: "project",
