@@ -10,6 +10,13 @@ import { isLocale, type Locale, locales } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { siteUrl } from "@/lib/site";
 
+// Only the locales listed here exist. Without dynamicParams = false, any one-segment path
+// (bot probes such as /xmlrpc.php or /.env.aws) matched /[locale], rendered the page in the
+// Worker only to reach notFound(), and Next 16.4 then tried to store that 404 in the read-only
+// static assets cache, logging "StaticAssetsIncrementalCache: Failed to set to read-only cache".
+// Now an unlisted locale gets the 404 page without rendering.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }

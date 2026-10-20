@@ -1,6 +1,7 @@
 import { screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import LocaleLayout, {
+  dynamicParams,
   generateMetadata,
   generateStaticParams,
 } from "@/app/[locale]/layout";
@@ -28,6 +29,12 @@ describe("locale layout", () => {
       { locale: "ja" },
       { locale: "en" },
     ]);
+  });
+
+  // A one-segment path that is not a locale (bot probes like /xmlrpc.php) answers 404
+  // without rendering the page in the Worker.
+  it("404s any other first segment without rendering", () => {
+    expect(dynamicParams).toBe(false);
   });
 
   it("frames the page with header, sidebar, main and footer", async () => {
