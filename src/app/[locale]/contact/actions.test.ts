@@ -91,6 +91,7 @@ describe("submitContactForm", () => {
     expect(res.status).toBe("success");
     expect(send).toHaveBeenCalledWith(
       expect.objectContaining({ replyTo: "yamada@example.com" }),
+      expect.anything(),
     );
   });
 
@@ -148,5 +149,52 @@ describe("submitContactForm", () => {
     const res = await submit(valid);
     expect(res.formError).toBe("rate");
     expect(res.values.name).toBe(valid.name);
+  });
+
+  it("lets a visitor submit again once the rate-limit window has passed", async () => {
+    vi.useFakeTimers();
+    try {
+      const submit = await loadAction();
+      for (let i = 0; i < 3; i++) {
+        expect((await submit(valid)).status).toBe("success");
+      }
+      expect((await submit(valid)).formError).toBe("rate");
+      vi.advanceTimersByTime(10 * 60_000);
+      expect((await submit(valid)).status).toBe("success");
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("bounds the wait for the mail API with a timeout signal", async () => {
+    const timeout = vi.spyOn(AbortSignal, "timeout");
+    const submit = await loadAction();
+    await submit(valid);
+    expect(timeout).toHaveBeenCalledTimes(1);
+    const [ms] = timeout.mock.calls[0];
+    expect(ms).toBeGreaterThan(0);
+    expect(ms).toBeLessThanOrEqual(30_000);
+    const [, requestOptions] = send.mock.calls[0];
+    expect(requestOptions.signal).toBe(timeout.mock.results[0].value);
+  });
+
+  it("reports a server error when the mail API times out", async () => {
+    const controller = new AbortController();
+    vi.spyOn(AbortSignal, "timeout").mockReturnValue(controller.signal);
+    // The SDK turns an aborted fetch into an `error` result rather than a throw.
+    send.mockImplementation(async (_payload, { signal }) => {
+      await new Promise<void>((resolve) =>
+        signal.addEventListener("abort", () => resolve(), { once: true }),
+      );
+      return { error: { name: "application_error", message: "aborted" } };
+    });
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const submit = await loadAction();
+    const pending = submit(valid);
+    await vi.waitFor(() => expect(send).toHaveBeenCalled());
+    controller.abort();
+    const res = await pending;
+    expect(res.formError).toBe("server");
+    expect(res.values.message).toBe(valid.message);
   });
 });

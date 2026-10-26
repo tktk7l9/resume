@@ -30,6 +30,9 @@ function readValues(formData: FormData): ContactFormValues {
   return values;
 }
 
+// Upper bound on one call to the Resend API (see the send call below).
+const RESEND_TIMEOUT_MS = 10_000;
+
 // In-memory fixed-window rate limit. The count is per isolate on Workers, so it is not a
 // site-wide cap, but it does stop repeated posts to the same isolate instance.
 // The IP comes from CF-Connecting-IP. The first X-Forwarded-For entry can be planted
@@ -37,10 +40,19 @@ function readValues(formData: FormData): ContactFormValues {
 const RATE_LIMIT = { perIp: 3, global: 20, windowMs: 10 * 60_000 };
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 
+// Drops buckets whose window has passed. Without this, every IP that ever
+// submitted keeps an entry for the life of the isolate.
+function evictExpiredBuckets(now: number): void {
+  for (const [key, bucket] of rateBuckets) {
+    if (bucket.resetAt <= now) rateBuckets.delete(key);
+  }
+}
+
 function takeRateSlot(key: string, limit: number): boolean {
   const now = Date.now();
   const bucket = rateBuckets.get(key);
   if (!bucket || bucket.resetAt <= now) {
+    evictExpiredBuckets(now);
     rateBuckets.set(key, { count: 1, resetAt: now + RATE_LIMIT.windowMs });
     return true;
   }
@@ -116,21 +128,29 @@ export async function submitContactForm(
 
   try {
     const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from,
-      to,
-      replyTo: email,
-      subject: `[Resume Contact] ${subject}`,
-      text: [
-        `Locale: ${locale}`,
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Subject: ${subject}`,
-        "",
-        "Message:",
-        message,
-      ].join("\n"),
-    });
+    const { error } = await resend.emails.send(
+      {
+        from,
+        to,
+        replyTo: email,
+        subject: `[Resume Contact] ${subject}`,
+        text: [
+          `Locale: ${locale}`,
+          `Name: ${name}`,
+          `Email: ${email}`,
+          `Subject: ${subject}`,
+          "",
+          "Message:",
+          message,
+        ].join("\n"),
+      },
+      // Workers put no wall-clock limit on an outbound fetch, so without this
+      // a stalled Resend API would leave the visitor on "sending" for as long
+      // as the connection lasts. The SDK reports an aborted request as
+      // `error`, which becomes the "server" message with the direct e-mail
+      // fallback.
+      { signal: AbortSignal.timeout(RESEND_TIMEOUT_MS) },
+    );
 
     if (error) {
       console.error("[contact] Resend error:", error);
